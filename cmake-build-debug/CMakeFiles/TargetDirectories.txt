@@ -1,0 +1,4 @@
+/Users/fozboom/CLionProjects/myProjects/cmake-build-debug/CMakeFiles/labNumber2.4.dir
+/Users/fozboom/CLionProjects/myProjects/cmake-build-debug/CMakeFiles/labNumber2.5.dir
+/Users/fozboom/CLionProjects/myProjects/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/fozboom/CLionProjects/myProjects/cmake-build-debug/CMakeFiles/rebuild_cache.dir

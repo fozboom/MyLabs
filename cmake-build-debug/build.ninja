@@ -1,0 +1,182 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: myProjects
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/fozboom/CLionProjects/myProjects/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target labNumber2.4
+
+
+#############################################
+# Order-only phony target for labNumber2.4
+
+build cmake_object_order_depends_target_labNumber2.4: phony || CMakeFiles/labNumber2.4.dir
+
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myProjects/2st$ Semestr/lubNumber2.4/mainUnion.c || cmake_object_order_depends_target_labNumber2.4
+  DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o.d
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.4.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4
+
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myProjects/2st$ Semestr/lubNumber2.4/functionsUnion.c || cmake_object_order_depends_target_labNumber2.4
+  DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o.d
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.4.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target labNumber2.4
+
+
+#############################################
+# Link the executable labNumber2.4
+
+build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/labNumber2.4.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = labNumber2.4
+  TARGET_PDB = labNumber2.4.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target labNumber2.5
+
+
+#############################################
+# Order-only phony target for labNumber2.5
+
+build cmake_object_order_depends_target_labNumber2.5: phony || CMakeFiles/labNumber2.5.dir
+
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myProjects/2st$ Semestr/lubNumber2.5/mainStack.c || cmake_object_order_depends_target_labNumber2.5
+  DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o.d
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.5.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5
+
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myProjects/2st$ Semestr/lubNumber2.5/functionsStack.c || cmake_object_order_depends_target_labNumber2.5
+  DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o.d
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.5.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target labNumber2.5
+
+
+#############################################
+# Link the executable labNumber2.5
+
+build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o
+  FLAGS = -g -arch x86_64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/labNumber2.5.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = labNumber2.5
+  TARGET_PDB = labNumber2.5.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/fozboom/CLionProjects/myProjects/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/fozboom/CLionProjects/myProjects/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/fozboom/CLionProjects/myProjects -B/Users/fozboom/CLionProjects/myProjects/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/fozboom/CLionProjects/myProjects/cmake-build-debug
+
+build all: phony labNumber2.4 labNumber2.5
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/fozboom/CLionProjects/myProjects/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/fozboom/CLionProjects/myProjects/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
