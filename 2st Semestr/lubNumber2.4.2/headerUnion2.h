@@ -1,7 +1,7 @@
-#ifndef MYPROJECTS_HEADERUNION_H
-#define MYPROJECTS_HEADERUNION_H
+#ifndef MYPROJECTS_HEADERUNION2_H
+#define MYPROJECTS_HEADERUNION2_H
 
-#endif //MYPROJECTS_HEADERUNION_H
+#endif //MYPROJECTS_HEADERUNION2_H
 
 #define SIZE 30
 
@@ -9,31 +9,24 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct kindergarten_info {
+
+
+
+
+union health {
     char disease[SIZE];
     char familyDoctor[SIZE];
-};
-
-struct hospital_info {
-    struct kindergarten_info child;
     int campusNumber;
     char address[SIZE];
     char hospitalDoctor[SIZE];
 };
 
-union health {
-    struct kindergarten_info child;
-    struct hospital_info hospital;
-};
-
-struct child{
+struct child {
     char sureName[SIZE];
     char firstName[SIZE];
     int flag;
-    union health information;
+    union health information[5];
 };
-
-
 
 
 

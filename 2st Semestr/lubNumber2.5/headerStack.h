@@ -8,16 +8,15 @@
 #include <stdbool.h>
 #include <string.h>
 
+union hold{
+    int number;
+    char symbol;
+};
 
 struct FILO
 {
-    union hold{
-        int number;
-        char symbol;
-    }data;
-    int num;
-    char symbol;
-    struct Stack *next;
+    union hold data;
+    struct FILO *next;
 };
 
 char* inputStr ();
@@ -27,7 +26,9 @@ union hold popStruct (struct FILO **head);
 int ifNumber (char s);
 int ifOperator (char s);
 int poiskNumber (char* mas, int* i);
-char* writeInPolish (char* mas);
-void mainTask (char* mas, struct FILO **head);
-void writeToPostfix(char *mas, char *postfix);
 int preoritet (char s);
+void repeatProgram(int *end);
+
+int taskBrackets (char* mas);
+char* writeToPolish(char *mas);
+void calculateMath (char* mas);

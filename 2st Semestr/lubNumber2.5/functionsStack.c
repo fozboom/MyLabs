@@ -44,8 +44,9 @@ union hold popStruct (struct FILO **head)
 
 
 
-void mainTask (char* mas, struct FILO **head)
+void calculateMath (char* mas)
 {
+    struct FILO *head;
     union hold n1, n2, result;
     int i = 0, operator;
     while(mas[i] != '\0')
@@ -53,39 +54,39 @@ void mainTask (char* mas, struct FILO **head)
         if (ifNumber(mas[i]))
         {
             result.number = poiskNumber(mas, &i);
-            push(head, result);
+            push(&head, result);
         }
         else if (ifOperator(mas[i]))
         {
             if (mas[i] == '+') {
-                n1 = popStruct(head);
-                n2 = popStruct(head);
+                n1 = popStruct(&head);
+                n2 = popStruct(&head);
                 result.number = n1.number + n2.number;
-                push(head, result);
+                push(&head, result);
             }
             else if (mas[i] == '-') {
-                n1 = popStruct(head);
-                n2 = popStruct(head);
+                n1 = popStruct(&head);
+                n2 = popStruct(&head);
                 result.number = n2.number - n1.number;
-                push(head, result);
+                push(&head, result);
             }
             else if (mas[i] == '*') {
-                n1 = popStruct(head);
-                n2 = popStruct(head);
+                n1 = popStruct(&head);
+                n2 = popStruct(&head);
                 result.number = n2.number * n1.number;
-                push(head, result);
+                push(&head, result);
             }
             else if (mas[i] == '/') {
-                n1 = popStruct(head);
-                n2 = popStruct(head);
+                n1 = popStruct(&head);
+                n2 = popStruct(&head);
                 result.number = n2.number / n1.number;
-                push(head, result);
+                push(&head, result);
             }
 
         }
         i++;
     }
-    printf("\n%d", result.number);
+    printf("\nРезультат вычисления данного выражения: %d", result.number);
 }
 
 int ifNumber (char s)
@@ -132,8 +133,9 @@ int preoritet (char s)
     else return 0;
 }
 
-void writeToPostfix(char *mas, char *postfix)
+char* writeToPolish(char *mas)
 {
+    char* postfix = (char*)calloc(2* strlen(mas), sizeof(char));
     int i, j = 0, n;
     struct FILO *head = NULL;
     union hold info;
@@ -177,7 +179,54 @@ void writeToPostfix(char *mas, char *postfix)
         postfix[j++] = popStruct(&head).number;
     }
     postfix[j] = '\0';
+   return postfix;
 }
+
+
+int taskBrackets (char* mas)
+{
+    struct FILO *head = NULL;
+    union hold info;
+    for(int i = 0; mas[i] != '\0'; i++)
+    {
+        char s = mas[i];
+        if(s == '(' || s == '{' || s == '[')
+        {
+            info.symbol = s;
+            push(&head, info);
+        }
+        else if (s == ')' || s == '}' || s == ']')
+        {
+            if ((s == ')' && head->data.symbol != '(') ||
+                (s == '}' && head->data.symbol != '{') ||
+                (s == '}' && head->data.symbol != '{'))
+            {
+                return 0;
+            }
+            else
+                popStruct(&head);
+        }
+    }
+    if (head != NULL) return 0;
+    return 1;
+}
+
+
+void repeatProgram(int *end)
+{
+    printf("\nЧтобы продолжить введите 0");
+    printf("\nЧтобы завершить введите 1\n");
+    while(!(scanf("%d", end)) || (*end != 0 && *end != 1))
+    {
+        rewind(stdin);
+        printf("\nОшибка ввода числа");
+    }
+    rewind(stdin);
+    system("clear");
+}
+
+
+
 
 
 
