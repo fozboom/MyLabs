@@ -151,6 +151,43 @@ build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumb
   TARGET_FILE = labNumber2.5
   TARGET_PDB = labNumber2.5.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Practice
+
+
+#############################################
+# Order-only phony target for Practice
+
+build cmake_object_order_depends_target_Practice: phony || CMakeFiles/Practice.dir
+
+build CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Practice/functionsPractice.c || cmake_object_order_depends_target_Practice
+  DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Practice.dir
+  OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr/Practice
+
+build CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Practice/mainPractice.c || cmake_object_order_depends_target_Practice
+  DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Practice.dir
+  OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr/Practice
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Practice
+
+
+#############################################
+# Link the executable Practice
+
+build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/Practice.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Practice
+  TARGET_PDB = Practice.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -185,7 +222,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.4.2 labNumber2.5
+build all: phony labNumber2.4 labNumber2.4.2 labNumber2.5 Practice
 
 # =============================================================================
 # Built-in targets

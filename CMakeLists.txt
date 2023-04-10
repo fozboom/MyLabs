@@ -18,3 +18,8 @@ add_executable(labNumber2.5
         "2st Semestr/lubNumber2.5/mainStack.c"
         "2st Semestr/lubNumber2.5/functionsStack.c")
 
+add_executable(Practice
+        "2st Semestr/Practice/headerPractice.h"
+        "2st Semestr/Practice/functionsPractice.c"
+        "2st Semestr/Practice/mainPractice.c")
+
