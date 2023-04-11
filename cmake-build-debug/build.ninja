@@ -61,6 +61,12 @@ build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o: C
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4
 
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4
+  DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.4.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target labNumber2.4
@@ -69,7 +75,7 @@ build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o: C
 #############################################
 # Link the executable labNumber2.4
 
-build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o
+build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   POST_BUILD = :
@@ -98,6 +104,12 @@ build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c
   OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2
 
+build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4.2e2_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4.2
+  DEP_FILE = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target labNumber2.4.2
@@ -106,7 +118,7 @@ build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c
 #############################################
 # Link the executable labNumber2.4.2
 
-build labNumber2.4.2: C_EXECUTABLE_LINKER__labNumber2.2e4.2e2_Debug CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o
+build labNumber2.4.2: C_EXECUTABLE_LINKER__labNumber2.2e4.2e2_Debug CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
   POST_BUILD = :
@@ -135,6 +147,12 @@ build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o: C
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5
 
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.5
+  DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.5.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target labNumber2.5
@@ -143,7 +161,7 @@ build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o: C
 #############################################
 # Link the executable labNumber2.5
 
-build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o
+build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   POST_BUILD = :
@@ -172,6 +190,12 @@ build CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o: C_COMPILER_
   OBJECT_DIR = CMakeFiles/Practice.dir
   OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr/Practice
 
+build CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Practice
+  DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Practice.dir
+  OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Practice
@@ -180,7 +204,7 @@ build CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o: C_COMPILER_
 #############################################
 # Link the executable Practice
 
-build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o
+build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/Practice.dir
   POST_BUILD = :

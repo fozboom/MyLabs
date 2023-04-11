@@ -6,11 +6,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
+long toASCII (char s);
+long isPrimes (long x);
+void createPrime (long *x);
+void createNumbers (long *p, long *q, long *n, long *fi);
+void createEilerNumber (long *e, long fi);
+void search_d (long *d, long e, long fi);
+long power (long x, long n);
+long NOD (long x, long y);
 
-void writeBox (char** box, int n);
-void outputBox (char** box, int n);
-void readInfo (char** box, int n, const char* name);
-void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n);
-void mainTask (char** box1, char** box2, char** box3, char** box4, int n, char* s1, char* s2);
-void inputStr ();
+long powerMod(long x, long y, long n);
+long* coding (char* mas, long e, long n);
+char* decoding (long* cods, long d, long n, int size);

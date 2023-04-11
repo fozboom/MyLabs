@@ -1,22 +1,51 @@
+
+
+
 #include "headerPractice.h"
-
-int main() {
-    int n = 5;
-    char s1 = 'a', s2 = 'b';
-    char** box1, **box2, **box3, **box4;
-    createBoxes(&box1, &box2, &box3, &box4, n);
-    //writeBox(box1, n);
-    readInfo(box1, n, "box1.txt");
-    outputBox(box1, n);
-    readInfo(box2, n,"box2.txt");
-    outputBox(box2, n);
-    readInfo(box3, n, "box3.txt");
-    outputBox(box3, n);
-    readInfo(box4, n, "box4.txt");
-    outputBox(box4, n);
+#include "../myLibrary.h"
 
 
-    mainTask(box1, box2, box3, box4, n, &s1, &s2);
-    inputStr();
+int main()
+{
+    char *task, *str;
+    long  p, q, n, fi, d = 1, e, *code, end = 1;
+    do
+    {
+        printf("Выберите действие:\n");
+        printf("'coding' - закодировать текст\n");
+        printf("'decoding' - раскодировать текст\n");
+        printf("'exit' - завершить программу\n");
+        inputStr(&task);
+
+        if (strcmp(task, "coding") == 0)
+        {
+            printf("Введите сообщение, которое хотите закодировать\n");
+            inputStr(&str);
+            createNumbers(&p, &q, &n, &fi);
+            createEilerNumber(&e, fi);
+            search_d(&d, e, fi);
+            code = coding(str, e, n);
+            outputMasNumbers(code, strlen(str));
+
+        } else if (strcmp(task, "decoding") == 0)
+        {
+            printf("Введите ключ для расшифровки:\n");
+            printf("d = ");
+            scanf("%ld", &d);
+            printf("\nn = ");
+            scanf("%ld", &n);
+            str = decoding(code, d, n, strlen(str));
+        }
+        else if (strcmp(task, "exit") == 0)
+            end = 0;
+        printf("\n p = %ld", p);
+        printf("\n q = %ld", q);
+        printf("\n n = %ld", n);
+        printf("\n fi = %ld", fi);
+        printf("\n e = %ld", e);
+        printf("\n d = %ld", d);
+
+        outputStr(str);
+    }while(end);
 
 }

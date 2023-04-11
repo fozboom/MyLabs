@@ -1,103 +1,100 @@
 #include "headerPractice.h"
+#include "../myLibrary.h"
 
-void writeBox (char** box, int n)
+long isPrimes (long x)
 {
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < n; j++) {
-            printf("Введите %d символ %d строки ", j+1, i+1);
-            scanf("%c", &box[i][j]);
-            rewind(stdin);
-        }
+    if(x == 0) return 0;
+    for(int i = 2; i < x; i++)
+        if (x%i == 0) return 0;
+    return 1;
 }
 
-void outputBox (char** box, int n)
+void createPrime (long *x)
 {
-    for(int i = 0; i < n; i++) {
-        printf("\n");
-        for (int j = 0; j < n; j++) {
-            printf("%c ", box[i][j]);
-        }
-    }
-    printf("\n\n\n");
+    srand(time(NULL));
+    *x = rand()%10;
+    *x = (*x)*(*x) - (*x) + 41;
 }
 
-void readInfo (char** box, int n, const char* name)
+void createNumbers (long *p, long *q, long *n, long *fi)
 {
-    FILE* file;
-    file = fopen(name, "r");
-    if (file == NULL)
+    createPrime(p);
+    do
     {
-        printf("Ошибка открытия файла");
-        exit(EXIT_FAILURE);
-    }
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < n; j++)
-            fscanf(file, "%s", &box[i][j]);
+        createPrime(q);
+    }while(*q == *p);
+    *n = (*p) * (*q);
+    *fi = ((*p) - 1)*((*q) - 1);
+
 }
 
-void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n)
+void createEilerNumber (long *e, long fi)
 {
-    *box1 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box1 + i) = (char*)calloc(n, sizeof(char));
-
-    *box2 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box2 + i) = (char*)calloc(n, sizeof(char));
-
-    *box3 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box3 + i) = (char*)calloc(n, sizeof(char));
-
-    *box4 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box4 + i) = (char*)calloc(n, sizeof(char));
-}
-
-void inputStr ()
-{
-    int n = 1, i = 0;
-    char s;
-    char* mas = (char*)calloc(n, sizeof(char));
-    while ((s = getchar()) != '\n')
+    do
     {
-        mas[i] = s;
-        mas = (char*)realloc(mas,(++n) * sizeof(char));
-        i++;
-    }
-    mas[i] = '\0';
+        createPrime(e);
+    }while(NOD(*e, fi) != 1 && *e >= fi);
+
 }
 
-
-void mainTask (char** box1, char** box2, char** box3, char** box4, int n, char* s1, char* s2)
+long NOD (long x, long y)
 {
-    int i = 0, j = 0, k = 0, l = 0, flag = 0;
+    if (y == 0)
+        return x;
+    else
+        return NOD (y, x%y);
+}
 
-    for(i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
-            if (box1[i][j] == *s1) {
-                flag = 1;
-                break;
-            }
-        }
-        if(flag) break;
+void search_d (long *d, long e, long fi)
+{
+    *d = 3;
+    while (((*d) * e) % fi != 1)
+    {
+        (*d)++;
     }
-    flag = 0;
+}
 
-    for(k = 0; k < n; k++) {
-        for (l = 0; l < n; l++) {
-            if (box1[k][l] == *s1) {
-                flag = 1;
-                break;
-            }
-        }
-        if(flag) break;
-    }
-    *s1 = box2[i][l];
-    *s2 = box3[k][j];
-
-    printf("%c", *s1);
-    printf("%c", *s2);
+long power (long x, long n)
+{
+    if (n == 0)
+        return 1;
+    else
+        return x * power(x, n-1);
 }
 
 
+long powerMod(long x, long y, long n)
+{
+    if(y == 0)
+        return 1;
+    if (y%2 == 0)
+    {
+        long z = powerMod(x, y/2, n);
+        return (z*z)%n;
+    }
+    else
+        return (x * powerMod(x, y-1, n))%n;
+}
+
+
+long* coding (char* mas, long e, long n)
+{
+    long *cods = (long*)calloc(strlen(mas), sizeof(long));
+    for (int i = 0; mas[i] != '\0'; i++)
+    {
+        long s = (long)(mas[i]);
+        cods[i] = powerMod(s, e, n);
+    }
+    return cods;
+}
+
+char* decoding (long* cods, long d, long n, int size)
+{
+    char* mas = (char*)calloc(size, sizeof(char));
+    for(int i = 0; i < n; i++)
+    {
+        long s = powerMod(cods[i], d, n);
+        mas[i] = (char)s;
+    }
+    return mas;
+}
