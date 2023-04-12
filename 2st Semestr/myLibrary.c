@@ -33,7 +33,7 @@ void outputStr(char* mas)
     printf("\n");
 }
 
-void outputMasNumbers (long* mas, int n)
+void outputMasNumbers (long* mas, long n)
 {
     for(int i = 0; i < n; i++)
         printf("%ld ", mas[i]);

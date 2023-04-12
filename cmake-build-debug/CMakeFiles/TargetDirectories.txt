@@ -2,5 +2,6 @@
 /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/labNumber2.4.2.dir
 /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/labNumber2.5.dir
 /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/Practice.dir
+/Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/Lections.dir
 /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -8,7 +8,9 @@
 int main()
 {
     char *task, *str;
-    long  p, q, n, fi, d = 1, e, *code, end = 1;
+    const char* fileName;
+    long  p, q, n, fi, d = 1, e, *code, end = 1, size = 0;
+    FILE* file;
     do
     {
         printf("Выберите действие:\n");
@@ -21,31 +23,38 @@ int main()
         {
             printf("Введите сообщение, которое хотите закодировать\n");
             inputStr(&str);
+
             createNumbers(&p, &q, &n, &fi);
             createEilerNumber(&e, fi);
             search_d(&d, e, fi);
-            code = coding(str, e, n);
-            outputMasNumbers(code, strlen(str));
+            code = coding(str, e, n, &size);
+            outputMasNumbers(code, size);
 
-        } else if (strcmp(task, "decoding") == 0)
+            printf("\nХотите сокхранить закодированный текст в файл?\n");
+            printf("'yes' - да\n");
+            printf("'no' - нет\n");
+            inputStr(&task);
+            if (strcmp(task, "yes") == 0)
+            {
+                tekstRSA(code, size, d, n);
+            }
+        }
+        else if (strcmp(task, "decoding") == 0)
         {
-            printf("Введите ключ для расшифровки:\n");
-            printf("d = ");
-            scanf("%ld", &d);
-            printf("\nn = ");
-            scanf("%ld", &n);
-            str = decoding(code, d, n, strlen(str));
+            printf("Введите имя файла, который хотите раскодировать:\n");
+
         }
         else if (strcmp(task, "exit") == 0)
+        {
             end = 0;
-        printf("\n p = %ld", p);
-        printf("\n q = %ld", q);
-        printf("\n n = %ld", n);
-        printf("\n fi = %ld", fi);
-        printf("\n e = %ld", e);
-        printf("\n d = %ld", d);
+        }
 
-        outputStr(str);
     }while(end);
+    printf("\n p = %ld", p);
+    printf("\n q = %ld", q);
+    printf("\n n = %ld", n);
+    printf("\n fi = %ld", fi);
+    printf("\n e = %ld", e);
+    printf("\n d = %ld", d);
 
 }

@@ -212,6 +212,49 @@ build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_
   TARGET_FILE = Practice
   TARGET_PDB = Practice.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Lections
+
+
+#############################################
+# Order-only phony target for Lections
+
+build cmake_object_order_depends_target_Lections: phony || CMakeFiles/Lections.dir
+
+build CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Lections/mainLections.c || cmake_object_order_depends_target_Lections
+  DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lections.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr/Lections
+
+build CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Lections/functionsLections.c || cmake_object_order_depends_target_Lections
+  DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lections.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr/Lections
+
+build CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Lections
+  DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lections.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lections
+
+
+#############################################
+# Link the executable Lections
+
+build Lections: C_EXECUTABLE_LINKER__Lections_Debug CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/Lections.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Lections
+  TARGET_PDB = Lections.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -246,7 +289,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.4.2 labNumber2.5 Practice
+build all: phony labNumber2.4 labNumber2.4.2 labNumber2.5 Practice Lections
 
 # =============================================================================
 # Built-in targets

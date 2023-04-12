@@ -31,3 +31,10 @@ add_executable(Practice
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
 
+add_executable(Lections
+        "2st Semestr/Lections/headerLections.h"
+        "2st Semestr/Lections/mainLections.c"
+        "2st Semestr/Lections/functionsLections.c"
+        "2st Semestr/myLibrary.h"
+        "2st Semestr/myLibrary.c")
+

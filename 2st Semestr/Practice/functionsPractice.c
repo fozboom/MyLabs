@@ -1,7 +1,7 @@
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
-long isPrimes (long x)
+__attribute__((unused)) long isPrimes (long x)
 {
     if(x == 0) return 0;
     for(int i = 2; i < x; i++)
@@ -77,13 +77,14 @@ long powerMod(long x, long y, long n)
 }
 
 
-long* coding (char* mas, long e, long n)
+long* coding (char* mas, long e, long n, long* size)
 {
     long *cods = (long*)calloc(strlen(mas), sizeof(long));
     for (int i = 0; mas[i] != '\0'; i++)
     {
         long s = (long)(mas[i]);
         cods[i] = powerMod(s, e, n);
+        (*size)++;
     }
     return cods;
 }
@@ -97,4 +98,40 @@ char* decoding (long* cods, long d, long n, int size)
         mas[i] = (char)s;
     }
     return mas;
+}
+
+void tekstRSA(long* code, long size, long d, long n)
+{
+    const char* fileName;
+    FILE* file;
+    printf("Введите имя файла, в который хотите сохранить");
+    inputStr(&fileName);
+    file = fopen(fileName, "w");
+    if(file == NULL)
+    {
+        printf("Ошибка создания текстового файла");
+        exit(EXIT_FAILURE);
+    }
+    fprintf(file, "%ld ", d);
+    fprintf(file, "%ld\n", n);
+    for (int i = 0; i < size; i++)
+    {
+        fprintf(file, "%ld", code[i]);
+        fprintf(file, " ");
+    }
+}
+
+char* antiTekstRSA ()
+{
+    FILE* file;
+    const char* str;
+    printf("Введите имя файла, который хотите раскодировать:\n");
+    inputStr(&str);
+    fopen(str, "r");
+    if(file == NULL)
+    {
+        printf("\nФайла с таким именем не найден\n");
+        exit(EXIT_FAILURE);
+    }
+    str = decoding(code, d, n, strlen(str));
 }

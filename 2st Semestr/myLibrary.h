@@ -9,4 +9,4 @@
 
 void inputStr (char** mas);                                      //функция ввода строки произвольной длины
 void outputStr(char* mas);
-void outputMasNumbers (long* mas, int n);
+void outputMasNumbers (long* mas, long n);
