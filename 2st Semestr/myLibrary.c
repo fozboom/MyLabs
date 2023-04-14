@@ -25,7 +25,7 @@ void inputStr (char** mas)
     *(*mas + i) = '\0';                                                  //запись нуль-терминатора
 }
 
-void outputStr(char* mas)
+void outputString(char* mas)
 {
     printf("\n");
     for(int i = 0; mas[i] != '\0'; i++)

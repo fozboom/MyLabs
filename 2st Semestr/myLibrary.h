@@ -8,5 +8,5 @@
 #include <string.h>
 
 void inputStr (char** mas);                                      //функция ввода строки произвольной длины
-void outputStr(char* mas);
+void outputString(char* mas);
 void outputMasNumbers (long* mas, long n);
