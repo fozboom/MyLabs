@@ -23,7 +23,6 @@ int main()
         {
             printf("Введите сообщение, которое хотите закодировать\n");
             inputStr(&str);
-
             createNumbers(&p, &q, &n, &fi);
             createEilerNumber(&e, fi);
             search_d(&d, e, fi);

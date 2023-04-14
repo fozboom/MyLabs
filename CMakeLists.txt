@@ -13,9 +13,7 @@ add_executable(labNumber2.4
 add_executable(labNumber2.4.2
         "2st Semestr/lubNumber2.4.2/mainUnion2.c"
         "2st Semestr/lubNumber2.4.2/functionsUnion2.c"
-        "2st Semestr/lubNumber2.4.2/headerUnion2.h"
-        "2st Semestr/myLibrary.h"
-        "2st Semestr/myLibrary.c")
+        "2st Semestr/lubNumber2.4.2/headerUnion2.h")
 
 add_executable(labNumber2.5
         "2st Semestr/lubNumber2.5/headerStack.h"

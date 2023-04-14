@@ -8,13 +8,10 @@
 #include <string.h>
 
 struct Ring{
-    int data;
+    char* name;
     struct Ring *next;
 };
 
-
-struct DoubleRing{
-    int data;
-    struct DoubleRing *next;
-    struct DoubleRing *prev;
-};
+void push_after (struct Ring **p, char* str);
+void pop (struct Ring **p);
+void print(struct Ring* p);

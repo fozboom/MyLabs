@@ -1,35 +1,15 @@
 #include "headerLections.h"
+#include "../myLibrary.h"
 
-void push_after (struct Ring **p, int a)
+void push_after (struct Ring **p, char* str)
 {
     struct Ring *tmp = (struct Ring*)malloc(sizeof(struct Ring));
-    tmp->data = a;
+    tmp->name = str;
     tmp->next = NULL;
     if(*p != NULL)
     {
-        struct Ring *pz = (*p)->next;
+        tmp->next = (*p)->next;
         (*p)->next = tmp;
-        tmp->next = pz;
-    }
-    else
-    {
-        tmp->next = tmp;
-        *p=tmp;
-    }
-}
-
-void push_before (struct Ring **p, int a)
-{
-    struct Ring *tmp = (struct Ring*)malloc(sizeof(struct Ring));
-    tmp->data = a;
-    tmp->next = NULL;
-    if(*p != NULL)
-    {
-        struct Ring *pz = *p;
-        while(pz->next != *p)
-            pz = pz->next;
-        pz->next = tmp;
-        tmp->next = *p;
     }
     else
     {
@@ -38,65 +18,34 @@ void push_before (struct Ring **p, int a)
     }
 }
 
-void pop(struct Ring** p)
+void pop (struct Ring **p)
 {
-    if (*p==NULL) return;
-    if (*p== (*p)->next)
+    struct Ring *tmp = (struct Ring*)malloc(sizeof(struct Ring));
+    if ((*p) == NULL) return;
+    if((*p) == (*p)->next)
     {
         free(*p);
         *p = NULL;
     }
     else
     {
-        struct Ring* temp;
-        temp = (*p)->next;
+        tmp = (*p)->next;
         (*p)->next = (*p)->next->next;
-        free( temp);
+        free(tmp);
     }
 }
 
-void pushDoubleRing(struct DoubleRing** p, int x)
+void print(struct Ring* p)
 {
-    struct DoubleRing* temp;
-    temp = (struct DoubleRing *) calloc (1,sizeof(struct DoubleRing));
-    temp->next = NULL;
-    temp->prev = NULL;
-    temp->data = x;
-    if (*p == NULL)
-    {
-        temp->next = temp;
-        temp->prev = temp;
-        *p = temp;
-    }
+    struct Ring* temp = p;
+    if (p == NULL) printf("EMPTY\n");
     else
     {
-        temp->next = (*p)->next;
-        (*p)->next->prev = temp;
-        (*p)->next = temp;
-        temp->prev = *p;
-        *p = temp;
+        do
+        {
+            printf("%s   ", temp->name);
+            temp = temp->next;
+        } while (temp != p);
     }
+    printf("\n");
 }
-
-
-void popDoubleRing(struct DoubleRing** p)
-{
-    if (*p == NULL)
-    {
-        return ;
-    }
-    if (*p == (*p)->next)
-    {
-        free(*p);
-        *p = NULL;
-    }
-    else
-    {
-        struct DoubleRing* temp;
-        temp = (*p)->next;
-        (*p)->next = temp->next;
-        temp->next->prev = *p;
-        free(temp);
-    }
-}
-

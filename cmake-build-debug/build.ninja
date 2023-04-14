@@ -104,12 +104,6 @@ build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c
   OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2
 
-build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4.2e2_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4.2
-  DEP_FILE = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
-  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target labNumber2.4.2
@@ -118,7 +112,7 @@ build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNu
 #############################################
 # Link the executable labNumber2.4.2
 
-build labNumber2.4.2: C_EXECUTABLE_LINKER__labNumber2.2e4.2e2_Debug CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o
+build labNumber2.4.2: C_EXECUTABLE_LINKER__labNumber2.2e4.2e2_Debug CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
   POST_BUILD = :

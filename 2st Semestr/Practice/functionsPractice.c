@@ -1,7 +1,7 @@
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
-__attribute__((unused)) long isPrimes (long x)
+ long isPrimes (long x)
 {
     if(x == 0) return 0;
     for(int i = 2; i < x; i++)
@@ -121,7 +121,7 @@ void tekstRSA(long* code, long size, long d, long n)
     }
 }
 
-char* antiTekstRSA ()
+char* antiTekstRSA (long* code, long d, long n, long size)
 {
     FILE* file;
     const char* str;

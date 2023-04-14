@@ -148,5 +148,39 @@ void outputStr(struct child* info, int n) {
 }
 
 
+void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j))
+{
+    if(first < last) {
+        int left = first, right = last, middle = (left + right) / 2;
+        do {
+            while ((*function)(info, left, middle))
+                left++;
+            while (!(*function)(info, right, middle))
+                right--;
+            if (left <= right) {
+                struct child tmp = *(info + left);
+                *(info + left) = *(info + right);
+                *(info + right) = tmp;
+                left++;
+                right--;
+            }
+        } while (left <= right);
+        quickSorting(info, first, right, function);
+        quickSorting(info, left, last, function);
+    }
+}
+
+
+int comparatorSurnames (struct child *info, int i, int j)
+{
+    if(strcmp((info + i)->sureName, (info + j)->sureName) < 0)
+    {
+        return 1;
+    }
+    else
+        return 0;
+}
+
+
 
 

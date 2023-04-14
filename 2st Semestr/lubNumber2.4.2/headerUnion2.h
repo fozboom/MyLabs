@@ -25,6 +25,7 @@ struct child {
     char sureName[SIZE];
     char firstName[SIZE];
     int flag;
+    int age;
     union health information[5];
 };
 
@@ -35,5 +36,5 @@ void inputStr (char* str);
 void inputStruct (struct child **info, int *n);
 void readInformation (struct child **info, int*n);
 void outputStr(struct child* info, int n);
-void quickSort(struct child *info, int first, int last);
-void sortirovka (struct child *info, int n);
+void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j));
+int comparatorSurnames (struct child *info, int i, int j);
