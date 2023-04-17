@@ -1,3 +1,4 @@
+#pragma once
 #ifndef MYLABS_MYLIBRARY_H
 #define MYLABS_MYLIBRARY_H
 
@@ -10,3 +11,4 @@
 void inputStr (char** mas);                                      //функция ввода строки произвольной длины
 void outputString(char* mas);
 void outputMasNumbers (long* mas, long n);
+void inputInt (int* x, int a, int b);

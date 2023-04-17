@@ -1,43 +1,63 @@
 #include "headerUnion2.h"
-//#include "../myLibrary.h"
+#include "../myLibrary.h"
 
 int main()
 {
-    int n = 1;
+    bool taskIsFound, end = true;
+    enum choice doTask;
     struct child *info = NULL, *sortInfo = NULL;
-    char* task, *fileName, *disease;
+    char* task = NULL, *fileName = NULL, *disease = NULL;
+    int n = 1, size = 1, k;;
+    const char* tasks[] = {"input", "read", "add", "delete", "look", "write", "finish"};
     do
     {
-        printf("Выберите действие:\n");
-        printf("'input' - ввод данных с клавиатуры\n");
-        printf("'read' - использовать готовые данные из бинарного файла\n");
-        printf("'add' - добавить данные в структуру\n");
-        printf("'delete' - удалить данные из структуры\n");
-        printf("'look' - найти людей с определенной болезнью\n");
-        printf("'write' - сохранить данные в бинарный файл\n");
-        printf("'exit' - завершить программу\n");
-        inputStr(&task);
-        if (strcmp(task, "input") == 0)
-        {
-            inputStruct(&info, &n);
-        } else if (strcmp(task, "read") == 0)
-        {
-            printf("Введите имя файла ");
-            inputStr(&fileName);
-            readFromBinaryFile(&info, fileName, &n);
-        } else if (strcmp(task, "look") == 0)
-        {
-            printf("Введите болезнь, которую нужно найти ");
-            inputStr(&disease);
 
-        } else if (strcmp(task, "write") == 0)
+        choiseTask(&task, &doTask, tasks, &taskIsFound);
+        if(taskIsFound)
         {
-            printf("Введите имя файла ");
-            inputStr(&fileName);
-            writeInBinaryFile(info, n, fileName);
-            quickSorting(info, 0, n - 1, comparatorSurnames);
+            switch (doTask)
+            {
+                case input:
+                    inputStruct(&info, &n);
+                    outputStruct(info, n);
+                    break;
+                case read:
+                    printf("Введите имя файла ");
+                    inputStr(&fileName);
+                    readWithFile(&info, &n, fileName);
+                    outputStruct(info, n);
+                    break;
+                case add:
+                    addChild(&info, &n);
+                    outputStruct(info, n);
+                    break;
+                case delete:
+                    printf("Введите номер ребенка, которого нужно удалить");
+                    inputInt(&k, 0, n-1);
+                    deleteChild(&info, &n, k);
+                    outputStruct(info, n);
+                    break;
+                case look:
+                    printf("Введите болезнь, которую нужно найти ");
+                    inputStr(&disease);
+                    findDisease(info, &sortInfo, n, &size, disease);
+                    quickSorting(sortInfo, 0, size - 1, comparatorSurnames);
+                    outputStruct(sortInfo, size);
+                    break;
+                case write:
+                    printf("Введите имя файла ");
+                    inputStr(&fileName);
+                    inputWithFile(info, n, fileName);
+                    break;
+                case finish:
+                    end = false;
+                    break;
+            }
         }
-        outputStruct(info, n);
-    }while(strcmp(task, "exit") != 0);
+        else
+            printf("Команда введена неверно");
+
+    }while(end);
+    freeMemory(info, sortInfo, task, fileName, disease);
     return 0;
 }

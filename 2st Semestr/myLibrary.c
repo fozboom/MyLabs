@@ -10,20 +10,7 @@ void inputNumber (int* x, int a, int b)
 }
 
 
-//функция ввода строки произвольной длины
-void inputStr (char** mas)
-{
-    int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
-    char s;
-    *mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
-    while ((s = getchar()) != '\n')
-    {
-        *(*mas + i) = s;                                                 //запись символа в строку
-        *mas = (char*)realloc(*mas,(++n) * sizeof(char));    //перевыделение памяти
-        i++;
-    }
-    *(*mas + i) = '\0';                                                  //запись нуль-терминатора
-}
+
 
 void outputString(char* mas)
 {
@@ -37,4 +24,27 @@ void outputMasNumbers (long* mas, long n)
 {
     for(int i = 0; i < n; i++)
         printf("%ld ", mas[i]);
+}
+
+void inputInt (int* x, int a, int b)
+{
+    while(!scanf("%d", x) || (*x <= a && *x >= b))
+    {
+        rewind(stdin);
+        printf("\nОшибка ввода числа, попробуйте еще раз: ");
+    }
+    rewind(stdin);
+}
+void inputStr (char** mas)
+{
+    int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
+    char s;
+    *mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
+    while ((s = getchar()) != '\n')
+    {
+        *(*mas + i) = s;                                                 //запись символа в строку
+        *mas = (char*)realloc(*mas,(++n) * sizeof(char));    //перевыделение памяти
+        i++;
+    }
+    *(*mas + i) = '\0';                                                  //запись нуль-терминатора
 }

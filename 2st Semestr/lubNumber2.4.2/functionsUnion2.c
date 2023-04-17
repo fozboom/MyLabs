@@ -1,29 +1,33 @@
 #include "headerUnion2.h"
 #include "../myLibrary.h"
 
-void inputString(char* str)
+void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j))
 {
-    int i = 0;
-    fgets(str, 30, stdin);
-    while (str[i] != '\n')
-        i++;
-    str[i] = '\0';
-}
-
-void inputStr (char** mas)
-{
-    int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
-    char s;
-    *mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
-    while ((s = getchar()) != '\n')
-    {
-        *(*mas + i) = s;                                                 //запись символа в строку
-        *mas = (char*)realloc(*mas,(++n) * sizeof(char));    //перевыделение памяти
-        i++;
+    if(first < last) {
+        int left = first, right = last, middle = (left + right) / 2;
+        do {
+            while ((*function)(info, left, middle))
+                left++;
+            while (!(*function)(info, right, middle))
+                right--;
+            if (left <= right) {
+                struct child tmp = *(info + left);
+                *(info + left) = *(info + right);
+                *(info + right) = tmp;
+                left++;
+                right--;
+            }
+        } while (left < right);
+        quickSorting(info, first, right, function);
+        quickSorting(info, left, last, function);
     }
-    *(*mas + i) = '\0';                                                  //запись нуль-терминатора
 }
 
+int comparatorSurnames (struct child *info, int i, int j)
+{
+    int x = (strcmp((info + i)->sureName, (info + j)->sureName) <= 0) ? 1 : 0;
+    return x;
+}
 
 void inputStruct(struct child** info, int* n)
 {
@@ -71,7 +75,184 @@ void inputStruct(struct child** info, int* n)
     }
 }
 
+void inputWithFile(struct child *info, int n, const char* fileName)
+{
+    int task;
+    printf("\nЧтобы записать информацию в текстовый файл, введите 0\n");
+    printf("\nЧтобы записать информацию в бинарный файл, введите 1\n");
+    inputInt(&task, 0, 1);
+    if (task == 0)
+    {
+        writeInTekstFile(info, n, fileName);
+    }
+    else if(task == 1)
+    {
+        writeInBinaryFile(info, n, fileName);
+    }
+}
+
+void readWithFile(struct child **info, int *n, const char* fileName)
+{
+    int task;
+    printf("\nЧтобы считать информацию из текстового файла, введите 0\n");
+    printf("\nЧтобы считать информацию из бинарного файла, введите 1\n");
+    inputInt(&task, 0, 1);
+    if (task == 0)
+    {
+        readFromTekstFile(info, fileName, n);
+    }
+    else if(task == 1)
+    {
+        readFromBinaryFile(info, fileName, n);
+    }
+}
+
+
+void addChild (struct child **info, int* n)
+{
+    *info = (struct child *)realloc(*info, (++(*n)) * sizeof(struct child));
+    printf("Введите фамилию ");
+    inputString((*info + *n - 1)->sureName);
+    printf("Введите имя ");
+    inputString((*info + *n - 1)->firstName);
+    printf("Введите возраст ребенка ");
+    scanf("%d", &(*info + *n - 1)->age);  rewind(stdin);
+    printf("Ребенок находился в больнице?");
+    printf("\n1 - Да");
+    printf("\n0 - Нет\n");
+    while (!scanf("%d", &((*info + *n - 1)->flag)) || (((*info + *n - 1)->flag) != 0 && ((*info + *n - 1)->flag) != 1))
+    {
+        rewind(stdin);
+        printf("Ошибка ввода");
+    }
+    rewind(stdin);
+    printf("Введите болезнь ребенка ");
+    inputString((*info + *n - 1)->information[0].disease);
+    printf("Введите фамилию участкового врача ");
+    inputString((*info + *n - 1)->information[1].familyDoctor);
+    if ((*info + *n - 1)->flag)
+    {
+        printf("Введите адрес больницы ");
+        inputString((*info + *n - 1)->information[2].address);
+        printf("Введите номер больницы ");
+        scanf("%d", &((*info + *n - 1)->information[3]).campusNumber);
+        rewind(stdin);
+        printf("Введите фамилию лечащего врача ");
+        inputString((*info + *n - 1)->information[4].hospitalDoctor);
+    }
+}
+
+void deleteChild (struct child **info, int *n, int i)
+{
+    for(int j = i; j < ((*n) - 1); j++)
+    {
+        *(info + j) = *(info + j + 1);
+    }
+   *info = (struct child*)realloc(*info, (--(*n)) * sizeof(struct child));
+
+}
+
+void findDisease (struct child *info, struct child **sortInfo, int n, int* size, char* disease)
+{
+    int i = 0;
+    *sortInfo = (struct child*)calloc(1,sizeof(struct child));
+    for(int j = 0; j < n; j++)
+    {
+        if (strcmp(disease, (info + j)->information[0].disease) == 0)
+        {
+            *((*sortInfo) + i) = *(info + j);
+            *sortInfo = (struct child*)realloc(*sortInfo, (++(*size)) * sizeof(struct child));
+            i++;
+        }
+    }
+    *sortInfo = (struct child*)realloc(*sortInfo, (--(*size)) * sizeof(struct child));
+}
+
+void writeInBinaryFile (struct child *info, int n, const char* name)
+{
+    FILE *file;
+    file = fopen (name, "wb");
+    if(file == NULL)
+    {
+        printf("\nОшибка открытия бинарного файла");
+    }
+    for(int i = 0; i < n; i++)
+    {
+        fwrite(&(*(info + i)), sizeof(struct child), 1, file);
+    }
+    fclose(file);
+
+}
+
+void writeInTekstFile (struct child *info, int n, const char* name)
+{
+    FILE* file;
+    file = fopen (name, "wt");
+    if(file == NULL)
+    {
+        printf("\nОшибка открытия текстового файла");
+    }
+    fprintf(file, "%d\n", n);
+    for(int i = 0; i < n; i++)
+    {
+        fprintf(file, "%s %s %d %d ", (info + i)->sureName, (info + i)->firstName, (info + i)->age, (info + i)->flag);
+        fprintf(file, "%s %s ", (info + i)->information[0].disease, (info + i)->information[1].familyDoctor);
+        if((info + i)->flag)
+        {
+            fprintf(file, "%s %d %s\n", (info + i)->information[2].address, (info + i)->information[3].campusNumber, (info + i)->information[4].hospitalDoctor);
+        }
+        else
+            fprintf(file, "\n");
+    }
+    fclose(file);
+}
+
+void readFromTekstFile (struct child **info, const char* name, int* n)
+{
+    FILE *file;
+    file = fopen(name, "rt");
+    if (file == NULL)
+    {
+        printf("\nОшибка чтения данных из текстового файла");
+        exit(EXIT_FAILURE);
+    }
+    fscanf(file, "%d", n);
+    *info = (struct child*)calloc(*n, sizeof(struct child));
+    for(int i = 0; i < *n; i++)
+    {
+        fscanf(file, "%s %s %d %d ", (*info + i)->sureName, (*info + i)->firstName, &(*info + i)->age, &(*info + i)->flag);
+        fscanf(file, "%s %s ", (*info + i)->information[0].disease, (*info + i)->information[1].familyDoctor);
+        if((*info + i)->flag)
+        {
+            fscanf(file, "%s %d %s\n", (*info + i)->information[2].address, &(*info + i)->information[3].campusNumber, (*info + i)->information[4].hospitalDoctor);
+        }
+    }
+    fclose(file);
+}
+
+
+void readFromBinaryFile (struct child **info, const char* name, int* n)
+{
+    int i = 0;
+    FILE *file;
+    file = fopen(name, "rb");
+    if (file == NULL)
+    {
+        printf("\nОшибка чтения данных из бинарного файла");
+        exit(EXIT_FAILURE);
+    }
+    *info = (struct child *)malloc(sizeof(struct child));
+    while(fread((*info + i++), sizeof(struct child), 1, file) == 1)
+    {
+        *info = (struct child *)realloc(*info, ((++(*n))) * sizeof(struct child));
+    }
+    *info = (struct child *)realloc(*info, ((--(*n))) * sizeof(struct child));
+    fclose(file);
+}
+
+
 void outputStruct(struct child* info, int n) {
+    system("clear");
     int maxSureName = 8, maxFirstName = 4, maxDisease = 7, maxFamilyDoctor = 12, maxAddress = 7, maxDoctor = 14;
     for (int i = 0; i < n; i++) {
         if (strlen((info + i)->sureName) > maxSureName)
@@ -163,9 +344,6 @@ void outputStruct(struct child* info, int n) {
                 printf(" ");
             printf("|");
         }
-
-
-
     }                  //вывод основной информации в каждую ячейку
 
     printf("\n");
@@ -174,75 +352,44 @@ void outputStruct(struct child* info, int n) {
 }
 
 
-void quickSorting(struct child *info, int first, int last, int (*function)(struct child* , int , int ))
-{
-    if(first < last) {
-        int left = first, right = last, middle = (left + right) / 2;
-        do {
-            while ((*function)(info, left, middle))
-                left++;
-            while (!(*function)(info, right, middle))
-                right--;
-            if (left <= right) {
-                struct child tmp = *(info + left);
-                *(info + left) = *(info + right);
-                *(info + right) = tmp;
-                left++;
-                right--;
-            }
-        } while (left <= right);
-        quickSorting(info, first, right, function);
-        quickSorting(info, left, last, function);
-    }
-}
 
-
-int comparatorSurnames (struct child *info, int i, int j)
-{
-    if(strcmp((info + i)->sureName, (info + j)->sureName) < 0)
-    {
-        return 1;
-    }
-    else
-        return 0;
-}
-
-
-void writeInBinaryFile (struct child *info, int n, const char* name)
-{
-    FILE *file;
-    file = fopen (name, "wb");
-    if(file == NULL)
-    {
-        printf("\nОшибка открытия бинарного файла");
-    }
-    for(int i = 0; i < n; i++)
-        fwrite((info + i), sizeof(struct child), 1, file);
-
-}
-
-
-
-void readFromBinaryFile (struct child **info, const char* name, int* n)
+void inputString(char* str)
 {
     int i = 0;
-    FILE *file;
-    file = fopen(name, "rb");
-    if (file == NULL)
-    {
-        printf("\nОшибка чтения данных из бинарного файла");
-        exit(EXIT_FAILURE);
-    }
-    *info = (struct child *)malloc(sizeof(struct child));
-    while(fread((*info + i++), sizeof(struct child), 1, file) == 1)
-    {
-        *info = (struct child *)realloc(*info, ((++(*n))) * sizeof(struct child));
-    }
-    *info = (struct child *)realloc(*info, ((--(*n))) * sizeof(struct child));
+    fgets(str, 30, stdin);
+    while (str[i] != '\n')
+        i++;
+    str[i] = '\0';
 }
 
+void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *taskIsFound)
+{
+    printf("\nВыберите действие:\n");
+    printf("'input' - ввод данных с клавиатуры\n");
+    printf("'read' - использовать готовые данные из файла\n");
+    printf("'add' - добавить данные в структуру\n");
+    printf("'delete' - удалить данные из структуры\n");
+    printf("'look' - найти людей с определенной болезнью\n");
+    printf("'write' - сохранить данные в  файл\n");
+    printf("'finish' - завершить программу\n");
+    inputStr(task);
+    for(*doTask = input ; *doTask < finish; (*doTask)++)
+    {
+        if(strcmp(*task, tasks[*doTask]) == 0)
+        {
+            *taskIsFound = true;
+            break;
+        }
+    }
+}
 
-
-
+void freeMemory (struct child *x, struct child *y, char* a, char* b, char* c)
+{
+    free(x);
+    free(y);
+    free(a);
+    free(b);
+    free(c);
+}
 
 
