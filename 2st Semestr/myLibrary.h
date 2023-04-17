@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void inputStr (char** mas);                                      //функция ввода строки произвольной длины
-void outputString(char* mas);
-void outputMasNumbers (long* mas, long n);
-void inputInt (int* x, int a, int b);
+void inputStr (char** mas);                                                 //функция ввода строки произвольной длины
+void outputString(char* mas);                                               //функция вывода строки
+void outputMasNumbers (long* mas, long n);                                  //функция вывода массива чисел
+void inputInt (int* x, int a, int b);                                       //функция ввода числа с првоеркой

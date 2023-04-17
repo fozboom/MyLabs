@@ -1,7 +1,6 @@
 #pragma once
 #ifndef MYPROJECTS_HEADERUNION2_H
 #define MYPROJECTS_HEADERUNION2_H
-
 #endif //MYPROJECTS_HEADERUNION2_H
 
 #define SIZE 30
@@ -30,22 +29,28 @@ enum choice {input, read, add, delete, look,  write, finish};
 
 
 
+void quickSorting(struct child *, int , int , int (*function)(struct child* info, int i, int j));   //функция быстрой сортировки с компаратором
+int comparatorSurnames (struct child *info, int i, int j);                                          //компаратор для сортировки в алфавитном порядке фамилий
 
-void inputString (char* str);
-void inputStruct (struct child **info, int *n);
-void readInformation (struct child **info, int*n);
-void outputStruct(struct child* info, int n);
-void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j));
-int comparatorSurnames (struct child *info, int i, int j);
-void writeInBinaryFile (struct child *info, int n, const char* name);
-void readFromBinaryFile (struct child **info, const char* name, int* n);
-void findDisease (struct child *info, struct child **sortInfo, int n, int* size, char* disease);
-void addChild (struct child **info, int* n);
-void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *taskIsFound);
-void freeMemory (struct child *x, struct child *y, char* a, char* b, char* c);
-void deleteChild (struct child **info, int *n, int i);
+void writeInTekstFile (struct child *info, int n, const char* name);                                //функция записи массива структур в текстовый файл
+void readFromTekstFile (struct child **info, const char* name, int* n);                             //функция чтения информации из текстового файла
+void writeInBinaryFile (struct child *info, int n, const char* name);                               //функция записи массива структур в бинарный файл
+void readFromBinaryFile (struct child **info, const char* name, int* n);                            //функция чтения информации из бинарного файла
+void inputWithFile(struct child * info, int n, const char* fileName);                               //функция для записи информации в файл (бин. или текст.)
+void readWithFile(struct child **info, int *n, const char* fileName);                               //функция чтения информации из файла (бин. или текст.)
 
-void writeInTekstFile (struct child *info, int n, const char* name);
-void readFromTekstFile (struct child **info, const char* name, int* n);
-void inputWithFile(struct child * info, int n, const char* fileName);
-void readWithFile(struct child **info, int *n, const char* fileName);
+void inputStruct (struct child **info, int *n);                                                     //функция заполнения массива структур с клавиатуры
+void addChild (struct child **info, int* n);                                                        //функция добавления информации в массив структур
+void deleteChild (struct child **info, int *n, int i);                                              //функция удаления ребенка из списка
+void findDisease (struct child *info, struct child **sortInfo, int n, int* size, char* disease);    //функция поиска болезни и записи в новую структуру
+void outputStruct(struct child* info, int n);                                                       //функция вывода массива структур в виде динамич. таблицы
+
+void inputString (char* str);                                                                       //функция ввода строки
+void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *taskIsFound);        //функция для выбора задачи
+void freeMemory (struct child *x, struct child *y, char* a, char* b, char* c);                      //функция очистки памяти
+
+
+
+
+
+

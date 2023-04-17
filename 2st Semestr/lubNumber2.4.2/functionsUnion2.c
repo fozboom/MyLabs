@@ -1,60 +1,65 @@
 #include "headerUnion2.h"
 #include "../myLibrary.h"
 
+
+//функция быстрой сортировки с компаратором
 void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j))
 {
-    if(first < last) {
-        int left = first, right = last, middle = (left + right) / 2;
-        do {
-            while ((*function)(info, left, middle))
+    if(first < last)                                                        //если есть что сортировать
+    {
+        int left = first, right = last, middle = (left + right) / 2;        //middle - центральный элемент, left и right - левый и правый индексы
+        do
+        {
+            while ((*function)(info, left, middle))                         //ищу первый элемент, который нужно в другую половину
                 left++;
-            while (!(*function)(info, right, middle))
+            while (!(*function)(info, right, middle))                       //ищу второй элемент, который нужно в другую половину
                 right--;
-            if (left <= right) {
+            if (left <= right)                                              //обмениваю местами элементы
+            {
                 struct child tmp = *(info + left);
                 *(info + left) = *(info + right);
                 *(info + right) = tmp;
                 left++;
                 right--;
             }
-        } while (left < right);
-        quickSorting(info, first, right, function);
-        quickSorting(info, left, last, function);
+        } while (left < right);                                             //пока индексы не поменялись местами
+        quickSorting(info, first, right, function);                    //рекурсивный вызов сортировки на левую половину
+        quickSorting(info, left, last, function);                      //рекурсивный вызов сортировки на правую половину
     }
 }
 
+
+
+//компаратор для сортировки в алфавитном порядке фамилий
 int comparatorSurnames (struct child *info, int i, int j)
 {
     int x = (strcmp((info + i)->sureName, (info + j)->sureName) <= 0) ? 1 : 0;
     return x;
 }
 
+
+
+//функция заполнения массива структур с клавиатуры
 void inputStruct(struct child** info, int* n)
 {
-    int i = 0;
-    *info = (struct child*)calloc(*n, sizeof(struct child));
+    int i = 0;                                                          //параметр цикла по массиву структур
+    *info = (struct child*)calloc(*n, sizeof(struct child)); //выделение памяти на один элемент
     while (1)
     {
         printf("Введите фамилию ");
         inputString((*info + i)->sureName);
-        if ((*info + i)->sureName[0] == '\0')
+        if ((*info + i)->sureName[0] == '\0')                           //если пользователь ввел Enter, закончить ввод
         {
-            (*n)--;
             break;
         }
         printf("Введите имя ");
         inputString((*info + i)->firstName);
         printf("Введите возраст ребенка ");
-        scanf("%d", &(*info + i)->age);  rewind(stdin);
+        inputInt(&(*info + i)->age, 1, 9);
         printf("Ребенок находился в больнице?");
         printf("\n1 - Да");
         printf("\n0 - Нет\n");
-        while (!scanf("%d", &((*info + i)->flag)) || (((*info + i)->flag) != 0 && ((*info + i)->flag) != 1))
-        {
-            rewind(stdin);
-            printf("Ошибка ввода");
-        }
-        rewind(stdin);
+        inputInt (&((*info + i)->flag), 0, 1);
         printf("Введите болезнь ребенка ");
         inputString((*info + i)->information[0].disease);
         printf("Введите фамилию участкового врача ");
@@ -64,17 +69,21 @@ void inputStruct(struct child** info, int* n)
             printf("Введите адрес больницы ");
             inputString((*info + i)->information[2].address);
             printf("Введите номер больницы ");
-            scanf("%d", &((*info + i)->information[3]).campusNumber);
-            rewind(stdin);
+            inputInt(&((*info + i)->information[3]).campusNumber, 0, 9);
             printf("Введите фамилию лечащего врача ");
             inputString((*info + i)->information[4].hospitalDoctor);
         }
         i++;
         (*n)++;
-        *info = (struct child*)realloc(*info, (*n) * sizeof(struct child));
+        *info = (struct child*)realloc(*info, (*n) * sizeof(struct child));        //выделение памяти на след элемент
     }
+
+    *info = (struct child*)realloc(*info, (--(*n)) * sizeof(struct child));         //после ввода перевыделить память
 }
 
+
+
+//функция для записи информации в файл (бинарный или текстовый)
 void inputWithFile(struct child *info, int n, const char* fileName)
 {
     int task;
@@ -91,6 +100,9 @@ void inputWithFile(struct child *info, int n, const char* fileName)
     }
 }
 
+
+
+//функция чтения информации из файла (бинарного или текстового)
 void readWithFile(struct child **info, int *n, const char* fileName)
 {
     int task;
@@ -108,6 +120,8 @@ void readWithFile(struct child **info, int *n, const char* fileName)
 }
 
 
+
+//функция добавления информации в массив структур
 void addChild (struct child **info, int* n)
 {
     *info = (struct child *)realloc(*info, (++(*n)) * sizeof(struct child));
@@ -116,16 +130,11 @@ void addChild (struct child **info, int* n)
     printf("Введите имя ");
     inputString((*info + *n - 1)->firstName);
     printf("Введите возраст ребенка ");
-    scanf("%d", &(*info + *n - 1)->age);  rewind(stdin);
+    inputInt(&(*info + *n - 1)->age, 0, 9);
     printf("Ребенок находился в больнице?");
     printf("\n1 - Да");
     printf("\n0 - Нет\n");
-    while (!scanf("%d", &((*info + *n - 1)->flag)) || (((*info + *n - 1)->flag) != 0 && ((*info + *n - 1)->flag) != 1))
-    {
-        rewind(stdin);
-        printf("Ошибка ввода");
-    }
-    rewind(stdin);
+    inputInt(&((*info + *n - 1)->flag), 0, 1);
     printf("Введите болезнь ребенка ");
     inputString((*info + *n - 1)->information[0].disease);
     printf("Введите фамилию участкового врача ");
@@ -135,13 +144,15 @@ void addChild (struct child **info, int* n)
         printf("Введите адрес больницы ");
         inputString((*info + *n - 1)->information[2].address);
         printf("Введите номер больницы ");
-        scanf("%d", &((*info + *n - 1)->information[3]).campusNumber);
-        rewind(stdin);
+        inputInt(&((*info + *n - 1)->information[3]).campusNumber, 1, 9);
         printf("Введите фамилию лечащего врача ");
         inputString((*info + *n - 1)->information[4].hospitalDoctor);
     }
 }
 
+
+
+//функция удаления ребенка из списка
 void deleteChild (struct child **info, int *n, int i)
 {
     for(int j = i; j < ((*n) - 1); j++)
@@ -152,6 +163,9 @@ void deleteChild (struct child **info, int *n, int i)
 
 }
 
+
+
+//функция поиска людей с определенной болезнью и запись их в новую структуру
 void findDisease (struct child *info, struct child **sortInfo, int n, int* size, char* disease)
 {
     int i = 0;
@@ -168,6 +182,9 @@ void findDisease (struct child *info, struct child **sortInfo, int n, int* size,
     *sortInfo = (struct child*)realloc(*sortInfo, (--(*size)) * sizeof(struct child));
 }
 
+
+
+//функция записи массива структур в бинарный файл
 void writeInBinaryFile (struct child *info, int n, const char* name)
 {
     FILE *file;
@@ -184,6 +201,9 @@ void writeInBinaryFile (struct child *info, int n, const char* name)
 
 }
 
+
+
+//функция записи массива структур в текстовый файл
 void writeInTekstFile (struct child *info, int n, const char* name)
 {
     FILE* file;
@@ -207,6 +227,9 @@ void writeInTekstFile (struct child *info, int n, const char* name)
     fclose(file);
 }
 
+
+
+//функция чтения информации из текстового файла
 void readFromTekstFile (struct child **info, const char* name, int* n)
 {
     FILE *file;
@@ -231,6 +254,8 @@ void readFromTekstFile (struct child **info, const char* name, int* n)
 }
 
 
+
+//функция чтения информации из бинарного файла
 void readFromBinaryFile (struct child **info, const char* name, int* n)
 {
     int i = 0;
@@ -251,6 +276,8 @@ void readFromBinaryFile (struct child **info, const char* name, int* n)
 }
 
 
+
+//функция вывода массива структур в виде динамической таблицы
 void outputStruct(struct child* info, int n) {
     system("clear");
     int maxSureName = 8, maxFirstName = 4, maxDisease = 7, maxFamilyDoctor = 12, maxAddress = 7, maxDoctor = 14;
@@ -353,6 +380,7 @@ void outputStruct(struct child* info, int n) {
 
 
 
+//функция ввода строки
 void inputString(char* str)
 {
     int i = 0;
@@ -362,6 +390,9 @@ void inputString(char* str)
     str[i] = '\0';
 }
 
+
+
+//функция для выбора задачи
 void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *taskIsFound)
 {
     printf("\nВыберите действие:\n");
@@ -383,6 +414,9 @@ void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *t
     }
 }
 
+
+
+//функция очистки памяти
 void freeMemory (struct child *x, struct child *y, char* a, char* b, char* c)
 {
     free(x);
