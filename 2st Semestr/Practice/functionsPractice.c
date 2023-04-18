@@ -1,7 +1,7 @@
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
- long isPrimes (long x)
+long isPrimes (long x)
 {
     if(x == 0) return 0;
     for(int i = 2; i < x; i++)
@@ -123,7 +123,7 @@ void tekstRSA(long* code, long size, long d, long n)
 
 char* antiTekstRSA (long* code, long d, long n, long size)
 {
-    FILE* file;
+    FILE* file = NULL;
     const char* str;
     printf("Введите имя файла, который хотите раскодировать:\n");
     inputStr(&str);

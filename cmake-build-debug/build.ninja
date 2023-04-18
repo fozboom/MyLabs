@@ -84,49 +84,6 @@ build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumb
   TARGET_PDB = labNumber2.4.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target labNumber2.4.2
-
-
-#############################################
-# Order-only phony target for labNumber2.4.2
-
-build cmake_object_order_depends_target_labNumber2.4.2: phony || CMakeFiles/labNumber2.4.2.dir
-
-build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o: C_COMPILER__labNumber2.2e4.2e2_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4.2/mainUnion2.c || cmake_object_order_depends_target_labNumber2.4.2
-  DEP_FILE = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
-  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2
-
-build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o: C_COMPILER__labNumber2.2e4.2e2_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4.2/functionsUnion2.c || cmake_object_order_depends_target_labNumber2.4.2
-  DEP_FILE = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
-  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2
-
-build CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4.2e2_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4.2
-  DEP_FILE = CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
-  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.2.dir/2st_Semestr
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target labNumber2.4.2
-
-
-#############################################
-# Link the executable labNumber2.4.2
-
-build labNumber2.4.2: C_EXECUTABLE_LINKER__labNumber2.2e4.2e2_Debug CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/mainUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/lubNumber2.4.2/functionsUnion2.c.o CMakeFiles/labNumber2.4.2.dir/2st_Semestr/myLibrary.c.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
-  OBJECT_DIR = CMakeFiles/labNumber2.4.2.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = labNumber2.4.2
-  TARGET_PDB = labNumber2.4.2.dbg
-
-# =============================================================================
 # Object build statements for EXECUTABLE target labNumber2.5
 
 
@@ -255,6 +212,49 @@ build Lections: C_EXECUTABLE_LINKER__Lections_Debug CMakeFiles/Lections.dir/2st_
   TARGET_FILE = Lections
   TARGET_PDB = Lections.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target labNumber2.6
+
+
+#############################################
+# Order-only phony target for labNumber2.6
+
+build cmake_object_order_depends_target_labNumber2.6: phony || CMakeFiles/labNumber2.6.dir
+
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/mainRing.c || cmake_object_order_depends_target_labNumber2.6
+  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.6.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/functionsRing.c || cmake_object_order_depends_target_labNumber2.6
+  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.6.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.6
+  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.6.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target labNumber2.6
+
+
+#############################################
+# Link the executable labNumber2.6
+
+build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/labNumber2.6.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = labNumber2.6
+  TARGET_PDB = labNumber2.6.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -289,7 +289,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.4.2 labNumber2.5 Practice Lections
+build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6
 
 # =============================================================================
 # Built-in targets

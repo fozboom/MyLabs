@@ -1,103 +1,340 @@
 #include "headerUnion.h"
+#include "../myLibrary.h"
 
-void inputStr(char* str)
+
+//функция быстрой сортировки с компаратором
+void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j))
 {
-    int i = 0;
-    fgets(str, 30, stdin);
-    while (str[i] != '\n')
-        i++;
-    str[i] = '\0';
-
-}
-
-
-void inputStruct(struct child** info, int* n)
-{
-    int i = 0;
-    int flag;
-    *info = (struct child*)calloc(*n, sizeof(struct child));
-    while (1)
+    if(first < last)                                                        //если есть что сортировать
     {
-        if ((*info + i) == NULL)
+        int left = first, right = last, middle = (left + right) / 2;        //middle - центральный элемент, left и right - левый и правый индексы
+        do
         {
-            printf("Ошибка памяти");
-            exit(EXIT_FAILURE);
-        }
-        printf("Введите фамилию ");
-        inputStr((*info + i)->sureName);
-        if ((*info + i)->sureName[0] == '\0')
-        {
-            (*n)--;
-            break;
-        }
-        printf("Введите имя ");
-        inputStr((*info + i)->firstName);
-        printf("Ребенок находился в больнице?");
-        printf("\n1 - Да");
-        printf("\n0 - Нет\n");
-        while (!scanf("%d", &((*info + i)->flag)) || (((*info + i)->flag) != 0 && ((*info + i)->flag) != 1))
-        {
-            rewind(stdin);
-            printf("Ошибка ввода");
-        }
-        rewind(stdin);
-        if ((*info + i)->flag)
-        {
-            printf("Введите болезнь ребенка ");
-            inputStr((*info + i)->information.hospital.child.disease);
-            printf("Введите фамилию участкового врача ");
-            inputStr((*info + i)->information.hospital.child.familyDoctor);
-            printf("Введите адрес больницы ");
-            inputStr((*info + i)->information.hospital.address);
-            printf("Введите номер больницы ");
-            scanf("%d", &((*info + i)->information.hospital.campusNumber));
-            rewind(stdin);
-            printf("Введите фамилию лечащего врача ");
-            inputStr((*info + i)->information.hospital.hospitalDoctor);
-        }
-        else
-        {
-            printf("Введите болезнь ребенка ");
-            inputStr((*info + i)->information.child.disease);
-            printf("Введите фамилию участкового врача ");
-            inputStr((*info + i)->information.child.familyDoctor);
-        }
-        i++;
-        (*n)++;
-        *info = (struct child*)realloc(*info, (*n) * sizeof(struct child));
+            while ((*function)(info, left, middle))                         //ищу первый элемент, который нужно в другую половину
+                left++;
+            while (!(*function)(info, right, middle))                       //ищу второй элемент, который нужно в другую половину
+                right--;
+            if (left <= right)                                              //обмениваю местами элементы
+            {
+                struct child tmp = *(info + left);
+                *(info + left) = *(info + right);
+                *(info + right) = tmp;
+                left++;
+                right--;
+            }
+        } while (left < right);                                             //пока индексы не поменялись местами
+        quickSorting(info, first, right, function);                    //рекурсивный вызов сортировки на левую половину
+        quickSorting(info, left, last, function);                      //рекурсивный вызов сортировки на правую половину
     }
 }
 
-void outputStr(struct child* info, int n) {
-    int maxSureName = 0, maxFirstName = 0, maxDisease = 0, maxFamilyDoctor = 0, maxAddress = 0, maxDoctor = 0;
+
+
+//компаратор для сортировки в алфавитном порядке фамилий
+int comparatorSurnames (struct child *info, int i, int j)
+{
+    int x = (strcmp((info + i)->sureName, (info + j)->sureName) <= 0) ? 1 : 0;
+    return x;
+}
+
+
+
+//функция заполнения массива структур с клавиатуры
+void inputStruct(struct child** info, int* n)
+{
+    int i = 0;                                                          //параметр цикла по массиву структур
+    *info = (struct child*)calloc(*n, sizeof(struct child)); //выделение памяти на один элемент
+    while (1)
+    {
+        printf("Введите фамилию ");
+        inputString((*info + i)->sureName);
+        if ((*info + i)->sureName[0] == '\0')                           //если пользователь ввел Enter, закончить ввод
+        {
+            break;
+        }
+        printf("Введите имя ");
+        inputString((*info + i)->firstName);
+        printf("Введите возраст ребенка ");
+        inputInt(&(*info + i)->age, 1, 9);
+        printf("Ребенок находился в больнице?");
+        printf("\n1 - Да");
+        printf("\n0 - Нет\n");
+        inputInt (&((*info + i)->flag), 0, 1);
+        printf("Введите болезнь ребенка ");
+        inputString((*info + i)->information[0].disease);
+        printf("Введите фамилию участкового врача ");
+        inputString((*info + i)->information[1].familyDoctor);
+        if ((*info + i)->flag)
+        {
+            printf("Введите адрес больницы ");
+            inputString((*info + i)->information[2].address);
+            printf("Введите номер больницы ");
+            inputInt(&((*info + i)->information[3]).campusNumber, 0, 9);
+            printf("Введите фамилию лечащего врача ");
+            inputString((*info + i)->information[4].hospitalDoctor);
+        }
+        i++;
+        (*n)++;
+        *info = (struct child*)realloc(*info, (*n) * sizeof(struct child));        //выделение памяти на след элемент
+    }
+
+    *info = (struct child*)realloc(*info, (--(*n)) * sizeof(struct child));         //после ввода перевыделить память
+}
+
+
+
+//функция для записи информации в файл (бинарный или текстовый)
+void inputWithFile(struct child *info, int n, const char* fileName)
+{
+    int task;
+    printf("\nЧтобы записать информацию в текстовый файл, введите 0\n");
+    printf("\nЧтобы записать информацию в бинарный файл, введите 1\n");
+    inputInt(&task, 0, 1);
+    if (task == 0)
+    {
+        writeInTekstFile(info, n, fileName);
+    }
+    else if(task == 1)
+    {
+        writeInBinaryFile(info, n, fileName);
+    }
+}
+
+
+
+//функция чтения информации из файла (бинарного или текстового)
+void readWithFile(struct child **info, int *n, const char* fileName)
+{
+    int task;
+    printf("\nЧтобы считать информацию из текстового файла, введите 0\n");
+    printf("\nЧтобы считать информацию из бинарного файла, введите 1\n");
+    inputInt(&task, 0, 1);
+    if (task == 0)
+    {
+        readFromTekstFile(info, fileName, n);
+    }
+    else if(task == 1)
+    {
+        readFromBinaryFile(info, fileName, n);
+    }
+}
+
+
+
+//функция добавления информации в массив структур
+void addChild (struct child **info, int* n)
+{
+    *info = (struct child *)realloc(*info, (++(*n)) * sizeof(struct child));
+    printf("Введите фамилию ");
+    inputString((*info + *n - 1)->sureName);
+    printf("Введите имя ");
+    inputString((*info + *n - 1)->firstName);
+    printf("Введите возраст ребенка ");
+    inputInt(&(*info + *n - 1)->age, 0, 9);
+    printf("Ребенок находился в больнице?");
+    printf("\n1 - Да");
+    printf("\n0 - Нет\n");
+    inputInt(&((*info + *n - 1)->flag), 0, 1);
+    printf("Введите болезнь ребенка ");
+    inputString((*info + *n - 1)->information[0].disease);
+    printf("Введите фамилию участкового врача ");
+    inputString((*info + *n - 1)->information[1].familyDoctor);
+    if ((*info + *n - 1)->flag)
+    {
+        printf("Введите адрес больницы ");
+        inputString((*info + *n - 1)->information[2].address);
+        printf("Введите номер больницы ");
+        inputInt(&((*info + *n - 1)->information[3]).campusNumber, 1, 9);
+        printf("Введите фамилию лечащего врача ");
+        inputString((*info + *n - 1)->information[4].hospitalDoctor);
+    }
+}
+
+
+
+//функция удаления ребенка из списка
+void deleteChild (struct child **info, int *n, int i)
+{
+    for(int j = i; j < ((*n) - 1); j++)
+    {
+        *(info + j) = *(info + j + 1);
+    }
+    *info = (struct child*)realloc(*info, (--(*n)) * sizeof(struct child));
+
+}
+
+
+
+//функция поиска людей с определенной болезнью и запись их в новую структуру
+void findDisease (struct child *info, struct child **sortInfo, int n, int* size, char* disease)
+{
+    int i = 0;
+    *sortInfo = (struct child*)calloc(1,sizeof(struct child));
+    for(int j = 0; j < n; j++)
+    {
+        if (strcmp(disease, (info + j)->information[0].disease) == 0)
+        {
+            *((*sortInfo) + i) = *(info + j);
+            *sortInfo = (struct child*)realloc(*sortInfo, (++(*size)) * sizeof(struct child));
+            i++;
+        }
+    }
+    *sortInfo = (struct child*)realloc(*sortInfo, (--(*size)) * sizeof(struct child));
+}
+
+
+
+//функция записи массива структур в бинарный файл
+void writeInBinaryFile (struct child *info, int n, const char* name)
+{
+    FILE *file;
+    file = fopen (name, "wb");
+    if(file == NULL)
+    {
+        printf("\nОшибка открытия бинарного файла");
+    }
+    for(int i = 0; i < n; i++)
+    {
+        fwrite(&(*(info + i)), sizeof(struct child), 1, file);
+    }
+    fclose(file);
+
+}
+
+
+
+//функция записи массива структур в текстовый файл
+void writeInTekstFile (struct child *info, int n, const char* name)
+{
+    FILE* file;
+    file = fopen (name, "wt");
+    if(file == NULL)
+    {
+        printf("\nОшибка открытия текстового файла");
+    }
+    fprintf(file, "%d\n", n);
+    for(int i = 0; i < n; i++)
+    {
+        fprintf(file, "%s %s %d %d ", (info + i)->sureName, (info + i)->firstName, (info + i)->age, (info + i)->flag);
+        fprintf(file, "%s %s ", (info + i)->information[0].disease, (info + i)->information[1].familyDoctor);
+        if((info + i)->flag)
+        {
+            fprintf(file, "%s %d %s\n", (info + i)->information[2].address, (info + i)->information[3].campusNumber, (info + i)->information[4].hospitalDoctor);
+        }
+        else
+            fprintf(file, "\n");
+    }
+    fclose(file);
+}
+
+
+
+//функция чтения информации из текстового файла
+void readFromTekstFile (struct child **info, const char* name, int* n)
+{
+    FILE *file;
+    file = fopen(name, "rt");
+    if (file == NULL)
+    {
+        printf("\nОшибка чтения данных из текстового файла");
+        exit(EXIT_FAILURE);
+    }
+    fscanf(file, "%d", n);
+    *info = (struct child*)calloc(*n, sizeof(struct child));
+    for(int i = 0; i < *n; i++)
+    {
+        fscanf(file, "%s %s %d %d ", (*info + i)->sureName, (*info + i)->firstName, &(*info + i)->age, &(*info + i)->flag);
+        fscanf(file, "%s %s ", (*info + i)->information[0].disease, (*info + i)->information[1].familyDoctor);
+        if((*info + i)->flag)
+        {
+            fscanf(file, "%s %d %s\n", (*info + i)->information[2].address, &(*info + i)->information[3].campusNumber, (*info + i)->information[4].hospitalDoctor);
+        }
+    }
+    fclose(file);
+}
+
+
+
+//функция чтения информации из бинарного файла
+void readFromBinaryFile (struct child **info, const char* name, int* n)
+{
+    int i = 0;
+    FILE *file;
+    file = fopen(name, "rb");
+    if (file == NULL)
+    {
+        printf("\nОшибка чтения данных из бинарного файла");
+        exit(EXIT_FAILURE);
+    }
+    *info = (struct child *)malloc(sizeof(struct child));
+    while(fread((*info + i++), sizeof(struct child), 1, file) == 1)
+    {
+        *info = (struct child *)realloc(*info, ((++(*n))) * sizeof(struct child));
+    }
+    *info = (struct child *)realloc(*info, ((--(*n))) * sizeof(struct child));
+    fclose(file);
+}
+
+
+
+//функция вывода массива структур в виде динамической таблицы
+void outputStruct(struct child* info, int n) {
+    system("clear");
+    int maxSureName = 8, maxFirstName = 4, maxDisease = 7, maxFamilyDoctor = 12, maxAddress = 7, maxDoctor = 14;
     for (int i = 0; i < n; i++) {
         if (strlen((info + i)->sureName) > maxSureName)
             maxSureName = strlen((info + i)->sureName);
         if (strlen((info + i)->firstName) > maxFirstName)
             maxFirstName = strlen((info + i)->firstName);
+        if (strlen((info + i)->information[0].disease) > maxDisease)
+            maxDisease = strlen((info + i)->information[0].disease);
+        if (strlen((info + i)->information[1].familyDoctor) > maxFamilyDoctor)
+            maxFamilyDoctor = strlen((info + i)->information[1].familyDoctor);
 
         if ((info + i)->flag) {
-            if (strlen((info + i)->information.hospital.child.disease) > maxDisease)
-                maxDisease = strlen((info + i)->information.hospital.child.disease);
-            if (strlen((info + i)->information.hospital.child.familyDoctor) > maxFamilyDoctor)
-                maxFamilyDoctor = strlen((info + i)->information.hospital.child.familyDoctor);
-            if (strlen((info + i)->information.hospital.address) > maxAddress)
-                maxAddress = strlen((info + i)->information.hospital.address);
-            if (strlen((info + i)->information.hospital.hospitalDoctor) > maxDoctor)
-                maxDoctor = strlen((info + i)->information.hospital.hospitalDoctor);
-        } else {
-            if (strlen((info + i)->information.child.disease) > maxDisease)
-                maxDisease = strlen((info + i)->information.child.disease);
-            if (strlen((info + i)->information.child.familyDoctor) > maxFamilyDoctor)
-                maxFamilyDoctor = strlen((info + i)->information.child.familyDoctor);
+            if (strlen((info + i)->information[2].address) > maxAddress)
+                maxAddress = strlen((info + i)->information[2].address);
+            if (strlen((info + i)->information[4].hospitalDoctor) > maxDoctor)
+                maxDoctor = strlen((info + i)->information[4].hospitalDoctor);
         }
-    }
-
-
+        ;
+    }               //определение максимальных слов в каждом столбце
+    printf("\n");
+    for(int i = 0; i < (maxSureName + maxFirstName + maxDisease + maxFamilyDoctor + maxAddress + maxDoctor + 71); i++)
+        printf("_");
+    printf("\n|   ");
+    printf("\033[1;32m\033[1mSureName\033[0m");
+    for (int i = 8; i < maxSureName; i++)
+        printf(" ");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mName\033[0m");
+    for (int i = 4; i < maxFirstName; i++)
+        printf(" ");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mAge\033[0m");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mDisease\033[0m");
+    for (int i = 7; i < maxDisease ; i++)
+        printf(" ");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mSchoolDoctor\033[0m");
+    for (int i = 12; i < maxFamilyDoctor; i++)
+        printf(" ");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mAddress\033[0m");
+    for (int i = 7; i < maxAddress; i++)
+        printf(" ");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mHospitalNum\033[0m");
+    printf("   |   ");
+    printf("\033[1;32m\033[1mHospitalDoctor\033[0m");
+    for (int i = 14; i < maxDoctor; i++)
+        printf(" ");
+    printf("   |");
     for (int j = 0; j < n; j++) {
         printf("\n");
-        for(int i = 0; i < (maxSureName + maxFirstName + maxDisease + maxFamilyDoctor + maxAddress + maxDoctor + 43); i++)
-            printf("-");
+        for(int i = 0; i < (maxSureName + maxFirstName + maxDisease + maxFamilyDoctor + maxAddress + maxDoctor + 71); i++)
+            printf("_");
         printf("\n");
         printf("|   %s   ", (info + j)->sureName);
         for (int i = strlen((info + j)->sureName); i < maxSureName; i++)
@@ -105,115 +342,88 @@ void outputStr(struct child* info, int n) {
         printf("|   %s   ", (info + j)->firstName);
         for (int i = strlen((info + j)->firstName); i < maxFirstName; i++)
             printf(" ");
-
-        if ((info + j)->flag)
+        printf("|    %d    ", (info + j)->age);
+        printf("|   %s   ", (info + j)->information[0].disease);
+        for (int i = strlen((info + j)->information[0].disease); i < maxDisease; i++)
+            printf(" ");
+        printf("|   %s   ", (info + j)->information[1].familyDoctor);
+        for (int i = strlen((info + j)->information[1].familyDoctor); i < maxFamilyDoctor; i++)
+            printf(" ");
+        if((info+j)->flag)
         {
-            printf("|   %s   ", (info + j)->information.hospital.child.disease);
-            for (int i = strlen((info + j)->information.hospital.child.disease); i < maxDisease; i++)
+            printf("|   %s   ", (info + j)->information[2].address);
+            for (int i = strlen((info + j)->information[2].address); i < maxAddress; i++)
                 printf(" ");
-            printf("|   %s   ", (info + j)->information.hospital.child.familyDoctor);
-            for (int i = strlen((info + j)->information.hospital.child.familyDoctor); i < maxFamilyDoctor; i++)
-                printf(" ");
-            printf("|   %s   ", (info + j)->information.hospital.address);
-            for (int i = strlen((info + j)->information.hospital.address); i < maxAddress; i++)
-                printf(" ");
-            printf("|   %s   ", (info + j)->information.hospital.hospitalDoctor);
-            for (int i = strlen((info + j)->information.hospital.hospitalDoctor); i < maxDoctor; i++)
+            printf("|        %d        ", (info + j)->information[3].campusNumber);
+            printf("|   %s   ", (info + j)->information[4].hospitalDoctor);
+            for (int i = strlen((info + j)->information[4].hospitalDoctor); i < maxDoctor; i++)
                 printf(" ");
             printf("|");
-        }
-        else {
-            printf("|   %s   ", (info + j)->information.child.disease);
-            for (int i = strlen((info + j)->information.child.disease); i < maxDisease; i++)
-                printf(" ");
-            printf("|   %s   ", (info + j)->information.child.familyDoctor);
-            for (int i = strlen((info + j)->information.child.familyDoctor); i < maxFamilyDoctor; i++)
-                printf(" ");
-            printf("|");
-            for(int i = 0; i < (maxAddress + 6); i++)
-                printf(" ");
-            printf("|");
-            for(int i = 0; i < (maxDoctor + 6); i++)
-                printf(" ");
-            printf("|");
-        }
-    }
-    printf("\n");
-    for(int i = 0; i < (maxSureName + maxFirstName + maxDisease + maxFamilyDoctor + maxAddress + maxDoctor + 43); i++)
-        printf("-");
-}
-
-
-
-
-void sortirovka (struct child *info, int n)
-{
-    for(int i = 0; i < n; i++) {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if (strcmp((info + j)->sureName, (info + j + 1)->sureName) > 0)
-            {
-                struct child tmp = *(info + j);
-                *(info + j) = *(info + j + 1);
-                *(info + j + 1) = tmp;
-            }
-
-        }
-    }
-}
-
-
-void quickSort(struct child *info, int first, int last)
-{
-    if(first < last) {
-        int left = first, right = last, middle = (left + right) / 2;
-        do {
-            while (strcmp((info + left)->sureName, (info + middle)->sureName) < 0)
-                left++;
-            while (strcmp((info + right)->sureName, (info + middle)->sureName) > 0)
-                right--;
-            if (left <= right) {
-                struct child tmp = *(info + left);
-                *(info + left) = *(info + right);
-                *(info + right) = tmp;
-                left++;
-                right--;
-            }
-        } while (left <= right);
-        quickSort(info, first, right);
-        quickSort(info, left, last);
-    }
-}
-
-
-void readInformation (struct child **info, int*n)
-{
-    FILE *file;
-    file = fopen("information.txt", "r");
-    if(file == NULL)
-    {
-        printf("Ошибка открытия файла");
-        exit(EXIT_FAILURE);
-    }
-    fscanf(file, "%d", n);
-    *info = (struct child *)calloc((*n), sizeof(struct child));
-    for(int i = 0; i < *n; i++)
-    {
-        fscanf(file, "%d", &((*info + i)->flag));
-        fscanf(file, "%s", &((*info + i)->sureName));
-        fscanf(file, "%s", &((*info + i)->firstName));
-        if((*info + i)->flag)
-        {
-            fscanf(file, "%s", &((*info + i)->information.hospital.child.disease));
-            fscanf(file, "%s", &((*info + i)->information.hospital.child.familyDoctor));
-            fscanf(file, "%s", &((*info + i)->information.hospital.address));
-            fscanf(file, "%d", &((*info + i)->information.hospital.campusNumber));
-            fscanf(file, "%s", &((*info + i)->information.hospital.hospitalDoctor));
         }
         else
         {
-            fscanf(file, "%s", &((*info + i)->information.child.disease));
-            fscanf(file, "%s", &((*info + i)->information.child.familyDoctor));
+            printf("|   %s   ", (info + j)->information[2].address);
+            for (int i = strlen((info + j)->information[2].address); i < maxAddress; i++)
+                printf(" ");
+            printf("|                 ");
+            printf("|   %s   ", (info + j)->information[4].hospitalDoctor);
+            for (int i = strlen((info + j)->information[4].hospitalDoctor); i < maxDoctor; i++)
+                printf(" ");
+            printf("|");
+        }
+    }                  //вывод основной информации в каждую ячейку
+
+    printf("\n");
+    for(int i = 0; i < (maxSureName + maxFirstName + maxDisease + maxFamilyDoctor + maxAddress + maxDoctor + 71); i++)
+        printf("_");
+}
+
+
+
+//функция ввода строки
+void inputString(char* str)
+{
+    int i = 0;
+    fgets(str, 30, stdin);
+    while (str[i] != '\n')
+        i++;
+    str[i] = '\0';
+}
+
+
+
+//функция для выбора задачи
+void choiseTask (char **task,  enum choice *doTask, const char* tasks[], bool *taskIsFound)
+{
+    printf("\nВыберите действие:\n");
+    printf("'input' - ввод данных с клавиатуры\n");
+    printf("'read' - использовать готовые данные из файла\n");
+    printf("'add' - добавить данные в структуру\n");
+    printf("'delete' - удалить данные из структуры\n");
+    printf("'look' - найти людей с определенной болезнью\n");
+    printf("'write' - сохранить данные в  файл\n");
+    printf("'finish' - завершить программу\n");
+    inputStr(task);
+    for(*doTask = input ; *doTask < finish; (*doTask)++)
+    {
+        if(strcmp(*task, tasks[*doTask]) == 0)
+        {
+            *taskIsFound = true;
+            break;
         }
     }
 }
+
+
+
+//функция очистки памяти
+void freeMemory (struct child *x, struct child *y, char* a, char* b, char* c)
+{
+    free(x);
+    free(y);
+    free(a);
+    free(b);
+    free(c);
+}
+
+

@@ -10,13 +10,6 @@ add_executable(labNumber2.4
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
 
-add_executable(labNumber2.4.2
-        "2st Semestr/lubNumber2.4.2/mainUnion2.c"
-        "2st Semestr/lubNumber2.4.2/functionsUnion2.c"
-        "2st Semestr/lubNumber2.4.2/headerUnion2.h"
-        "2st Semestr/myLibrary.h"
-        "2st Semestr/myLibrary.c")
-
 add_executable(labNumber2.5
         "2st Semestr/lubNumber2.5/headerStack.h"
         "2st Semestr/lubNumber2.5/mainStack.c"
@@ -35,6 +28,13 @@ add_executable(Lections
         "2st Semestr/Lections/headerLections.h"
         "2st Semestr/Lections/mainLections.c"
         "2st Semestr/Lections/functionsLections.c"
+        "2st Semestr/myLibrary.h"
+        "2st Semestr/myLibrary.c")
+
+add_executable(labNumber2.6
+        "2st Semestr/lubNumber 2.6/headerRing.h"
+        "2st Semestr/lubNumber 2.6/mainRing.c"
+        "2st Semestr/lubNumber 2.6/functionsRing.c"
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
 
