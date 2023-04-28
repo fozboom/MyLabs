@@ -1,10 +1,9 @@
 
-
-
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
 
+/*
 int main()
 {
     char *task, *str;
@@ -35,7 +34,7 @@ int main()
             inputStr(&task);
             if (strcmp(task, "yes") == 0)
             {
-                tekstRSA(code, size, d, n);
+                textRSA(code, size, d, n);
             }
         }
         else if (strcmp(task, "decoding") == 0)
@@ -55,5 +54,27 @@ int main()
     printf("\n fi = %ld", fi);
     printf("\n e = %ld", e);
     printf("\n d = %ld", d);
-
+    return 0;
 }
+*/
+int main()
+{
+    char s1 = 'A', s2 = 'B';
+    char* mas = NULL;
+    inputStr(&mas);
+    char **box1, **box2, **box3, **box4;
+    createBoxes(&box1, &box2, &box3, &box4, SIZE);
+    writeBox(box2, SIZE);
+    writeBox(box3, SIZE);
+    readInfo(box1, SIZE, "box1.txt");
+    readInfo(box4, SIZE, "box4.txt");
+
+    outputBox(box1, SIZE);
+    outputBox(box2, SIZE);
+    outputBox(box3, SIZE);
+    outputBox(box4, SIZE);
+    mas = codingSquare(box1, box2, box3, box4, mas);
+    decodeSquare(box1, box2, box3, box4, mas);
+    return 0;
+}
+

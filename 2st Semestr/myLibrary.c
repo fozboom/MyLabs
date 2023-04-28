@@ -47,3 +47,63 @@ void inputStr (char** mas)
     }
     *(*mas + i) = '\0';                                                  //запись нуль-терминатора
 }
+
+
+
+
+void addNode (struct tree *root, struct tree *newNode, int a)
+{
+    if(a < root->data)
+    {
+        if (root->left != NULL)
+            addNode(root->left, newNode, a);
+        else
+            root->left = newNode;
+    }
+
+    else
+    {
+        if (a > root->data)
+        {
+            if(root->right != NULL)
+                addNode(root->right, newNode, a);
+            else
+                root->right = newNode;
+        }
+    }
+}
+
+struct tree* makeNode (int a)
+{
+    struct tree *tmp = (struct tree *)malloc(sizeof(struct tree));
+    if(tmp != NULL)
+    {
+        tmp->data = a;
+        tmp->left = NULL;
+        tmp->right = NULL;
+    }
+    else
+        printf("\nОшибка выделения памяти на листья дерева\n");
+    return tmp;
+}
+
+
+
+void printTree (struct tree *root, int n)
+{
+    if(root == NULL) return;
+    n += 10;
+    printTree(root->right, n);
+    for(int i = 10; i < n; i++)
+        printf("\t");
+    printTree(root->left, n);
+}
+
+
+
+
+
+
+
+
+

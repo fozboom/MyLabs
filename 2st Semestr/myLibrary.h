@@ -12,3 +12,15 @@ void inputStr (char** mas);                                                 //ф
 void outputString(char* mas);                                               //функция вывода строки
 void outputMasNumbers (long* mas, long n);                                  //функция вывода массива чисел
 void inputInt (int* x, int a, int b);                                       //функция ввода числа с првоеркой
+
+
+
+
+struct tree{
+    int data;
+    struct tree *left;
+    struct tree *right;
+};
+struct tree* makeNode (int a);
+void printTree (struct tree *root, int n);
+void addNode (struct tree *root, struct tree *newNode, int a);

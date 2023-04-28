@@ -8,9 +8,10 @@
 #include <string.h>
 #include <time.h>
 
-long toASCII (char s);
+#define SIZE 6
 
-__attribute__((unused)) long isPrimes (long x);
+
+long isPrimes (long x);
 void createPrime (long *x);
 void createNumbers (long *p, long *q, long *n, long *fi);
 void createEilerNumber (long *e, long fi);
@@ -22,4 +23,17 @@ long powerMod(long x, long y, long n);
 long* coding (char* mas, long e, long n, long* size);
 char* decoding (long* cods, long d, long n, int size);
 
-void tekstRSA(long* code, long size, long d, long n);
+void textRSA(long* code, long size, long d, long n);
+
+
+
+void writeBox (char** box, int n);
+void outputBox (char** box, int n);
+void readInfo (char** box, int n, const char* name);
+void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n);
+void mainTask (char** box1, char** box2, char** box3, char** box4, int n, char* s1, char* s2);
+int checkLetter (char s);
+void pushRandom (char** box, char s, int i, int j);
+void searchLetterIndex (char **box, int *i, int* j, int n, char s);
+char* codingSquare (char** box1, char** box2, char** box3, char** box4, char *mas);
+void decodeSquare (char** box1, char** box2, char** box3, char** box4, char* mas);
