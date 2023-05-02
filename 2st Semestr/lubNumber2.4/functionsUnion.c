@@ -3,22 +3,22 @@
 
 
 //функция быстрой сортировки с компаратором
-void quickSorting(struct child *info, int first, int last, int (*function)(struct child* info, int i, int j))
+void quickSorting(struct child *info, int first, int last, int (*function)(struct child* , int , int ))
 {
     if(first < last)                                                        //если есть что сортировать
     {
         int left = first, right = last, middle = (left + right) / 2;        //middle - центральный элемент, left и right - левый и правый индексы
         do
         {
-            while ((*function)(info, left, middle))                         //ищу первый элемент, который нужно в другую половину
+            while ((*function)(info, left, middle) == 1)                         //ищу первый элемент, который нужно в другую половину
                 left++;
-            while (!(*function)(info, right, middle))                       //ищу второй элемент, который нужно в другую половину
+            while ((*function)(info, middle, right) == 1)                       //ищу второй элемент, который нужно в другую половину
                 right--;
             if (left <= right)                                              //обмениваю местами элементы
             {
-                struct child tmp = *(info + left);
-                *(info + left) = *(info + right);
-                *(info + right) = tmp;
+                struct child tmp = info[left];
+                info[left] = info[right];
+                info[right] = tmp;
                 left++;
                 right--;
             }
@@ -33,8 +33,11 @@ void quickSorting(struct child *info, int first, int last, int (*function)(struc
 //компаратор для сортировки в алфавитном порядке фамилий
 int comparatorSurnames (struct child *info, int i, int j)
 {
-    int x = (strcmp((info + i)->sureName, (info + j)->sureName) <= 0) ? 1 : 0;
-    return x;
+    int x = strcmp(info[i].sureName, info[j].sureName);
+    if (x < 0)
+        return 1;
+    else
+        return 0;
 }
 
 

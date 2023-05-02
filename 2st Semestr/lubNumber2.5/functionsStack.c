@@ -1,24 +1,11 @@
 #include "headerStack.h"
-
-//функция ввода строки произвольной длины
-char* inputStr ()
-{
-    int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
-    char s;
-    char* mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
-    while ((s = getchar()) != '\n')
-    {
-        mas[i] = s;                                                 //запись символа в строку
-        mas = (char*)realloc(mas,(++n) * sizeof(char));    //перевыделение памяти
-        i++;
-    }
-    mas[i] = '\0';                                                  //запись нуль-терминатора
-    return mas;
-}
+#include "../myLibrary.h"
 
 
 
-//функция занесения числа или символа в стэк
+
+
+//функция занесения числа или символа в стек
 void push (struct FILO **head, union hold info)
 {
     struct FILO *tmp = (struct FILO*)malloc(sizeof(struct FILO));   //создание нового элемента
@@ -26,7 +13,7 @@ void push (struct FILO **head, union hold info)
     tmp->data = info;
     if(*head == NULL)                                                   //если голова пустая, то новый элемент теперь голова
         *head = tmp;
-    else                                                                //иначе пересвязать элементы
+    else                                                                //иначе переписать элементы
     {
         tmp->next = *head;
         *head = tmp;
@@ -35,12 +22,12 @@ void push (struct FILO **head, union hold info)
 
 
 
-//функция удаления числа или символа из стэка
+//функция удаления числа или символа из стека
 union hold popStruct (struct FILO **head)
 {
-    union hold info;                    //info - объединение которое хранит число или символ
+    union hold info = {0};              //info - объединение, которое хранит число или символ
     struct FILO *tmp = *head;
-    if(*head != NULL)                   //если стэк не пустой
+    if(*head != NULL)                   //если стек не пустой
     {
         info = (*head)->data;           //записать данные
         *head = (*head)->next;          //удалить элемент
@@ -55,23 +42,23 @@ union hold popStruct (struct FILO **head)
 //функция вычисления выражения записанного обратной польской нотацией
 void calculateMath (char* mas)
 {
-    struct FILO *head;                                  //head - голова стэка
+    struct FILO *head;                                  //head - голова стека
     union hold n1, n2, result;                          //n1 - первое число, n2 - второе число
     int i = 0;                                          //i - параметр цикла по строке, result - результат выполнения операции над n1 и n2
     while(mas[i] != '\0')                               //пока не конец строки
     {
-        if (ifNumber(mas[i]))                       //если число - заношу его в стэк
+        if (ifNumber(mas[i]))                       //если число - заношу его в стек
         {
             result.number = poiskNumber(mas, &i);
             push(&head, result);
         }
-        else if (ifOperator(mas[i]))                //если оператор, удаляю два числа из стэка и выполняю операцию
+        else if (ifOperator(mas[i]))                //если оператор, удаляю два числа из стека и выполняю операцию
         {
             if (mas[i] == '+') {
                 n1 = popStruct(&head);                  //удаляю первое число
                 n2 = popStruct(&head);                  //удаляю второе число
                 result.number = n1.number + n2.number;  //вычисляю
-                push(&head, result);               //заношу в стэк
+                push(&head, result);               //заношу в стек
             }
             else if (mas[i] == '-') {
                 n1 = popStruct(&head);
@@ -100,7 +87,7 @@ void calculateMath (char* mas)
 
 
 
-//функиця проверки символа на число
+//функция проверки символа на число
 int ifNumber (char s)
 {
     if (s >= '0' && s <= '9') return 1;
@@ -150,8 +137,8 @@ char* writeToPolish(char *mas)
 {
     char* postfix = (char*)calloc(2* strlen(mas), sizeof(char));    //postfix - строка в польской нотации
     int i, j = 0;                                                                 //i,j - параметры цикла по строкам mas и postfix
-    struct FILO *head = NULL;                                                     //head - голова стэка
-    union hold info;                                                              //info - обьединение, которое хранит число или символ
+    struct FILO *head = NULL;                                                     //head - голова стека
+    union hold info;                                                              //info - объединение, которое хранит число или символ
     for (i = 0; mas[i] != '\0'; i++)
     {
         if (ifOperator(mas[i]))                     //если встретил оператор
@@ -161,16 +148,16 @@ char* writeToPolish(char *mas)
                 postfix[j++] = popStruct(&head).number;
                 postfix[j++] = ' ';
             }
-            info.number = mas[i];                       //заношу в стэк оператор
+            info.number = mas[i];                       //заношу в стек оператор
             push(&head, info);
         }
-        else if (mas[i] == '(')                         //если открывающая скобка, заношу в стэк
+        else if (mas[i] == '(')                         //если открывающая скобка, заношу в стек
         {
             info.number = mas[i];
             push(&head, info);
         }
-        else if (mas[i] == ')')                         //если закр. скобка, выталкиваю из стека все операторы до отк. скобки, а откр. скобку удаляю из стека
-        {
+        else if (mas[i] == ')')                         //если закрывающая скобка, выталкиваю из стека все операторы до открывающей скобки,
+        {                                               // а открывающую скобку удаляю из стека
             while (head != NULL && head->data.number != '(')
             {
                 postfix[j++] = popStruct(&head).number;
@@ -187,7 +174,7 @@ char* writeToPolish(char *mas)
             i--;
         }
     }
-    while (head != NULL) {                          //выталкиваем оставшиеся операции из стэка
+    while (head != NULL) {                              //выталкиваем оставшиеся операции из стека
         postfix[j++] = popStruct(&head).number;
     }
     postfix[j] = '\0';
@@ -199,17 +186,17 @@ char* writeToPolish(char *mas)
 //функция проверки правильности расставленных скобок
 int taskBrackets (char* mas)
 {
-    struct FILO *head = NULL;                               //head - голова стэка
-    union hold info;                                        //info - объединение которое хранит число или символ
+    struct FILO *head = NULL;                               //head - голова стека
+    union hold info;                                        //info - объединение, которое хранит число или символ
     for(int i = 0; mas[i] != '\0'; i++)
     {
         char s = mas[i];
-        if(s == '(' || s == '{' || s == '[')                //если встретил открывающую скобку, заношу ее в стэк
+        if(s == '(' || s == '{' || s == '[')                //если встретил открывающую скобку, заношу ее в стек
         {
-            info.symbol = s;                                //считываю и обьединение
-            push(&head, info);                              //заношу в стэк
+            info.symbol = s;                                //считываю и объединение
+            push(&head, info);                              //заношу в стек
         }
-        else if (s == ')' || s == '}' || s == ']')          //если встречаю закр. скобку проверяю, что в стэке
+        else if (s == ')' || s == '}' || s == ']')          //если встречаю закрывающую скобку, проверяю, что в стеке
         {
             if ((s == ')' && head->data.symbol != '(') ||
                 (s == '}' && head->data.symbol != '{') ||
@@ -221,7 +208,7 @@ int taskBrackets (char* mas)
                 popStruct(&head);
         }
     }
-    if (head != NULL) return 0;                             //если стэк не пустой, значит скобки расставлены неверно
+    if (head != NULL) return 0;                             //если стек не пустой, значит скобки расставлены неверно
     return 1;
 }
 

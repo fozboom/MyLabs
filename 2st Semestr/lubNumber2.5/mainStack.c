@@ -1,5 +1,5 @@
 #include "headerStack.h"
-
+#include "../myLibrary.h"
 #define _CRT_SECURE_NO_WARNINGS
 
 
@@ -9,9 +9,9 @@ int main()
     int end;
     char *str = NULL, *newStr, *task;
     printf("Введите математичское выражение ");
-    str = inputStr();
+    inputStr(&str);
     if (taskBrackets(str))
-        printf("Скобки расставелны верно\n");
+        printf("Скобки расставлены верно\n");
     else
     {
         printf("Скобки расставлены неверно\n");
@@ -22,7 +22,7 @@ int main()
         printf("Выберите действие:\n");
         printf("'polish' - записать выражение польской нотацией\n");
         printf("'calculate' - посчитать значение выражения\n");
-        task = inputStr();
+        inputStr(&task);
         if (strcmp(task, "polish") == 0)
         {
             newStr = writeToPolish(str);

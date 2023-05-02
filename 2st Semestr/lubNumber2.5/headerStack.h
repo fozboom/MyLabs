@@ -8,18 +8,18 @@
 #include <stdbool.h>
 #include <string.h>
 
-union hold{
-    int number;
-    char symbol;
+union hold{                                         //объединение для записи символа или числа в стек
+    int number;                                     //number - число, записываемое в стек
+    char symbol;                                    //symbol - символ, записываемый в стек
 };
 
-struct FILO
+struct FILO                                         //структура стека
 {
-    union hold data;
-    struct FILO *next;
+    union hold data;                                //объединение, записываемое в стек
+    struct FILO *next;                              //указатель на следующий элемент
 };
 
-char* inputStr ();
+
 void printStack (struct FILO *head);
 void push (struct FILO **head, union hold info);
 union hold popStruct (struct FILO **head);
