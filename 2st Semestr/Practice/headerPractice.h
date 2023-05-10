@@ -10,6 +10,7 @@
 
 #define SIZE 6
 
+enum choiceCommand {input, read, write, finish};
 
 long isPrimes (long x);
 void createPrime (long *x);

@@ -255,6 +255,49 @@ build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumb
   TARGET_FILE = labNumber2.6
   TARGET_PDB = labNumber2.6.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target numberSystems
+
+
+#############################################
+# Order-only phony target for numberSystems
+
+build cmake_object_order_depends_target_numberSystems: phony || CMakeFiles/numberSystems.dir
+
+build CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/number$ Systems/mainSystems.c || cmake_object_order_depends_target_numberSystems
+  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/numberSystems.dir
+  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems
+
+build CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/number$ Systems/functionsSystems.c || cmake_object_order_depends_target_numberSystems
+  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/numberSystems.dir
+  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems
+
+build CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_numberSystems
+  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/numberSystems.dir
+  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target numberSystems
+
+
+#############################################
+# Link the executable numberSystems
+
+build numberSystems: C_EXECUTABLE_LINKER__numberSystems_Debug CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/numberSystems.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = numberSystems
+  TARGET_PDB = numberSystems.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -289,7 +332,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6
+build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 numberSystems
 
 # =============================================================================
 # Built-in targets

@@ -101,6 +101,24 @@ void printTree (struct tree *root, int n)
 
 
 
+void inputNumberMas (int** mas, int n)
+{
+    *mas = (int*)calloc(n, sizeof(int));
+    for(int i = 0; i < n; i++)
+        scanf("%d", &(*(*mas + i)));
+}
+
+void outputNumberMas (int* mas, int n)
+{
+    printf("\n");
+    for(int i = 0; i < n; i++)
+        printf("%d", mas[i]);
+}
+
+
+
+
+
 
 
 

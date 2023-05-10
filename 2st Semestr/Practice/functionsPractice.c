@@ -358,5 +358,24 @@ void searchLetterIndex (char **box, int *i, int* j, int n, char s)
     }
 }
 
-
+void choiceTask (char **taskName,  enum choiceCommand* Command, const char* commands[], int *taskIsFound)
+{
+    printf("\nВыберите действие:\n");
+    printf("'input' - ввод данных с клавиатуры\n");
+    printf("'read' - использовать готовые данные из файла\n");
+    printf("'add' - добавить данные в структуру\n");
+    printf("'delete' - удалить данные из структуры\n");
+    printf("'look' - найти людей с определенной болезнью\n");
+    printf("'write' - сохранить данные в  файл\n");
+    printf("'finish' - завершить программу\n");™
+    inputStr(task);
+    for(*doTask = input ; *doTask < finish; (*doTask)++)
+    {
+        if(strcmp(*task, tasks[*doTask]) == 0)
+        {
+            *taskIsFound = true;
+            break;
+        }
+    }
+}
 

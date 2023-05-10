@@ -1,4 +1,3 @@
-
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
@@ -57,7 +56,7 @@ int main()
     return 0;
 }
 */
-int main()
+/*int main()
 {
     char s1 = 'A', s2 = 'B';
     char* mas = NULL;
@@ -75,6 +74,14 @@ int main()
     outputBox(box4, SIZE);
     mas = codingSquare(box1, box2, box3, box4, mas);
     decodeSquare(box1, box2, box3, box4, mas);
+    return 0;
+}*/
+
+int main()
+{
+    const char* commands[] = {"input", "read", "write", "finish"};
+    enum choiceCommand Command;
+
     return 0;
 }
 

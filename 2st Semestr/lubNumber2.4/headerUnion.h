@@ -32,7 +32,10 @@ enum choice {input, read, add, delete, look,  write, finish};
 
 
 void quickSorting(struct child *, int , int , int (*function)(struct child* info, int i, int j));   //функция быстрой сортировки с компаратором
+
 int comparatorSurnames (struct child *info, int i, int j);                                          //компаратор для сортировки в алфавитном порядке фамилий
+int comparatorNames (struct child *info, int i, int j);                                             //компаратор для сортировки в алфавитном порядке имен
+int comparatorAge (struct child *info, int i, int j);                                               //компаратор для сортировки по возрасту
 
 void writeInTekstFile (struct child *info, int n, const char* name);                                //функция записи массива структур в текстовый файл
 void readFromTekstFile (struct child **info, const char* name, int* n);                             //функция чтения информации из текстового файла

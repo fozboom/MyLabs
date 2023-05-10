@@ -20,15 +20,15 @@ struct FILO                                         //структура сте�
 };
 
 
-void printStack (struct FILO *head);
-void push (struct FILO **head, union hold info);
-union hold popStruct (struct FILO **head);
-int ifNumber (char s);
-int ifOperator (char s);
-int poiskNumber (char* mas, int* i);
-int preoritet (char s);
-void repeatProgram(int *end);
+void printStack (struct FILO *head);                //функция вывода элементов стека
+void push (struct FILO **head, union hold info);    //функция занесения элемента в стек
+union hold popStruct (struct FILO **head);          //функция удаления элемента из стека
+int ifNumber (char s);                              //функция проверки символа на число
+int ifOperator (char s);                            //функция проверки элемента на оператор
+int poiskNumber (char* mas, int* i);                //функция поиска числа в строке
+int preoritet (char s);                             //функция определения приоритета операций
+void repeatProgram(int *end);                       //функция для зацикливания программы
 
-int taskBrackets (char* mas);
-char* writeToPolish(char *mas);
-void calculateMath (char* mas);
+int taskBrackets (char* mas);                       //функция проверки на правильности расставленных скобок
+char* writeToPolish(char *mas);                     //функция записи математического выражения польской нотацией
+void calculateMath (char* mas);                     //функция вычисления выражения, записанного польской нотацией

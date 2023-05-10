@@ -40,6 +40,25 @@ int comparatorSurnames (struct child *info, int i, int j)
         return 0;
 }
 
+//компаратор для сортировки в алфавитном порядке имен
+int comparatorNames (struct child *info, int i, int j)
+{
+    int x = strcmp(info[i].firstName, info[j].firstName);
+    if (x < 0)
+        return 1;
+    else
+        return 0;
+}
+
+//компаратор для сортировки по возрасту
+int comparatorAge (struct child *info, int i, int j)
+{
+    if (info[i].age > info[j].age)
+        return 1;
+    else
+        return 0;
+}
+
 
 
 //функция заполнения массива структур с клавиатуры
