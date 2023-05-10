@@ -39,8 +39,8 @@ add_executable(labNumber2.6
         "2st Semestr/myLibrary.c")
 
 add_executable(numberSystems
-        "2st Semestr/number Systems/headerSystems.h"
-        "2st Semestr/number Systems/mainSystems.c"
-        "2st Semestr/number Systems/functionsSystems.c"
+        "2st Semestr/numbersystems/headerSystems.h"
+        "2st Semestr/numbersystems/mainSystems.c"
+        "2st Semestr/numbersystems/functionsSystems.c"
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")

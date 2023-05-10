@@ -264,17 +264,17 @@ build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumb
 
 build cmake_object_order_depends_target_numberSystems: phony || CMakeFiles/numberSystems.dir
 
-build CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/number$ Systems/mainSystems.c || cmake_object_order_depends_target_numberSystems
-  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o.d
+build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/numbersystems/mainSystems.c || cmake_object_order_depends_target_numberSystems
+  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/numberSystems.dir
-  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems
+  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems
 
-build CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/number$ Systems/functionsSystems.c || cmake_object_order_depends_target_numberSystems
-  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o.d
+build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/numbersystems/functionsSystems.c || cmake_object_order_depends_target_numberSystems
+  DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/numberSystems.dir
-  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems
+  OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems
 
 build CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_numberSystems
   DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o.d
@@ -290,7 +290,7 @@ build CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__number
 #############################################
 # Link the executable numberSystems
 
-build numberSystems: C_EXECUTABLE_LINKER__numberSystems_Debug CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/mainSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/number_Systems/functionsSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o
+build numberSystems: C_EXECUTABLE_LINKER__numberSystems_Debug CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/numberSystems.dir
   POST_BUILD = :

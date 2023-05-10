@@ -10,3 +10,5 @@
 int ifNumber (char symbol);
 int ifLetter (char symbol);
 void convertToDecimal (char* num, int n, int* numInDecimal, int system);
+char* convertFromDecimal (int num, int system);
+void reverse (char* str, int i, int j);
