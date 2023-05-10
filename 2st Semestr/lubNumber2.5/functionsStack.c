@@ -182,6 +182,8 @@ char* translateDecimal (char *num)
 
 
 
+
+
 //функция занесения числа или символа в стек
 void push (struct FILO **head, union hold info)
 {
@@ -196,6 +198,8 @@ void push (struct FILO **head, union hold info)
         *head = tmp;
     }
 }
+
+
 
 
 
@@ -218,14 +222,14 @@ union hold popStruct (struct FILO **head)
 
 
 
-
-
 //функция проверки символа на число
 int ifNumber (char s)
 {
     if (s >= '0' && s <= '9') return 1;
     else return 0;
 }
+
+
 
 
 
@@ -236,6 +240,8 @@ int ifOperator (char s)
         return 1;
     else return 0;
 }
+
+
 
 
 
@@ -253,6 +259,8 @@ int poiskNumber (char* mas, int* i)
 
 
 
+
+
 //функция для определения приоритетов операций
 int preoritet (char s)
 {
@@ -267,9 +275,19 @@ int preoritet (char s)
 
 
 
+//функция проверки на скобки
+int ifBracket (char s)
+{
+    if (s == '{' || s == '}' || s == '[' || s == ']')
+        return 1;
+    return 0;
+}
 
 
 
+
+
+//функция для определения парной скобки
 char getBracket (char s)
 {
     if (s == '(')
@@ -287,20 +305,11 @@ char getBracket (char s)
 
 }
 
-//функция для продолжения или завершения программы
-void repeatProgram(int *end)
-{
-    printf("\nЧтобы продолжить введите 0");
-    printf("\nЧтобы завершить введите 1\n");
-    while(!(scanf("%d", end)) || (*end != 0 && *end != 1))
-    {
-        rewind(stdin);
-        printf("\nОшибка ввода числа");
-    }
-    rewind(stdin);
-    system("clear");
-}
 
+
+
+
+//функция выбора команды
 void choiceTask (enum commands *doTask, const char* tasks[], bool *taskIsFound)
 {
     char* task = NULL;
@@ -320,19 +329,25 @@ void choiceTask (enum commands *doTask, const char* tasks[], bool *taskIsFound)
     }
 }
 
+
+
+
+
+//функция перевода числа из десятичной системы счисления в любую
 char* convertFromDecimal (int num, int system)
 {
-    struct FILO *head = NULL;
-    const char digits[] = "0123456789ABCDEF";
-    char* result = (char*)calloc(100, sizeof(char));
-    union hold data;
-    int i = 0;
-    while (num > 0) {
-        data.number = num % system;
+    struct FILO *head = NULL;                                   //head - голова стека
+    const char digits[] = "0123456789ABCDEF";                   //digits - все варианты цифр
+    char* result = (char*)calloc(100, sizeof(char)); //result - число в новой системе
+    union hold data;                                            //объединение для занесения в стек
+    int i = 0;                                                  //параметр цикла
+    while (num > 0)
+    {
+        data.number = num % system;                             //заношу в стек последнюю цифру числа в новой сс
         push(&head, data);
-        num /= system;
+        num /= system;                                          //оставляю число без последней цифры
     }
-    while (head != NULL)
+    while (head != NULL)                                        //выношу все из стека в строку
     {
         data = popStruct(&head);
         result[i++] = digits[data.number];
@@ -344,6 +359,9 @@ char* convertFromDecimal (int num, int system)
 
 
 
+
+
+//функция проверки, можно ли посчитать данное выражение
 void checkMath (char* str)
 {
     int n = strlen(str);
@@ -356,12 +374,7 @@ void checkMath (char* str)
     }
 }
 
-int ifBracket (char s)
-{
-    if (s == '{' || s == '}' || s == '[' || s == ']')
-        return 1;
-    return 0;
-}
+
 
 
 

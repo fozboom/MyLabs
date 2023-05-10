@@ -115,7 +115,19 @@ void outputNumberMas (int* mas, int n)
         printf("%d", mas[i]);
 }
 
-
+//функция для продолжения или завершения программы
+void repeatProgram(int *end)
+{
+    printf("\nЧтобы продолжить введите 0");
+    printf("\nЧтобы завершить введите 1\n");
+    while(!(scanf("%d", end)) || (*end != 0 && *end != 1))
+    {
+        rewind(stdin);
+        printf("\nОшибка ввода числа");
+    }
+    rewind(stdin);
+    system("clear");
+}
 
 
 
