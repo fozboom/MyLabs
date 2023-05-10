@@ -4,37 +4,43 @@
 
 int main()
 {
-    struct FILO *head = NULL;                               //head - голова стека, верхний элемент
-    int end;                                                //end - переменная для продолжения/завершения программы
-    char *str = NULL, *newStr, *task;                       //str - исходное выражение, newStr - выражение польской нотацией
-    printf("Введите математичское выражение ");             //task - переменная для выбора задачи
-    inputStr(&str);                                    //ввод исходного математического выражения
-    if (taskBrackets(str))                             //проверка правильности расставленных скобок
-        printf("Скобки расставлены верно\n");
-    else
+    int end = 1, result;                                        //end - переменная для продолжения/завершения программы, result - результат мат выражения
+    char *str = NULL, *newStr, *strInNewSystem;                 //str - исходное выражение, newStr - выражение польской нотацией
+    const char* tasks[] = {"polish","calculate", "convert", "finish"};
+    enum commands doTask;                                       //tasks - массив команд, doTask - перечисление для читабельности кода
+    bool taskIsFound;                                           //taskIsFound - переменная для проверки правильности введенной команды
+    printf("Введите математическое выражение ");
+    inputStr(&str);                                        //ввод исходного математического выражения
+    taskBrackets(str);                                     //проверка правильности расставленных скобок и исправление
+    checkMath(str);
+    do                                                          //зацикливание программы
     {
-        printf("Скобки расставлены неверно\n");
-        exit(EXIT_FAILURE);
-    }
-    do                                                      //зацикливание программы
-    {
-        printf("Выберите действие:\n");
-        printf("'polish' - записать выражение польской нотацией\n");
-        printf("'calculate' - посчитать значение выражения\n");
-        inputStr(&task);                                //ввод нужной задачи
-        if (strcmp(task, "polish") == 0)                     //команда записи польской нотацией
+        choiceTask(&doTask, tasks, &taskIsFound);               //выбор команды
+        if(taskIsFound)
         {
-            newStr = writeToPolish(str);                //запись польской нотацией в строку newStr
-            outputString(newStr);
+            switch (doTask)
+            {
+                case polish:                                    //команда записи выражения польской нотацией
+                    newStr = writeToPolish(str);           //функция записи польской нотацией в строку newStr
+                    outputString(newStr);                  //функция вывода выражения на экран
+                    break;
+                case calculate:                                 //команда вычисления математического выражения
+                    result = calculateMath(str);           //функция вычисления значения выражения
+                    printf("\nРезультат вычисления данного выражения: %d", result);
+                    break;
+                case convert:                                   //команда перевода результата в любую систему счисления
+                    strInNewSystem = translateDecimal(str);//функция перевода в любую систему счисления
+                    outputString(strInNewSystem);
+                    break;
+                case finish:                                    //команда завершения программы
+                    end = 0;
+                    break;
+            }
         }
-        else if (strcmp(task, "calculate") == 0)             //функция вычисления математического выражения
+        else                                                    //если команда введена неверно, выдать предупреждение
         {
-            newStr = writeToPolish(str);                //запись выражения польской нотацией
-            calculateMath(newStr);                      //вычисление значения выражения
+            printf("\nКоманда введена неверно, попробуйте еще раз\n");
         }
-        else
-            printf("Команда введена неверно");
-        repeatProgram(&end);                                //зацикливание программы
-    } while (!end);
+    } while (end);
     return 0;
 }
