@@ -7,10 +7,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define SIZE 6
+#define N 21
 
-enum choiceCommand {input, read, write, finish};
+struct dataRSA{
+    char str[N];
+    int e;
+    int d;
+    int n;
+};
+
+
+enum choiceCommand {input, createKey, read, encoding, decoding, save, finish};
 
 long isPrimes (long x);
 void createPrime (long *x);
@@ -22,7 +32,7 @@ long NOD (long x, long y);
 
 long powerMod(long x, long y, long n);
 long* coding (char* mas, long e, long n, long* size);
-char* decoding (long* cods, long d, long n, int size);
+//char* decoding (long* cods, long d, long n, int size);
 
 void textRSA(long* code, long size, long d, long n);
 
@@ -37,4 +47,7 @@ int checkLetter (char s);
 void pushRandom (char** box, char s, int i, int j);
 void searchLetterIndex (char **box, int *i, int* j, int n, char s);
 char* codingSquare (char** box1, char** box2, char** box3, char** box4, char *mas);
-void decodeSquare (char** box1, char** box2, char** box3, char** box4, char* mas);
+//void decodeSquare (char** box1, char** box2, char** box3, char** box4, char* mas);
+
+
+void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound);

@@ -128,6 +128,29 @@ void repeatProgram(int *end)
     rewind(stdin);
     system("clear");
 }
+void input2DString (char*** text)
+{
+    printf("\nВведите текст, чтобы завершить ввод введите Enter\n");
+    int i = 0;
+    *text = (char**)calloc(1, sizeof(char*));
+    *(*text + i) = (char*)calloc(80, sizeof(char));
+    do
+    {
+        fgets(*(*text + i), 80, stdin);
+        if(*(*(*text + i)) == '\n') break;
+        deleteSymbolN(&(*(*text + i)));
+        i++;
+        *text = (char**)realloc(*text, (i+1) * sizeof(char*));
+        *(*text + i) = (char*)calloc(80, sizeof(char));
+    }while(true);
+}
+
+void deleteSymbolN (char** str)
+{
+    int n = strlen(*str);
+    *(*str + n - 1) = '\0';
+    *str = (char*)realloc(*str, n * sizeof(char));
+}
 
 
 

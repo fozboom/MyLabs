@@ -89,7 +89,7 @@ long* coding (char* mas, long e, long n, long* size)
     return cods;
 }
 
-char* decoding (long* cods, long d, long n, int size)
+char* tdecoding (long* cods, long d, long n, int size)
 {
     char* mas = (char*)calloc(size, sizeof(char));
     for(int i = 0; i < n; i++)
@@ -133,7 +133,7 @@ char* antiTextRSA (long* code, long d, long n, long size)
         printf("\nФайла с таким именем не найден\n");
         exit(EXIT_FAILURE);
     }
-    str = decoding(code, d, n, strlen(str));
+    //str = decoding(code, d, n, strlen(str));
 }
 
 
@@ -358,24 +358,29 @@ void searchLetterIndex (char **box, int *i, int* j, int n, char s)
     }
 }
 
-void choiceTask (char **taskName,  enum choiceCommand* Command, const char* commands[], int *taskIsFound)
+//функция выбора команды
+void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound)
 {
+    char* task = NULL;
     printf("\nВыберите действие:\n");
-    printf("'input' - ввод данных с клавиатуры\n");
-    printf("'read' - использовать готовые данные из файла\n");
-    printf("'add' - добавить данные в структуру\n");
-    printf("'delete' - удалить данные из структуры\n");
-    printf("'look' - найти людей с определенной болезнью\n");
-    printf("'write' - сохранить данные в  файл\n");
-    printf("'finish' - завершить программу\n");™
-    inputStr(task);
-    for(*doTask = input ; *doTask < finish; (*doTask)++)
+    printf("'input' - ввод текста, который необходимо закодировать\n");
+    printf("'createKey' - создать публичный и приватный ключ\n");
+    printf("'read' - считать текст из файла\n");
+    printf("'encoding' - закодировать текст\n");
+    printf("'decoding' - раскодировать текст\n");
+    printf("'save' - сохранить зашифрованный текст в файл\n");
+    printf("'finish' - завершить программу\n");
+    inputStr(&task);
+    for(*doTask = input; *doTask < finish; (*doTask)++)
     {
-        if(strcmp(*task, tasks[*doTask]) == 0)
+        if(strcmp(task, tasks[*doTask]) == 0)
         {
             *taskIsFound = true;
             break;
         }
     }
 }
+
+
+
 

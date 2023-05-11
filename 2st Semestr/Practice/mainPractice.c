@@ -79,9 +79,42 @@ int main()
 
 int main()
 {
-    const char* commands[] = {"input", "read", "write", "finish"};
-    enum choiceCommand Command;
+    const char* commands[] = {"input", "createKey", "read", "encoding", "decoding", "save", "finish"};
+    enum choiceCommand command;
+    int end = 1;
+    char **text = NULL;
+    bool taskIsFound;
+    do
+    {
+        choiceTask(&command, commands, &taskIsFound);
+        if (taskIsFound)
+        {
+            switch(command)
+            {
+                case input:
+                    input2DString(&text);
+                    break;
+                case createKey:
+                    break;
+                case read:
+                    break;
+                case encoding:
+                    break;
+                case decoding:
+                    break;
+                case save:
+                    break;
+                case finish:
+                    end = 0;
+                    break;
+            }
+        }
+        else
+        {
+            printf("\nКоманда введена неверно, попробуй еще раз\n");
+        }
 
+    }while(end);
     return 0;
 }
 
