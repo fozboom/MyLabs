@@ -152,6 +152,31 @@ void deleteSymbolN (char** str)
     *str = (char*)realloc(*str, n * sizeof(char));
 }
 
+void readIn2DString (char*** text)
+{
+    FILE* file;
+    int i = 0;
+    char* fileName = NULL;
+    printf("\nВведите имя файла: ");
+    inputStr(&fileName);
+    file = fopen(fileName, "r");
+    if(file == NULL)
+    {
+       printf("\nОшибка открытия файла\n");
+       exit(EXIT_FAILURE);
+    }
+    *text = (char**)calloc(1, sizeof(char*));
+    *(*text + i) = (char*)calloc(80, sizeof(char));
+    while(fgets(*(*text + i), 80, file) != NULL)
+    {
+        deleteSymbolN(&(*(*text + i)));
+        i++;
+        *text = (char**)realloc(*text, i * sizeof(char*));
+        *(*text + i) = (char*)calloc(80, sizeof(char));
+
+    }
+
+}
 
 
 

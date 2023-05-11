@@ -95,8 +95,10 @@ int main()
                     input2DString(&text);
                     break;
                 case createKey:
+
                     break;
                 case read:
+                    readIn2DString(&text);
                     break;
                 case encoding:
                     break;
