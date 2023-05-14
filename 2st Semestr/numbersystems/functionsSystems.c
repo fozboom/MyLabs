@@ -8,15 +8,15 @@ void convertToDecimal (char* num, int n, int* numInDecimal, int system)
     {
         int number;
         if (ifNumber(num[i])) {
-            number = num[i] - '0';
+            number = num[i] - '0';                  //перевод число
         }
 
         else
         {
-            number = (int)(num[i] - 'A' + 10);
+            number = (int)(num[i] - 'A' + 10);      //перевод буквы в число
         }
 
-        *numInDecimal += number * power;
+        *numInDecimal += number * power;            //запись цифры
         power *= system;
     }
 
@@ -26,17 +26,18 @@ void convertToDecimal (char* num, int n, int* numInDecimal, int system)
 
 char* convertFromDecimal (int num, int system)
 {
-    const char digits[] = "0123456789ABCDEF";
-    char* result = (char*)calloc(100, sizeof(char));
+    const char digits[] = "0123456789ABCDEF";                           //массив для определения буквы/цифры
+    char* result = (char*)calloc(100, sizeof(char));         //результат
     int i = 0;
-    while (num > 0) {
-        int digit = num % system;
-        result[i++] = digits[digit];
-        num /= system;
+    while (num > 0)
+    {
+        int digit = num % system;                                       //берем цифру с конца
+        result[i++] = digits[digit];                                    //заносим цифру в массив
+        num /= system;                                                  //удаляем крайнюю цифру
     }
     result = (char*)realloc(result, (++i) * sizeof(char));
     result[i-1] = '\0';
-    reverse(result, 0, i-2);
+    reverse(result, 0, i-2);                                    //реверс строки
     return result;
 }
 
@@ -57,7 +58,7 @@ int ifLetter (char symbol)
         return 0;
 }
 
-void reverse (char* str, int i, int j)
+void reverse (char* str, int i, int j)      
 {
     if (j < i)
         return;

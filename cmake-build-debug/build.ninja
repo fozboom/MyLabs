@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/
+cmake_ninja_workdir = /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target labNumber2.4
 
@@ -49,23 +49,29 @@ cmake_ninja_workdir = /Users/fozboom/CLionProjects/myLabs/cmake-build-debug/
 
 build cmake_object_order_depends_target_labNumber2.4: phony || CMakeFiles/labNumber2.4.dir
 
-build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4/mainUnion.c || cmake_object_order_depends_target_labNumber2.4
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4/mainUnion.c || cmake_object_order_depends_target_labNumber2.4
   DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/mainUnion.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.4.dir/
+  TARGET_PDB = labNumber2.4.pdb
 
-build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4/functionsUnion.c || cmake_object_order_depends_target_labNumber2.4
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.4/functionsUnion.c || cmake_object_order_depends_target_labNumber2.4
   DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4/functionsUnion.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr/lubNumber2.4
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.4.dir/
+  TARGET_PDB = labNumber2.4.pdb
 
-build CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4
+build CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e4_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.4
   DEP_FILE = CMakeFiles/labNumber2.4.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.4.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.4.dir/
+  TARGET_PDB = labNumber2.4.pdb
 
 
 # =============================================================================
@@ -80,8 +86,9 @@ build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumb
   OBJECT_DIR = CMakeFiles/labNumber2.4.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.4.dir/
   TARGET_FILE = labNumber2.4
-  TARGET_PDB = labNumber2.4.dbg
+  TARGET_PDB = labNumber2.4.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target labNumber2.5
@@ -92,23 +99,29 @@ build labNumber2.4: C_EXECUTABLE_LINKER__labNumber2.2e4_Debug CMakeFiles/labNumb
 
 build cmake_object_order_depends_target_labNumber2.5: phony || CMakeFiles/labNumber2.5.dir
 
-build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.5/mainStack.c || cmake_object_order_depends_target_labNumber2.5
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.5/mainStack.c || cmake_object_order_depends_target_labNumber2.5
   DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/mainStack.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.5.dir/
+  TARGET_PDB = labNumber2.5.pdb
 
-build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber2.5/functionsStack.c || cmake_object_order_depends_target_labNumber2.5
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.5/functionsStack.c || cmake_object_order_depends_target_labNumber2.5
   DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5/functionsStack.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr/lubNumber2.5
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.5.dir/
+  TARGET_PDB = labNumber2.5.pdb
 
-build CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.5
+build CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e5_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.5
   DEP_FILE = CMakeFiles/labNumber2.5.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.5.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.5.dir/
+  TARGET_PDB = labNumber2.5.pdb
 
 
 # =============================================================================
@@ -123,8 +136,9 @@ build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumb
   OBJECT_DIR = CMakeFiles/labNumber2.5.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.5.dir/
   TARGET_FILE = labNumber2.5
-  TARGET_PDB = labNumber2.5.dbg
+  TARGET_PDB = labNumber2.5.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Practice
@@ -135,23 +149,29 @@ build labNumber2.5: C_EXECUTABLE_LINKER__labNumber2.2e5_Debug CMakeFiles/labNumb
 
 build cmake_object_order_depends_target_Practice: phony || CMakeFiles/Practice.dir
 
-build CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Practice/functionsPractice.c || cmake_object_order_depends_target_Practice
+build CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/Practice/functionsPractice.c || cmake_object_order_depends_target_Practice
   DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/Practice/functionsPractice.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Practice.dir
   OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr/Practice
+  TARGET_COMPILE_PDB = CMakeFiles/Practice.dir/
+  TARGET_PDB = Practice.pdb
 
-build CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Practice/mainPractice.c || cmake_object_order_depends_target_Practice
+build CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o: C_COMPILER__Practice_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/Practice/mainPractice.c || cmake_object_order_depends_target_Practice
   DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/Practice/mainPractice.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Practice.dir
   OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr/Practice
+  TARGET_COMPILE_PDB = CMakeFiles/Practice.dir/
+  TARGET_PDB = Practice.pdb
 
-build CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Practice_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Practice
+build CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Practice_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Practice
   DEP_FILE = CMakeFiles/Practice.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Practice.dir
   OBJECT_FILE_DIR = CMakeFiles/Practice.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/Practice.dir/
+  TARGET_PDB = Practice.pdb
 
 
 # =============================================================================
@@ -166,8 +186,9 @@ build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_
   OBJECT_DIR = CMakeFiles/Practice.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Practice.dir/
   TARGET_FILE = Practice
-  TARGET_PDB = Practice.dbg
+  TARGET_PDB = Practice.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lections
@@ -178,23 +199,29 @@ build Practice: C_EXECUTABLE_LINKER__Practice_Debug CMakeFiles/Practice.dir/2st_
 
 build cmake_object_order_depends_target_Lections: phony || CMakeFiles/Lections.dir
 
-build CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Lections/mainLections.c || cmake_object_order_depends_target_Lections
+build CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/Lections/mainLections.c || cmake_object_order_depends_target_Lections
   DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/Lections/mainLections.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Lections.dir
   OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr/Lections
+  TARGET_COMPILE_PDB = CMakeFiles/Lections.dir/
+  TARGET_PDB = Lections.pdb
 
-build CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/Lections/functionsLections.c || cmake_object_order_depends_target_Lections
+build CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o: C_COMPILER__Lections_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/Lections/functionsLections.c || cmake_object_order_depends_target_Lections
   DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/Lections/functionsLections.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Lections.dir
   OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr/Lections
+  TARGET_COMPILE_PDB = CMakeFiles/Lections.dir/
+  TARGET_PDB = Lections.pdb
 
-build CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Lections_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Lections
+build CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__Lections_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_Lections
   DEP_FILE = CMakeFiles/Lections.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/Lections.dir
   OBJECT_FILE_DIR = CMakeFiles/Lections.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/Lections.dir/
+  TARGET_PDB = Lections.pdb
 
 
 # =============================================================================
@@ -209,8 +236,9 @@ build Lections: C_EXECUTABLE_LINKER__Lections_Debug CMakeFiles/Lections.dir/2st_
   OBJECT_DIR = CMakeFiles/Lections.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lections.dir/
   TARGET_FILE = Lections
-  TARGET_PDB = Lections.dbg
+  TARGET_PDB = Lections.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target labNumber2.6
@@ -221,23 +249,29 @@ build Lections: C_EXECUTABLE_LINKER__Lections_Debug CMakeFiles/Lections.dir/2st_
 
 build cmake_object_order_depends_target_labNumber2.6: phony || CMakeFiles/labNumber2.6.dir
 
-build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/mainRing.c || cmake_object_order_depends_target_labNumber2.6
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/mainRing.c || cmake_object_order_depends_target_labNumber2.6
   DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.6.dir/
+  TARGET_PDB = labNumber2.6.pdb
 
-build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/functionsRing.c || cmake_object_order_depends_target_labNumber2.6
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/functionsRing.c || cmake_object_order_depends_target_labNumber2.6
   DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.6.dir/
+  TARGET_PDB = labNumber2.6.pdb
 
-build CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.6
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.6
   DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
   OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.6.dir/
+  TARGET_PDB = labNumber2.6.pdb
 
 
 # =============================================================================
@@ -252,8 +286,9 @@ build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumb
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/labNumber2.6.dir/
   TARGET_FILE = labNumber2.6
-  TARGET_PDB = labNumber2.6.dbg
+  TARGET_PDB = labNumber2.6.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target numberSystems
@@ -264,23 +299,29 @@ build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumb
 
 build cmake_object_order_depends_target_numberSystems: phony || CMakeFiles/numberSystems.dir
 
-build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/numbersystems/mainSystems.c || cmake_object_order_depends_target_numberSystems
+build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/numbersystems/mainSystems.c || cmake_object_order_depends_target_numberSystems
   DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/mainSystems.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/numberSystems.dir
   OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems
+  TARGET_COMPILE_PDB = CMakeFiles/numberSystems.dir/
+  TARGET_PDB = numberSystems.pdb
 
-build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/numbersystems/functionsSystems.c || cmake_object_order_depends_target_numberSystems
+build CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/numbersystems/functionsSystems.c || cmake_object_order_depends_target_numberSystems
   DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems/functionsSystems.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/numberSystems.dir
   OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr/numbersystems
+  TARGET_COMPILE_PDB = CMakeFiles/numberSystems.dir/
+  TARGET_PDB = numberSystems.pdb
 
-build CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_numberSystems
+build CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__numberSystems_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_numberSystems
   DEP_FILE = CMakeFiles/numberSystems.dir/2st_Semestr/myLibrary.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/numberSystems.dir
   OBJECT_FILE_DIR = CMakeFiles/numberSystems.dir/2st_Semestr
+  TARGET_COMPILE_PDB = CMakeFiles/numberSystems.dir/
+  TARGET_PDB = numberSystems.pdb
 
 
 # =============================================================================
@@ -295,15 +336,16 @@ build numberSystems: C_EXECUTABLE_LINKER__numberSystems_Debug CMakeFiles/numberS
   OBJECT_DIR = CMakeFiles/numberSystems.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/numberSystems.dir/
   TARGET_FILE = numberSystems
-  TARGET_PDB = numberSystems.dbg
+  TARGET_PDB = numberSystems.pdb
 
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/fozboom/CLionProjects/myLabs/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd "/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug" && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -314,7 +356,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/fozboom/CLionProjects/myLabs/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/fozboom/CLionProjects/myLabs -B/Users/fozboom/CLionProjects/myLabs/cmake-build-debug
+  COMMAND = cd "/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug" && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S"/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs" -B"/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -330,7 +372,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/fozboom/CLionProjects/myLabs/cmake-build-debug
+# Folder: /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug
 
 build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 numberSystems
 
@@ -341,14 +383,14 @@ build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 number
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /Users/fozboom/CLionProjects/myLabs/CMakeLists.txt CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompileFeatures.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/CMakeLists.txt CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /Users/fozboom/CLionProjects/myLabs/CMakeLists.txt CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompileFeatures.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/CMakeLists.txt CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
 
 
 #############################################

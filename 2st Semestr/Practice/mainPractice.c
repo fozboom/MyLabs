@@ -82,8 +82,9 @@ int main()
     const char* commands[] = {"input", "createKey", "read", "encoding", "decoding", "save", "finish"};
     enum choiceCommand command;
     int end = 1;
-    char **text = NULL;
+    char **text = NULL, **box1, **box2, **box3, **box4;
     bool taskIsFound;
+    createBoxes(&box1, &box2, &box3, &box4, SIZE);
     do
     {
         choiceTask(&command, commands, &taskIsFound);
@@ -95,7 +96,7 @@ int main()
                     input2DString(&text);
                     break;
                 case createKey:
-
+                    createKeyCoding(box2, box3);
                     break;
                 case read:
                     readIn2DString(&text);

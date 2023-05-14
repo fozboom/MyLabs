@@ -2,7 +2,7 @@
 #include "../myLibrary.h"
 
 int main() {
-    char* num = NULL;
+    char* num = NULL;                   //num - исходное выражение, system1, system2 - системы счисления, decimal - значение в десятичной
     int system1, system2, decimal = 0;
 
     printf("Введите число: ");
@@ -14,9 +14,9 @@ int main() {
     printf("Введите систему счисления, в которую надо перевести  число: ");
     inputInt(&system2, 2, 16);
 
-    convertToDecimal(num, strlen(num), &decimal, system1);
-    printf("\n%d", decimal);
-    num = convertFromDecimal(decimal, system2);
+    convertToDecimal(num, strlen(num), &decimal, system1);          //перевод в десятичную
+    //printf("\n%d", decimal);
+    num = convertFromDecimal(decimal, system2);                                  //перевод в систему system2
     outputString(num);
 
     return 0;

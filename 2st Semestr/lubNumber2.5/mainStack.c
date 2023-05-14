@@ -13,15 +13,15 @@
 
 int main()
 {
-    int end = 1, result;                                        //end - переменная для продолжения/завершения программы, result - результат мат выражения
+    int result;                                                 //end - переменная для продолжения/завершения программы, result - результат мат выражения
     char *str = NULL, *newStr, *strInNewSystem;                 //str - исходное выражение, newStr - выражение польской нотацией
     const char* tasks[] = {"polish","calculate", "convert", "finish"};
     enum commands doTask;                                       //tasks - массив команд, doTask - перечисление для читабельности кода
-    bool taskIsFound;                                           //taskIsFound - переменная для проверки правильности введенной команды
+    bool taskIsFound, end = true;                               //taskIsFound - переменная для проверки правильности введенной команды
+
     printf("Введите математическое выражение ");
     inputStr(&str);                                        //ввод исходного математического выражения
     taskBrackets(str);                                     //проверка правильности расставленных скобок и исправление
-    checkMath(str);
     do                                                          //зацикливание программы
     {
         choiceTask(&doTask, tasks, &taskIsFound);               //выбор команды
@@ -42,7 +42,7 @@ int main()
                     outputString(strInNewSystem);
                     break;
                 case finish:                                    //команда завершения программы
-                    end = 0;
+                    end = false;
                     break;
             }
         }
@@ -51,5 +51,6 @@ int main()
             printf("\nКоманда введена неверно, попробуйте еще раз\n");
         }
     } while (end);
+    freeMemory (str, newStr, strInNewSystem);
     return 0;
 }

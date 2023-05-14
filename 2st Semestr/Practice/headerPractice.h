@@ -12,11 +12,14 @@
 #define SIZE 6
 #define N 21
 
-struct dataRSA{
-    char str[N];
-    int e;
-    int d;
-    int n;
+struct dataCode{
+    char fileName[N];
+    long e;
+    long d;
+    long n;
+    bool flag;
+    char box2[SIZE][SIZE];
+    char box3[SIZE][SIZE];
 };
 
 
@@ -51,3 +54,5 @@ char* codingSquare (char** box1, char** box2, char** box3, char** box4, char *ma
 
 
 void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound);
+
+void createKeyCoding (char **box2, char **box3);

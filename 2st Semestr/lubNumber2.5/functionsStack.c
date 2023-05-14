@@ -42,6 +42,7 @@ void taskBrackets (char* mas)
         popStruct(&head);
     }
     outputString(mas);                                          //вывод выражения на экран
+    checkMath(mas);
 }
 
 
@@ -110,12 +111,12 @@ int calculateMath (char* str)
     int i = 0;                                          //i - параметр цикла по строке, result - результат выполнения операции над n1 и n2
     while(mas[i] != '\0')                               //пока не конец строки
     {
-        if (ifNumber(mas[i]))                       //если число - заношу его в стек
+        if (ifNumber(mas[i]))                        //если число - заношу его в стек
         {
             result.number = poiskNumber(mas, &i);
             push(&head, result);
         }
-        else if (ifOperator(mas[i]))                //если оператор, удаляю два числа из стека и выполняю операцию
+        else if (ifOperator(mas[i]))                 //если оператор, удаляю два числа из стека и выполняю операцию
         {
             if (mas[i] == '+') {
                 n1 = popStruct(&head);                  //удаляю первое число
@@ -372,6 +373,13 @@ void checkMath (char* str)
             exit(EXIT_FAILURE);
         }
     }
+}
+
+void freeMemory (char* str, char* newStr, char* strInNewSystem)
+{
+    free(str);
+    free(newStr);
+    free(strInNewSystem);
 }
 
 

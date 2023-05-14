@@ -381,6 +381,56 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     }
 }
 
+void createKeyCoding (char **box2, char **box3)
+{
+    char* task = NULL;
+    int flag;
+    long p, q, fi;
+    struct dataCode key;
+    printf("\nДля какого алгоритма шифрования вы хотите создать ключ?\n");
+    printf("'RSA' - шифрование алгоритмом RSA\n");
+    printf("'Square' - шифрование алгоритмом четырех квадратов\n");
+    do
+    {
+        printf("Введите название алгоритма: ");
+        inputStr(&task);
+        if (strcmp(task, "RSA") == 0)
+        {
+            flag = 1;
+        } else if (strcmp(task, "Square") == 0)
+        {
+            flag = 0;
+        } else
+        {
+            printf("\nКоманда введена неверно");
+            flag = 2;
+        }
+    }while(flag == 2);
+
+    if(flag)
+    {
+        do
+        {
+            printf("\nВведите простое число p - ");
+            scanf("%ld", &p);
+        }while(!isPrimes(p));
+        do
+        {
+            printf("\nВведите простое число q - ");
+            scanf("%ld", &q);
+        }while(!isPrimes(q));
+        key.n = p*q;
+        fi = (p-1)*(q-1);
+        createEilerNumber(&(key.e), fi);
+        search_d(&(key.d), key.e, fi);
+    }
+    else
+    {
+        writeBox(box2, SIZE);
+        writeBox(box3, SIZE);
+    }
+}
+
 
 
 

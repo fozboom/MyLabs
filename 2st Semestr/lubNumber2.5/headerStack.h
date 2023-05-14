@@ -42,6 +42,7 @@ char* translateDecimal (char *num);                 //функция перев�
 void choiceTask (enum commands *doTask, const char* tasks[], bool *taskIsFound);
 char* convertFromDecimal (int num, int system);     //функция перевода числа из десятичной системы в любую через стек
 void checkMath (char* str);                         //функция проверки, можно ли посчитать это выражение
+void freeMemory (char* str, char* newStr, char* strInNewSystem);
 
 
 
