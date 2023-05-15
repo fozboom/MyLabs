@@ -77,14 +77,17 @@ long powerMod(long x, long y, long n)
 }
 
 
-long* coding (char* mas, long e, long n, long* size)
+long* coding (char* mas, long e, long n)
 {
-    long *cods = (long*)calloc(strlen(mas), sizeof(long));
+    int j = 1;
+    long size = strlen(mas);
+    long *cods = (long*)calloc(size + 1, sizeof(long));
+    cods[0] = size + 1;
     for (int i = 0; mas[i] != '\0'; i++)
     {
         long s = (long)(mas[i]);
-        cods[i] = powerMod(s, e, n);
-        (*size)++;
+        cods[j] = powerMod(s, e, n);
+        j++;
     }
     return cods;
 }
@@ -189,7 +192,7 @@ void writeBox (char** box, int n)
             k++;
         }
     }
-    outputBox(box, SIZE);
+    //outputBox(box, SIZE);
     pushRandom (box, ' ', 4, 2);
     pushRandom (box, ';', 4, 3);
     pushRandom (box, '!', 4, 4);
@@ -200,7 +203,7 @@ void writeBox (char** box, int n)
     pushRandom (box, ')', 5, 3);
     pushRandom (box, '-', 5, 4);
     pushRandom (box, ':', 5, 5);
-    outputBox(box, SIZE);
+    //outputBox(box, SIZE);
 
 }
 
@@ -370,6 +373,7 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     printf("'decoding' - раскодировать текст\n");
     printf("'save' - сохранить зашифрованный текст в файл\n");
     printf("'finish' - завершить программу\n");
+    rewind(stdin);
     inputStr(&task);
     for(*doTask = input; *doTask < finish; (*doTask)++)
     {
@@ -381,7 +385,7 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     }
 }
 
-void createKeyCoding (char **box2, char **box3)
+struct dataCode createKeyCoding (char **box2, char **box3)
 {
     char* task = NULL;
     int flag;
@@ -428,6 +432,47 @@ void createKeyCoding (char **box2, char **box3)
     {
         writeBox(box2, SIZE);
         writeBox(box3, SIZE);
+    }
+    return key;
+}
+
+void encodingText (char** text, int n, struct dataCode key)
+{
+    char* task = NULL;
+    int flag;
+    long **code = (long**)calloc(n, sizeof(long*));
+    printf("\nВведите название алгоритма, каким вы хотите закодировать текст");
+    printf("\n'RSA' - закодировать алгоритмом RSA");
+    printf("\n'Square' - закодировать алгоритмом четырех квадратов");
+    do
+    {
+        printf("\nВведите название алгоритма: ");
+        inputStr(&task);
+        if (strcmp(task, "RSA") == 0)
+        {
+            flag = 1;
+        }
+        else if (strcmp(task, "Square") == 0)
+        {
+            flag = 0;
+        }
+        else
+        {
+            printf("\nНазвание алгоритма неверное");
+            flag = 2;
+        }
+    }while(flag == 2);
+
+    if (flag)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            code[i] = coding(text[i], key.e, key.n);
+        }
+    }
+    for(int i = 0; i < n; i++)
+    {
+        outputMasNumbers(code[i]);
     }
 }
 

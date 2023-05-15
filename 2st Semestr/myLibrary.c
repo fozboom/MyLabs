@@ -5,16 +5,18 @@ void outputString(char* mas)
 {
     printf("\n");
     for(int i = 0; mas[i] != '\0'; i++)
-        printf("%c", mas[i]);
+        printf("\033[1;32m\033[1m%c\033[0m", mas[i]);
+
     printf("\n");
 }
 
 
 
 //функция вывода массива чисел
-void outputMasNumbers (long* mas, long n)
+void outputMasNumbers (long* mas)
 {
-    for(int i = 0; i < n; i++)
+    printf("\n");
+    for(int i = 0; i < mas[0]; i++)
         printf("%ld ", mas[i]);
 }
 
@@ -128,7 +130,7 @@ void repeatProgram(int *end)
     rewind(stdin);
     system("clear");
 }
-void input2DString (char*** text)
+void input2DString (char*** text, int* n)
 {
     printf("\nВведите текст, чтобы завершить ввод введите Enter\n");
     int i = 0;
@@ -143,6 +145,7 @@ void input2DString (char*** text)
         *text = (char**)realloc(*text, (i+1) * sizeof(char*));
         *(*text + i) = (char*)calloc(80, sizeof(char));
     }while(true);
+    *n = i;
 }
 
 void deleteSymbolN (char** str)
@@ -152,7 +155,7 @@ void deleteSymbolN (char** str)
     *str = (char*)realloc(*str, n * sizeof(char));
 }
 
-void readIn2DString (char*** text)
+void readIn2DString (char*** text, int* n)
 {
     FILE* file;
     int i = 0;
@@ -171,11 +174,20 @@ void readIn2DString (char*** text)
     {
         deleteSymbolN(&(*(*text + i)));
         i++;
-        *text = (char**)realloc(*text, i * sizeof(char*));
+        *text = (char**)realloc(*text, (i+1) * sizeof(char*));
         *(*text + i) = (char*)calloc(80, sizeof(char));
-
     }
-
+    *n = i;
+    *text = (char**)realloc(*text, (*n) * sizeof(char*));
+}
+int proverka (char* mas)
+{
+    for(int i = 0; mas[i] != '\0'; i++)
+    {
+        if(mas[i] != ' ')
+            return 0;
+    }
+    return 1;
 }
 
 

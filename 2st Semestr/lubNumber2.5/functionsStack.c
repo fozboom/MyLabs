@@ -40,6 +40,12 @@ void taskBrackets (char* mas)
     {
         mas[head->index] = ' ';                                 //удаляю лишнюю скобку
         popStruct(&head);
+
+    }
+    printf("Исправленное математическое выражение:");
+    if(proverka(mas))
+    {
+        printf("\n\033[1;41m\033[1mВыражение пустое\033[0m");
     }
     outputString(mas);                                          //вывод выражения на экран
     checkMath(mas);

@@ -34,14 +34,14 @@ long power (long x, long n);
 long NOD (long x, long y);
 
 long powerMod(long x, long y, long n);
-long* coding (char* mas, long e, long n, long* size);
+long* coding (char* mas, long e, long n);
 //char* decoding (long* cods, long d, long n, int size);
 
 void textRSA(long* code, long size, long d, long n);
 
 
 
-void writeBox (char** box, int n);
+void writeBox (char **box, int n);
 void outputBox (char** box, int n);
 void readInfo (char** box, int n, const char* name);
 void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n);
@@ -55,4 +55,5 @@ char* codingSquare (char** box1, char** box2, char** box3, char** box4, char *ma
 
 void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound);
 
-void createKeyCoding (char **box2, char **box3);
+struct dataCode createKeyCoding (char **box2, char **box3);
+void encodingText (char** text, int n, struct dataCode key);
