@@ -20,6 +20,16 @@ void outputMasNumbers (long* mas)
         printf("%ld ", mas[i]);
 }
 
+void output2DString (char** mas, int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        printf("\n");
+        for(int j = 0; mas[i][j] != '\0'; j++)
+            printf("%c", mas[i][j]);
+    }
+}
+
 
 
 //функция ввода числа с првоеркой
@@ -189,6 +199,22 @@ int proverka (char* mas)
     }
     return 1;
 }
+
+void output2DNumbers (long** mas, long n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        printf("\n");
+        for(int j = 0; j < mas[i][0]; j++)
+            printf("%ld ", mas[i][j]);
+    }
+}
+
+
+
+
+
+
 
 
 

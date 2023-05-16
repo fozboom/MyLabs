@@ -82,10 +82,12 @@ int main()
     const char* commands[] = {"input", "createKey", "read", "encoding", "decoding", "save", "finish"};
     enum choiceCommand command;
     int end = 1, n;
-    char **text = NULL, **box1, **box2, **box3, **box4;
+    char **text = NULL, **box1, **box2, **box3, **box4, **newText;
     bool taskIsFound;
-    struct dataCode key;
+    struct dataCode* keys;
+    long **codeText = NULL, countKeys;
     createBoxes(&box1, &box2, &box3, &box4, SIZE);
+    readStructInfo(&keys, &countKeys);
     do
     {
         choiceTask(&command, commands, &taskIsFound);
@@ -96,20 +98,23 @@ int main()
                 case input:
                     input2DString(&text, &n);
                     break;
-                case createKey:
-                    key = createKeyCoding(box2, box3);
-                    break;
                 case read:
                     readIn2DString(&text, &n);
                     break;
                 case encoding:
-                    encodingText(text, n, key);
+                    encodingText(text, n, &codeText, &newText);
+                    if(codeText != NULL)
+                        output2DNumbers(codeText, n);
+                    else
+                        output2DString(newText, n);
                     break;
                 case decoding:
+                    decodingText(codeText, newText, keys, countKeys, )
                     break;
                 case save:
                     break;
                 case finish:
+                    saveStructInfo(keys, countKeys);
                     end = 0;
                     break;
             }
@@ -122,4 +127,30 @@ int main()
     }while(end);
     return 0;
 }
+
+/*int main()
+{
+    struct dataCode* keys = (struct dataCode*)calloc(3, sizeof(struct dataCode));
+    long count;
+   *//* strcpy(keys[0].fileName, "one");
+    keys[0].flag = 1;
+    keys[0].e = 324;
+    keys[0].d = 16;
+    keys[0].n = 412;
+    strcpy(keys[1].fileName, "");
+    keys[1].flag = 1;
+    keys[1].e = 34;
+    keys[1].d = 1;
+    keys[1].n = 4902;
+    strcpy(keys[2].fileName, "one");
+    keys[2].flag = 1;
+    keys[2].e = 324;
+    keys[2].d = 165;
+    keys[2].n = 42;
+
+    saveStructInfo(keys, 3);*//*
+    readStructInfo(&keys, &count);
+    printf(" ");
+    return 0;
+}*/
 
