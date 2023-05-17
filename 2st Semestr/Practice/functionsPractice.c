@@ -335,22 +335,23 @@ char** codingSquare (char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZ
 
 
 
-void decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char** text, int rows)
+char** decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char** text, long rows)
 {
-    for (int i = 0; i < rows; i++)
+    for (int c = 0; c < rows; c++)
     {
-        int j = 0, k = 0, l = 0, n = strlen(text[i]);
+        int i = 0, j = 0, k = 0, l = 0, n = strlen(text[c]);
         for (int z = 0; z < n; z++)
         {
-            searchLetterIndex(box2, &j, &k, SIZE, text[i][z]);
-            searchLetterIndex(box3, &l, &j, SIZE, text[i][z + 1]);
-            char x1 = box1[j][l];
+            searchLetterIndex(box2, &i, &j, SIZE, text[c][z]);
+            searchLetterIndex(box3, &k, &l, SIZE, text[c][z + 1]);
+            char x1 = box1[i][l];
             char x2 = box4[k][j];
-            text[i][z] = x1;
-            text[i][z + 1] = x2;
+            text[c][z] = x1;
+            text[c][z + 1] = x2;
             z++;
         }
     }
+    return text;
 }
 
 
@@ -362,7 +363,7 @@ int checkLetter (char s)
     return flag;
 }
 
-void pushRandom (char** box, char s, int i, int j)
+void pushRandom (char box[SIZE][SIZE], char s, int i, int j)
 {
     int l, m;
     srand(time(NULL));
@@ -376,7 +377,7 @@ void pushRandom (char** box, char s, int i, int j)
 }
 
 
-void searchLetterIndex (char **box, int *i, int* j, int n, char s)
+void searchLetterIndex (char box[SIZE][SIZE], int *i, int* j, int n, char s)
 {
     int flag = 0;
     for ((*i) = 0; (*i) < n; (*i)++)
@@ -489,7 +490,7 @@ struct dataCode createKeyCoding (char **box2, char **box3)
     return key;
 }
 
-void encodingText (char** text, int n, long ***codeText, char ***newText)
+struct dataCode encodingText (char** text, int n, long ***codeText, char ***newText)
 {
     struct dataCode key;
     char* task = NULL;
@@ -576,8 +577,8 @@ void encodingText (char** text, int n, long ***codeText, char ***newText)
         code = NULL;
     }
     *newText = codingText;
-
     *codeText = code;
+    return key;
 }
 
 
@@ -623,7 +624,7 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
                     }
                 }
 
-                decodingRSA(codeText, keys[i].d, keys[i].n, rows);
+                text = decodingRSA(codeText, keys[i].d, keys[i].n, rows);
 
                 // Не забудьте освободить память после использования
                 for (long j = 0; j < rows; j++)
@@ -643,14 +644,9 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
                     newText[j][strcspn(newText[j], "\n")] = '\0'; // Удаляем символ новой строки
                 }
 
-                decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, rows);
+                text = decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, rows);
 
-                // Не забудьте освободить память после использования
-                for (long j = 0; j < rows; j++)
-                {
-                    free(newText[j]);
-                }
-                free(newText);
+
             }
 
             fclose(file);
@@ -664,6 +660,7 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
     {
         printf("\n\033[1;41m\033[1m\nФайл с таким именем не найден\033[0m");
     }
+    return text;
 }
 
 
@@ -697,11 +694,8 @@ void readStructInfo(struct dataCode** key, long* count)
         printf("\n\033[1;41m\033[1m\nОшибка при открытии бинарного файла для чтения ключей\033[0m");
 }
 
-void saveNumberToFile(long** code, long rows)
+void saveNumberToFile(long** code, long rows, char* fileName)
 {
-    char* fileName;
-    printf("\nВведите имя файла, в который хотите сохранить текст");
-    inputStr(&fileName);
     FILE* file = fopen(fileName, "w");
     if (file != NULL)
     {
@@ -763,6 +757,50 @@ long** loadNumberFromFile(long* rows)
         printf("\nОшибка при открытии текстового файла для чтения кода\n");
         return NULL;
     }
+}
+
+void saveTextToFile(char** text, long rows, char* fileName)
+{
+    FILE* file = fopen(fileName, "wt");
+    if (file != NULL)
+    {
+        fprintf(file, "%ld\n", rows); // Записываем количество строк
+
+        for (long j = 0; j < rows; j++)
+        {
+            fprintf(file, "%s\n", text[j]); // Записываем строку текста
+        }
+
+        fclose(file);
+        printf("Текст успешно сохранен в файл: %s\n", fileName);
+    }
+    else
+    {
+        printf("Ошибка при открытии файла для записи\n");
+    }
+}
+
+
+
+struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct dataCode key)
+{
+    char fileName[N];
+    int i = 0;
+    printf("\nВведите имя файла, в который хотите сохранить: ");
+    fgets(fileName, N, stdin);
+    while (fileName[i] != '\n')
+        i++;
+    fileName[i] = '\0';
+    strcpy(key.fileName, fileName);
+    if(key.flag)
+    {
+        saveNumberToFile(code, rows, key.fileName);
+    }
+    else
+    {
+        saveTextToFile(newText, rows, key.fileName);
+    }
+    return key;
 }
 
 

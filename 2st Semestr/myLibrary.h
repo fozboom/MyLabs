@@ -23,7 +23,6 @@ void output2DString (char** mas, int n);
 
 
 
-
 struct tree{
     int data;
     struct tree *left;

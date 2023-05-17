@@ -82,11 +82,12 @@ int main()
     const char* commands[] = {"input", "createKey", "read", "encoding", "decoding", "save", "finish"};
     enum choiceCommand command;
     int end = 1, n;
-    char **text = NULL, **box1, **box2, **box3, **box4, **newText;
+    char **text = NULL, box1[SIZE][SIZE], box2[SIZE][SIZE], box3[SIZE][SIZE], box4[SIZE][SIZE], **newText;
     bool taskIsFound;
     struct dataCode* keys;
     long **codeText = NULL, countKeys;
-    createBoxes(&box1, &box2, &box3, &box4, SIZE);
+    //createBoxes(&box1, &box2, &box3, &box4, SIZE);
+    readInfo(box1, SIZE, "box1.txt");
     readStructInfo(&keys, &countKeys);
     do
     {
@@ -102,16 +103,19 @@ int main()
                     readIn2DString(&text, &n);
                     break;
                 case encoding:
-                    encodingText(text, n, &codeText, &newText);
+                    countKeys++;
+                    keys = (struct dataCode*)realloc(keys, countKeys * sizeof (struct dataCode));
+                    keys[countKeys - 1] = encodingText(text, n, &codeText, &newText);
                     if(codeText != NULL)
                         output2DNumbers(codeText, n);
                     else
                         output2DString(newText, n);
                     break;
                 case decoding:
-                    decodingText(codeText, newText, keys, countKeys, )
+                    text = decodingText(codeText, newText, keys, countKeys, box1);
                     break;
                 case save:
+                    keys[countKeys- 1] = saveEncodingInfo (newText, codeText, n, keys[countKeys - 1]);
                     break;
                 case finish:
                     saveStructInfo(keys, countKeys);

@@ -223,3 +223,4 @@ void output2DNumbers (long** mas, long n)
 
 
 
+
