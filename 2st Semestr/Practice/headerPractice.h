@@ -61,7 +61,7 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
 void saveStructInfo (struct dataCode* key, long count);
 void readStructInfo(struct dataCode** key, long* count);
-char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE]);
+char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows);
 void saveNumberToFile(long** code, long rows, char* fileName);
 void saveTextToFile(char** text, long rows, char* fileName);
 struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct dataCode key);

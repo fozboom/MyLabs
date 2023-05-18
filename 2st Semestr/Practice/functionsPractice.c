@@ -582,7 +582,7 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 }
 
 
-char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE])
+char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows)
 {
     int flag = 0, i;
     char **text = NULL;
@@ -603,15 +603,15 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
         file = fopen(keys[i].fileName, "rt");
         if (file != NULL)
         {
-            long rows;
-            fscanf(file, "%ld\n", &rows); // Читаем количество строк
+
+            fscanf(file, "%ld\n", rows); // Читаем количество строк
 
             int dataType = keys[i].flag; // Тип данных: 0 - long, 1 - char
             if (dataType == 1)
             {
-                codeText = (long**)malloc(rows * sizeof(long*)); // Выделяем память для массива строк
+                codeText = (long**)malloc((*rows) * sizeof(long*)); // Выделяем память для массива строк
 
-                for (long j = 0; j < rows; j++)
+                for (long j = 0; j < (*rows); j++)
                 {
                     long cols;
                     fscanf(file, "%ld ", &cols); // Читаем количество элементов
@@ -624,10 +624,10 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
                     }
                 }
 
-                text = decodingRSA(codeText, keys[i].d, keys[i].n, rows);
+                text = decodingRSA(codeText, keys[i].d, keys[i].n, *rows);
 
                 // Не забудьте освободить память после использования
-                for (long j = 0; j < rows; j++)
+                for (long j = 0; j < (*rows); j++)
                 {
                     free(codeText[j]);
                 }
@@ -635,16 +635,16 @@ char** decodingText(long** codeText, char** newText, struct dataCode* keys, int 
             }
             else if (dataType == 0)
             {
-                newText = (char**)malloc(rows * sizeof(char*)); // Выделяем память для массива строк
+                newText = (char**)malloc((*rows) * sizeof(char*)); // Выделяем память для массива строк
 
-                for (long j = 0; j < rows; j++)
+                for (long j = 0; j < (*rows); j++)
                 {
                     newText[j] = (char*)malloc(MAX_LENGTH * sizeof(char)); // Выделяем память для строки
                     fgets(newText[j], MAX_LENGTH, file); // Читаем строку текста
                     newText[j][strcspn(newText[j], "\n")] = '\0'; // Удаляем символ новой строки
                 }
 
-                text = decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, rows);
+                text = decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, *rows);
 
 
             }

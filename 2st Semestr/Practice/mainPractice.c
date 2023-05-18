@@ -85,7 +85,7 @@ int main()
     char **text = NULL, box1[SIZE][SIZE], box2[SIZE][SIZE], box3[SIZE][SIZE], box4[SIZE][SIZE], **newText;
     bool taskIsFound;
     struct dataCode* keys;
-    long **codeText = NULL, countKeys;
+    long **codeText = NULL, countKeys, rows;
     //createBoxes(&box1, &box2, &box3, &box4, SIZE);
     readInfo(box1, SIZE, "box1.txt");
     readStructInfo(&keys, &countKeys);
@@ -112,7 +112,9 @@ int main()
                         output2DString(newText, n);
                     break;
                 case decoding:
-                    text = decodingText(codeText, newText, keys, countKeys, box1);
+                    text = decodingText(codeText, newText, keys, countKeys, box1, &rows);
+                    printf("\nРаскодированный текст:\n");
+                    output2DString(text, rows);
                     break;
                 case save:
                     keys[countKeys- 1] = saveEncodingInfo (newText, codeText, n, keys[countKeys - 1]);
