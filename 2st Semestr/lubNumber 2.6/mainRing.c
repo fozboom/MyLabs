@@ -29,13 +29,13 @@ int main()
                     caseMergeRings(&input, &format, &p1, &p2, &newRing);
                     break;
                 case sortRing:
-                    caseSortRing(&input, &format, &p1, &p2, &newRing);
+                    caseSortRing(&input, &format, &p1, &newRing);
                     break;
                 case counting:
                     caseCounting(&input, &format, &newRing);
                     break;
                 case save:
-                    howToSave(&input, &format, newRing);
+                    howToSave(&format, newRing);
                     break;
                 case finish:
                     end = 0;
