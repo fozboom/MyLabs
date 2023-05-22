@@ -78,20 +78,19 @@ long powerMod(long x, long y, long n)
 
 
 
-
-long** coding (char** mas, long e, long n, long rows)
+//функция кодирования текста алгоритмом RSA
+char** codingRSA (char** mas, long e, long n, long rows)
 {
-    long **cods = (long **)calloc(rows, sizeof(long*));
+    char **cods = (char**)calloc(rows, sizeof(char*));
     for(int j = 0; j < rows; j++)
     {
         int k = 1;
         long size = strlen(*(mas + j));
-        *(cods + j) = (long *)calloc(size + 1, sizeof(long));
-        cods[j][0] = size + 1;
+        *(cods + j) = (char*)calloc(size + 1, sizeof(char));
         for (int i = 0; mas[j][i] != '\0'; i++)
         {
-            long s = (long) (mas[j][i]);
-            cods[j][k] = powerMod(s, e, n);
+            long s = (long)(mas[j][i]);
+            cods[j][k] = (char)powerMod(s, e, n);
             k++;
         }
     }
@@ -261,25 +260,6 @@ void readInfo (char box[SIZE][SIZE], int n, const char* name)
     fclose(file);
 }
 
-void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n)
-{
-
-    *box1 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box1 + i) = (char*)calloc(n, sizeof(char));
-
-    *box2 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box2 + i) = (char*)calloc(n, sizeof(char));
-
-    *box3 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box3 + i) = (char*)calloc(n, sizeof(char));
-
-    *box4 = (char**)calloc(n, sizeof(char*));
-    for(int i = 0; i < n; i++)
-        *(*box4 + i) = (char*)calloc(n, sizeof(char));
-}
 
 
 char** codingSquare (char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char **text, int size)
@@ -419,7 +399,7 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     }
 }
 
-struct dataCode createKeyCoding (char **box2, char **box3)
+struct dataCode createKeyCoding (char box2[SIZE][SIZE], char box3[SIZE][SIZE])
 {
     char* task = NULL;
     int flag, choice;
@@ -566,7 +546,7 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
     if (key.flag)
     {
-        code = coding(text, key.e, key.n, n);
+        code = codingRSA(text, key.e, key.n, n);
         output2DNumbers(code, n);
         codingText = NULL;
     }

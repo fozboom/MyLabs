@@ -35,7 +35,7 @@ long power (long x, long n);
 long NOD (long x, long y);
 
 long powerMod(long x, long y, long n);
-long** coding (char** mas, long e, long n, long rows);
+char** codingRSA (char** mas, long e, long n, long rows);
 char** decodingRSA(long** codeText, long d, long n, long rows);
 
 void textRSA(long* code, long size, long d, long n);
@@ -45,7 +45,6 @@ void textRSA(long* code, long size, long d, long n);
 void writeBox (char box[SIZE][SIZE], int n);
 void outputBox (char** box, int n);
 void readInfo (char box[SIZE][SIZE], int n, const char* name);
-void createBoxes (char*** box1, char*** box2, char*** box3, char*** box4, int n);
 void mainTask (char** box1, char** box2, char** box3, char** box4, int n, char* s1, char* s2);
 int checkLetter (char s);
 void pushRandom (char box[SIZE][SIZE], char s, int i, int j);
@@ -56,7 +55,7 @@ char** decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE
 
 void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound);
 
-struct dataCode createKeyCoding (char **box2, char **box3);
+struct dataCode createKeyCoding (char box2[SIZE][SIZE], char box3[SIZE][SIZE]);
 struct dataCode encodingText (char** text, int n, long ***codeText, char ***newText);
 
 void saveStructInfo (struct dataCode* key, long count);

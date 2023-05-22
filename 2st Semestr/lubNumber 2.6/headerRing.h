@@ -19,12 +19,15 @@ struct Ring
 
 enum commands {mergeRings, sortRing, counting, save, finish};
 
+
+int countElementsInRing(struct Ring* ring);                                     //функция подсчета элементов в кольце
 void pushAfter (struct Ring **p, char* newName);                                //функция добавления элемента после точки входа
 void deleteCurrent (struct Ring **p);                                           //функция удаления текущего элемента
 void connectRingElements(struct Ring* , struct Ring* );                         //функция для связывания элементов кольца
 void appendRemainingElements(struct Ring* , struct Ring** , struct Ring** );    //функция для объединения оставшихся элементов
 
 struct Ring* mergeRingsInOne(struct Ring* p1, struct Ring* p2);                 //функция слияния двух отсортированных колец в одно
+struct Ring* mergeRingsByPush (struct Ring *p1, struct Ring *p2);
 struct Ring* sortingRing(struct Ring *p);                                       //функция сортировки кольца
 void countingHumans (struct Ring **p);                                          //функция игры 'считалочка'
 

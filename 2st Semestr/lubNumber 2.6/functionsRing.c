@@ -75,50 +75,49 @@ void appendRemainingElements(struct Ring* newRing, struct Ring** tmp, struct Rin
 //функция слияния двух отсортированных колец в одно
 struct Ring* mergeRingsInOne(struct Ring* p1, struct Ring* p2)
 {
-    if (p1 == NULL) return p2;                                  //если одно из колец пустое, вернуть другое кольцо, сливать ничего не надо
+    if (p1 == NULL) return p2;                      //если одно из колец пустое, вернуть другое кольцо
     if (p2 == NULL) return p1;
+    int size1 = countElementsInRing(p1), size2 = countElementsInRing(p2), i = 0, j = 0;
+    struct Ring* p3 = NULL;                         //size1, size2 - размеры колец, i и j - параметры цикла по кольцам
 
-    int flag1 = 1, flag2 = 1;                                   //flag1, flag2 - флажки для контроля обхода кольца
-    struct Ring* tmp1 = p1;                                     //tmp1 - указатель для обхода первого кольца
-    struct Ring* tmp2 = p2;                                     //tmp2 - указатель для обхода второго кольца
-    struct Ring* p3 = NULL;                                     //p3 - кольцо, в которое будем сливать
-
-    if (strcmp(p1->name, p2->name) < 0)                         //ставим указатель p3 на меньший элемент, который будет первым элементом нового кольца
+    while (i < size1 && j < size2)                  //цикл по кольцам
     {
-        p3 = tmp1;
-        tmp1 = tmp1->next;
-    }
-    else
-    {
-        p3 = tmp2;
-        tmp2 = tmp2->next;
-    }
-
-    struct Ring* newRing = p3;                                  //newRing - указатель для отслеживания текущего элемента в кольце
-
-    while (flag1 && flag2)                                      //пока одно из колец полностью не объединились
-    {
-        if (strcmp(tmp1->name, tmp2->name) < 0)                 //если в первом кольце элемент меньше, добавляем его в новое кольцо
+        if (strcmp(p1->name, p2->name) < 0)         //заносим меньший элемент
         {
-            connectRingElements(newRing, tmp1);//вызвать функцию перезаписи связей между указателями
-            tmp1 = tmp1->next;                                  //сдвинуть указатель tmp1 на следующий элемент
-            if (tmp1 == p1) flag1 = 0;                          //если прошли все кольцо, надо перестать объединять
+            pushAfter(&p3, p1->name);   //заносим в новое кольцо имя
+            p1 = p1->next;                          //сдвигаем указатель на следующий элемент
+            i++;
         }
-        else                                                    //если во втором кольце элемент меньше, добавить надо его
+        if (strcmp(p1->name, p2->name) > 0)         //заносим больший элемент
         {
-            connectRingElements(newRing, tmp2);//перезаписать связь между указателями
-            tmp2 = tmp2->next;                                  //передвинуть указатель tmp2 на следующий элемент
-            if (tmp2 == p2) flag2 = 0;                          //если прошли все кольцо, надо перестать объединять
+            pushAfter(&p3, p2->name);   //заносим в новое кольцо имя
+            p2 = p2->next;
+            j++;
         }
-        newRing = newRing->next;                                //передвинуть указатель newRing
+        else                                        //элементы одинаковые
+        {
+            pushAfter(&p3, p1->name);   //заносим имя в новое кольцо
+            p1 = p1->next;                          //сдвигаем первый указатель
+            p2 = p2->next;                          //сдвигаем второй указатель
+            i++;
+            j++;
+        }
     }
 
-    appendRemainingElements(newRing, &tmp1, &p1);      //вызвать функцию досливания первого кольца
-    appendRemainingElements(newRing, &tmp2, &p2);      //вызвать функцию досливания второго кольца
+    while (i < size1)                               //если еще остались элементы в первом кольце, сливаем их в третье кольцо
+    {
+        pushAfter(&p3, p1->name);
+        p1 = p1->next;
+        i++;
+    }
 
-    connectRingElements(newRing, p3);          // Устанавливаем связь с начальным элементом, чтобы завершить кольцо
-    p3->prev = newRing;
-
+    while (j < size2)                               //если еще остались элементы во втормо кольце, сливаем их в третье кольцо
+    {
+        pushAfter(&p3, p2->name);
+        p2 = p2->next;
+        j++;
+    }
+    p3 = p3->next;
     return p3;
 }
 
@@ -522,5 +521,73 @@ void caseCounting (int* input, int* format, struct Ring **newRing)
     doYouWantToDelete (newRing);
     countingHumans(newRing);
     printf("\nПобедитель - %s", (*newRing)->name);
+}
+
+//функция слияния двух отсортированных колец в одно
+struct Ring* mergeRingsByPush(struct Ring* p1, struct Ring* p2)
+{
+    if (p1 == NULL) return p2;                                  //если одно из колец пустое, вернуть другое кольцо, сливать ничего не надо
+    if (p2 == NULL) return p1;
+
+    int flag1 = 1, flag2 = 1;                                   //flag1, flag2 - флажки для контроля обхода кольца
+    struct Ring* tmp1 = p1;                                     //tmp1 - указатель для обхода первого кольца
+    struct Ring* tmp2 = p2;                                     //tmp2 - указатель для обхода второго кольца
+    struct Ring* p3 = NULL;                                     //p3 - кольцо, в которое будем сливать
+
+    if (strcmp(p1->name, p2->name) < 0)                         //ставим указатель p3 на меньший элемент, который будет первым элементом нового кольца
+    {
+        p3 = tmp1;
+        tmp1 = tmp1->next;
+    }
+    else
+    {
+        p3 = tmp2;
+        tmp2 = tmp2->next;
+    }
+
+    struct Ring* newRing = p3;                                  //newRing - указатель для отслеживания текущего элемента в кольце
+
+    while (flag1 && flag2)                                      //пока одно из колец полностью не объединились
+    {
+        if (strcmp(tmp1->name, tmp2->name) < 0)                 //если в первом кольце элемент меньше, добавляем его в новое кольцо
+        {
+            connectRingElements(newRing, tmp1);//вызвать функцию перезаписи связей между указателями
+            tmp1 = tmp1->next;                                  //сдвинуть указатель tmp1 на следующий элемент
+            if (tmp1 == p1) flag1 = 0;                          //если прошли все кольцо, надо перестать объединять
+        }
+        else                                                    //если во втором кольце элемент меньше, добавить надо его
+        {
+            connectRingElements(newRing, tmp2);//перезаписать связь между указателями
+            tmp2 = tmp2->next;                                  //передвинуть указатель tmp2 на следующий элемент
+            if (tmp2 == p2) flag2 = 0;                          //если прошли все кольцо, надо перестать объединять
+        }
+        newRing = newRing->next;                                //передвинуть указатель newRing
+    }
+
+    appendRemainingElements(newRing, &tmp1, &p1);      //вызвать функцию досливания первого кольца
+    appendRemainingElements(newRing, &tmp2, &p2);      //вызвать функцию досливания второго кольца
+
+    connectRingElements(newRing, p3);          // Устанавливаем связь с начальным элементом, чтобы завершить кольцо
+    p3->prev = newRing;
+
+    return p3;
+}
+
+
+
+//функция подсчета элементов в кольце
+int countElementsInRing(struct Ring* ring)
+{
+    if (ring == NULL) return 0;
+
+    int count = 1;
+    struct Ring* current = ring->next;
+
+    while (current != ring) {
+        count++;
+        current = current->next;
+    }
+
+    return count;
 }
 
