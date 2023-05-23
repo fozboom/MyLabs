@@ -494,7 +494,8 @@ void caseMergeRings (int* input, int* format, struct Ring **p1, struct Ring **p2
     *p1 = sortingRing(*p1);
     *p2 = sortingRing(*p2);
     *newRing = mergeRingsInOne(*p1, *p2);
-    system("clear"); printf("\nРезультат слияния двух колец:");
+    //system("clear");
+    printf("\nРезультат слияния двух колец:");
     printRing(*newRing);
 }
 
@@ -504,7 +505,7 @@ void caseMergeRings (int* input, int* format, struct Ring **p1, struct Ring **p2
 void caseSortRing (int* input, int* format, struct Ring **p1, struct Ring **newRing)
 {
     howToInput(input, format, p1);
-    printf("\nВы ввели следующее кольцо:"); system("clear");
+    printf("\nВы ввели следующее кольцо:"); //system("clear");
     printRing(*p1);
     doYouWantToDelete (p1);
     printf("\nОтсортированное кольцо:");

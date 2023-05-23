@@ -44,6 +44,17 @@ void inputInt (int* x, int a, int b)
 }
 
 
+void inputLong (long* x, int a, int b)
+{
+    while(!scanf("%ld", x) || (((*x) < a) || ((*x) > b)))
+    {
+        rewind(stdin);
+        printf("\nОшибка ввода числа, попробуйте еще раз: ");
+    }
+    rewind(stdin);
+}
+
+
 
 //функция ввода строки произвольной длины
 void inputStr (char** mas)

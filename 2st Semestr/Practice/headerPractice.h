@@ -24,7 +24,7 @@ struct dataCode{
 };
 
 
-enum choiceCommand {input, createKey, read, encoding, decoding, save, finish};
+enum choiceCommand {input, read, encoding, decoding, save, finish};
 
 long isPrimes (long x);
 void createPrime (long *x);
@@ -35,7 +35,7 @@ long power (long x, long n);
 long NOD (long x, long y);
 
 long powerMod(long x, long y, long n);
-char** codingRSA (char** mas, long e, long n, long rows);
+long** coding (char** mas, long e, long n, long rows);
 char** decodingRSA(long** codeText, long d, long n, long rows);
 
 void textRSA(long* code, long size, long d, long n);
@@ -60,7 +60,15 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
 void saveStructInfo (struct dataCode* key, long count);
 void readStructInfo(struct dataCode** key, long* count);
-char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows);
+char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows);
 void saveNumberToFile(long** code, long rows, char* fileName);
 void saveTextToFile(char** text, long rows, char* fileName);
 struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct dataCode key);
+
+void caseEncoding (struct dataCode **keys, long *countKeys, long*** codeText, char** text, int n, char*** newText);
+long** myAtoi2DText(char** text, int rows);
+
+
+void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d);
+void decodingInputText ();
+void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows);

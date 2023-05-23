@@ -18,6 +18,7 @@ void inputNumberMas (int** mas, int n);                                     //ф
 void input2DString (char*** text, int* n);
 void readIn2DString (char*** text, int* n);
 void deleteSymbolN (char** str);
+void inputLong (long* x, int a, int b);
 int proverka (char* mas);
 void output2DString (char** mas, int n);
 

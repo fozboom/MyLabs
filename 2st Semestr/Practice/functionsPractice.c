@@ -1,6 +1,7 @@
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
+//функция проверки числа на простоту
 long isPrimes (long x)
 {
     if(x == 0) return 0;
@@ -9,6 +10,8 @@ long isPrimes (long x)
     return 1;
 }
 
+
+//функция создания простого числа
 void createPrime (long *x)
 {
     srand(time(NULL));
@@ -16,27 +19,36 @@ void createPrime (long *x)
     *x = (*x)*(*x) - (*x) + 41;
 }
 
+
+//функция создания чисел p, q, n, fi
 void createNumbers (long *p, long *q, long *n, long *fi)
 {
-    createPrime(p);
+    createPrime(p);                      //создать простое число p
+
     do
     {
-        createPrime(q);
+        createPrime(q);                  //создать простое число q, не равное p
     }while(*q == *p);
-    *n = (*p) * (*q);
-    *fi = ((*p) - 1)*((*q) - 1);
+
+    *n = (*p) * (*q);                       //создать число n - часть приватного и публичного ключа
+    *fi = ((*p) - 1)*((*q) - 1);            //создать число fi, которое будем нужно для создания ключей
 
 }
 
+
+
+//функция создания числа e - части открытого ключа
 void createEilerNumber (long *e, long fi)
 {
-    do
+    do                                      //создать простое число e, удовлетворяющее условию: (e*d) mod ((p-1)*(q-1))=1, e >= fi
     {
         createPrime(e);
     }while(NOD(*e, fi) != 1 && *e >= fi);
-
 }
 
+
+
+//функция нахождения НОД алгоритмом Евклида
 long NOD (long x, long y)
 {
     if (y == 0)
@@ -45,6 +57,9 @@ long NOD (long x, long y)
         return NOD (y, x%y);
 }
 
+
+
+//функция нахождения числа d - части приватного ключа
 void search_d (long *d, long e, long fi)
 {
     *d = 3;
@@ -79,23 +94,30 @@ long powerMod(long x, long y, long n)
 
 
 //функция кодирования текста алгоритмом RSA
-char** codingRSA (char** mas, long e, long n, long rows)
+long** coding (char** mas, long e, long n, long rows)
 {
-    char **cods = (char**)calloc(rows, sizeof(char*));
+    if (mas == NULL)
+    {
+        printf("Вы не ввели текст, который надо зашифровать");
+        return NULL;
+    }
+    long **cods = (long **)calloc(rows, sizeof(long*));
     for(int j = 0; j < rows; j++)
     {
         int k = 1;
         long size = strlen(*(mas + j));
-        *(cods + j) = (char*)calloc(size + 1, sizeof(char));
+        *(cods + j) = (long *)calloc(size + 1, sizeof(long));
+        cods[j][0] = size + 1;
         for (int i = 0; mas[j][i] != '\0'; i++)
         {
-            long s = (long)(mas[j][i]);
-            cods[j][k] = (char)powerMod(s, e, n);
+            long s = (long) (mas[j][i]);
+            cods[j][k] = powerMod(s, e, n);
             k++;
         }
     }
     return cods;
 }
+
 
 
 
@@ -399,6 +421,25 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     }
 }
 
+
+void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d)
+{
+    do
+    {
+        printf("\nВведите простое число p - ");
+        scanf("%ld", p);
+    } while (!isPrimes(*p));
+    do
+    {
+        printf("\nВведите простое число q - ");
+        scanf("%ld", q);
+    } while (!isPrimes(*q));
+    *n = (*p) * (*q);
+    *fi = ((*p) - 1) * ((*q) - 1);
+    createEilerNumber(e, *fi);
+    search_d(d, *e, *fi);
+}
+
 struct dataCode createKeyCoding (char box2[SIZE][SIZE], char box3[SIZE][SIZE])
 {
     char* task = NULL;
@@ -432,20 +473,7 @@ struct dataCode createKeyCoding (char box2[SIZE][SIZE], char box3[SIZE][SIZE])
         inputInt(&choice, 0, 1);
         if (choice)
         {
-            do
-            {
-                printf("\nВведите простое число p - ");
-                scanf("%ld", &p);
-            } while (!isPrimes(p));
-            do
-            {
-                printf("\nВведите простое число q - ");
-                scanf("%ld", &q);
-            } while (!isPrimes(q));
-            key.n = p * q;
-            fi = (p - 1) * (q - 1);
-            createEilerNumber(&(key.e), fi);
-            search_d(&(key.d), key.e, fi);
+
         }
         else
         {
@@ -546,7 +574,7 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
     if (key.flag)
     {
-        code = codingRSA(text, key.e, key.n, n);
+        code = coding(text, key.e, key.n, n);
         output2DNumbers(code, n);
         codingText = NULL;
     }
@@ -562,7 +590,7 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 }
 
 
-char** decodingText(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows)
+char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows)
 {
     int flag = 0, i;
     char **text = NULL;
@@ -782,6 +810,108 @@ struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct
     }
     return key;
 }
+
+
+void caseEncoding (struct dataCode **keys, long *countKeys, long*** codeText, char** text, int n, char*** newText)
+{
+    (*countKeys)++;
+    (*keys) = (struct dataCode*)realloc((*keys), (*countKeys) * sizeof(struct dataCode));
+    *(*keys + (*countKeys) - 1) = encodingText(text, n, codeText, newText);
+    if((*keys + (*countKeys) - 1)->flag)
+        output2DNumbers(*codeText, n);
+    else
+        output2DString(*newText, n);
+}
+
+
+void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows)
+{
+    int format;
+    printf("\nЧтобы расшифровать текст, введите 1");
+    printf("\nЧтобы расшифровать файл, введите 0\n");
+    inputInt(&format, 0, 1);
+    if(format)
+    {
+        decodingInputText();
+    }
+    else
+    {
+        *text = decodingTextFromFile(codeText, newText, keys, countKeys, box1, rows);
+    }
+
+    printf("\nРаскодированный текст:\n");
+    output2DString(*text, *rows);
+}
+
+void decodingInputText ()
+{
+    char* string, **text;
+    long** code, d, n;
+    int flag = 0, rows = 0;
+    do
+    {
+        printf("\nКаким алгоритмом зашифрован текст? (RSA или Square)\n");
+        inputStr(&string);
+        if (strcmp("RSA", string) == 0 || strcmp("Square", string) == 0)
+        {
+            flag = 1;
+        }
+        else
+        {
+            printf("\nКоманда введена неверно, попробуйте еще раз");
+        }
+    }while(!flag);
+
+    if(strcmp("RSA", string) == 0)
+    {
+        printf("\nВведите через пробел цифры, которыми закодирована каждая буква");
+        input2DString(&text, &rows);
+        code = myAtoi2DText(text, rows);
+        output2DNumbers(code, rows);
+        printf("Введите ключ для расшифровки\nВведите число d - ");
+        inputLong(&d, 0, 10000);
+        printf("Введите число n - ");
+        inputLong(&n, 0, 10000);
+        text = decodingRSA(code, d, n, rows);
+        output2DString(text, rows);
+    }
+
+}
+
+
+
+long** myAtoi2DText(char** text, int rows)
+{
+    long** numbers = (long**)malloc(rows * sizeof(long*));
+
+    for (int i = 0; i < rows; i++)
+    {
+        int count = 0;                                  //кол-во чисел в текущей строке
+
+        char* copy = strdup(text[i]);               //создаем копию строки с выделением памяти, чтобы избежать изменения исходной строки
+        char* token = strtok(copy," " );
+        while (token != NULL)
+        {
+            count++;
+            token = strtok(NULL, " ");
+        }
+        free(copy);
+
+        numbers[i] = (long*)malloc((count + 1) * sizeof(long));
+        numbers[i][0] = count + 1;
+
+                                                        //преобразование строки в число
+        char* tokenPtr = strtok(text[i], " ");
+        int j = 1;
+        while (tokenPtr != NULL) {
+            numbers[i][j++] = atol(tokenPtr);
+            tokenPtr = strtok(NULL, " ");
+        }
+    }
+
+    return numbers;
+}
+
 
 
 
