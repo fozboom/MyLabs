@@ -151,7 +151,7 @@ void repeatProgram(int *end)
     rewind(stdin);
     system("clear");
 }
-void input2DString (char*** text, int* n)
+void input2DString (char*** text, long* n)
 {
     printf("\nВведите текст, чтобы завершить ввод введите Enter\n");
     int i = 0;
@@ -176,7 +176,7 @@ void deleteSymbolN (char** str)
     *str = (char*)realloc(*str, n * sizeof(char));
 }
 
-void readIn2DString (char*** text, int* n)
+void readIn2DString (char*** text, long* n)
 {
     FILE* file;
     int i = 0;

@@ -131,11 +131,11 @@ char** decodingRSA(long** codeText, long d, long n, long rows)
 
         decodedText[i] = (char*)malloc((cols + 1) * sizeof(char)); // Выделяем память для строки (плюс 1 для символа '\0')
 
-        for (long j = 0; j < cols; j++)
+        for (long j = 1; j < cols; j++)
         {
-            long s = powerMod(codeText[i][j + 1], d, n); // Декодируем текущий элемент
+            long s = powerMod(codeText[i][j], d, n); // Декодируем текущий элемент
 
-            decodedText[i][j] = (char)s; // Преобразуем числовое значение в символ и сохраняем в строке
+            decodedText[i][j-1] = (char)s; // Преобразуем числовое значение в символ и сохраняем в строке
         }
 
         decodedText[i][cols] = '\0'; // Добавляем символ '\0' в конец строки
@@ -625,21 +625,18 @@ char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* ke
                     fscanf(file, "%ld ", &cols); // Читаем количество элементов
 
                     codeText[j] = (long*)malloc(cols * sizeof(long)); // Выделяем память для строки
+                    codeText[j][0] = cols;
 
-                    for (long k = 0; k < cols; k++)
+                    for (long k = 1; k < cols; k++)
                     {
                         fscanf(file, "%ld ", &codeText[j][k]); // Читаем элементы строки
                     }
+                    fscanf(file, "%ld", &cols);
                 }
 
                 text = decodingRSA(codeText, keys[i].d, keys[i].n, *rows);
 
-                // Не забудьте освободить память после использования
-                for (long j = 0; j < (*rows); j++)
-                {
-                    free(codeText[j]);
-                }
-                free(codeText);
+
             }
             else if (dataType == 0)
             {
@@ -704,89 +701,225 @@ void readStructInfo(struct dataCode** key, long* count)
 
 void saveNumberToFile(long** code, long rows, char* fileName)
 {
-    FILE* file = fopen(fileName, "w");
-    if (file != NULL)
+    int format;
+
+    printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
+    inputInt(&format, 0, 1);
+
+    FILE* file;
+
+    if (!format)
     {
-        fprintf(file, "%ld\n", rows); // Записываем количество строк
-
-        for (long i = 0; i < rows; i++)
+        file = fopen(fileName, "wt");
+        if (file != NULL)
         {
-            long cols = code[i][0]; // Получаем количество элементов в текущей строке
-            fprintf(file, "%ld ", cols); // Записываем количество элементов
+            fprintf(file, "%ld\n", rows); // Записываем количество строк
 
-            for (long j = 1; j <= cols; j++)
+            for (long i = 0; i < rows; i++)
             {
-                fprintf(file, "%ld ", code[i][j]); // Записываем элементы строки
+                long cols = code[i][0]; // Получаем количество элементов в текущей строке
+                fprintf(file, "%ld ", cols); // Записываем количество элементов
+
+                for (long j = 1; j <= cols; j++)
+                {
+                    fprintf(file, "%ld ", code[i][j]); // Записываем элементы строки
+                }
+
+                fprintf(file, "\n"); // Переходим на новую строку
             }
 
-            fprintf(file, "\n"); // Переходим на новую строку
+            fclose(file);
         }
-
-        fclose(file);
+        else
+        {
+            printf("\nОшибка при открытии бинарного файла для записи кода\n");
+        }
     }
     else
     {
-        printf("\nОшибка при открытии текстового файла для записи кода\n");
+        file = fopen(fileName, "wb");
+        if (file != NULL)
+        {
+            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк
+
+            for (long i = 0; i < rows; i++)
+            {
+                long cols = code[i][0]; // Получаем количество элементов в текущей строке
+                fwrite(&cols, sizeof(long), 1, file); // Записываем количество элементов
+
+                for (long j = 1; j <= cols; j++)
+                {
+                    fwrite(&code[i][j], sizeof(long), 1, file); // Записываем элементы строки
+                }
+            }
+
+            fclose(file);
+        }
+        else
+        {
+            printf("\nОшибка при открытии бинарного файла для записи кода\n");
+        }
     }
 }
 
-long** loadNumberFromFile(long* rows)
+
+long** loadNumberFromFile(long** code, long* rows, char* fileName)
 {
-    char* fileName;
-    printf("\nВведите имя файла, в который хотите сохранить текст");
-    inputStr(&fileName);
-    FILE* file = fopen(fileName, "r");
-    if (file != NULL)
+    int format;
+
+    printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
+    inputInt(&format, 0, 1);
+
+    FILE* file;
+
+    if (!format)
     {
-        fscanf(file, "%ld\n", rows); // Читаем количество строк
-
-        long** code = (long**)malloc((*rows) * sizeof(long*)); // Выделяем память для массива строк
-
-        for (long i = 0; i < *rows; i++)
+        file = fopen(fileName, "rt");
+        if (file != NULL)
         {
-            long cols;
-            fscanf(file, "%ld ", &cols); // Читаем количество элементов
-
-            code[i] = (long*)malloc((cols + 1) * sizeof(long)); // Выделяем память для строки
-
-            code[i][0] = cols; // Сохраняем количество элементов в первом элементе строки
-
-            for (long j = 1; j <= cols; j++)
+            if (fscanf(file, "%ld", rows) == 1)
             {
-                fscanf(file, "%ld ", &code[i][j]); // Читаем элементы строки
-            }
-        }
+                code = (long**)malloc((*rows) * sizeof(long*));
 
-        fclose(file);
-        return code;
+                for (long i = 0; i < *rows; i++)
+                {
+                    long cols;
+                    if (fscanf(file, "%ld", &cols) == 1)
+                    {
+                        code[i] = (long*)malloc((cols + 1) * sizeof(long));
+                        code[i][0] = cols;
+
+                        for (long j = 1; j <= cols; j++)
+                        {
+                            fscanf(file, "%ld", &code[i][j]);
+                        }
+                    }
+                    else
+                    {
+                        printf("Ошибка чтения файла\n");
+                        fclose(file);
+                        return NULL;
+                    }
+                }
+            }
+            else
+            {
+                printf("Ошибка чтения файла\n");
+            }
+
+            fclose(file);
+        }
+        else
+        {
+            printf("Ошибка при открытии текстового файла для чтения\n");
+        }
     }
     else
     {
-        printf("\nОшибка при открытии текстового файла для чтения кода\n");
-        return NULL;
+        file = fopen(fileName, "rb");
+        if (file != NULL)
+        {
+            if (fread(rows, sizeof(long), 1, file) == 1)
+            {
+                code = (long**)malloc((*rows) * sizeof(long*));
+
+                for (long i = 0; i < *rows; i++)
+                {
+                    long cols;
+                    if (fread(&cols, sizeof(long), 1, file) == 1)
+                    {
+                        code[i] = (long*)malloc((cols + 1) * sizeof(long));
+                        code[i][0] = cols;
+
+                        for (long j = 1; j <= cols; j++)
+                        {
+                            if (fread(&code[i][j], sizeof(long), 1, file) != 1)
+                            {
+                                printf("Ошибка чтения файла\n");
+                                fclose(file);
+                                return NULL;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        printf("Ошибка чтения файла\n");
+                        fclose(file);
+                        return NULL;
+                    }
+                }
+            }
+            else
+            {
+                printf("Ошибка чтения файла\n");
+            }
+
+            fclose(file);
+        }
+        else
+        {
+            printf("Ошибка при открытии бинарного файла для чтения\n");
+        }
     }
+
+    return code;
 }
+
+
 
 void saveTextToFile(char** text, long rows, char* fileName)
 {
-    FILE* file = fopen(fileName, "wt");
-    if (file != NULL)
+    int format;
+
+    printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
+    inputInt(&format, 0, 1);
+
+    FILE* file;
+
+    if (!format)
     {
-        fprintf(file, "%ld\n", rows); // Записываем количество строк
-
-        for (long j = 0; j < rows; j++)
+        file = fopen(fileName, "wt");
+        if (file != NULL)
         {
-            fprintf(file, "%s\n", text[j]); // Записываем строку текста
-        }
+            fprintf(file, "%ld\n", rows); // Записываем количество строк
 
-        fclose(file);
-        printf("Текст успешно сохранен в файл: %s\n", fileName);
+            for (long j = 0; j < rows; j++)
+            {
+                fprintf(file, "%s\n", text[j]); // Записываем строку текста
+            }
+
+            fclose(file);
+            printf("Текст успешно сохранен в текстовый файл: %s\n", fileName);
+        }
+        else
+        {
+            printf("Ошибка при открытии текстового файла для записи\n");
+        }
     }
     else
     {
-        printf("Ошибка при открытии файла для записи\n");
+        file = fopen(fileName, "wb");
+        if (file != NULL)
+        {
+            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк
+
+            for (long j = 0; j < rows; j++)
+            {
+                long len = strlen(text[j]); // Получаем длину строки
+                fwrite(&len, sizeof(long), 1, file); // Записываем длину строки
+                fwrite(text[j], sizeof(char), len, file); // Записываем строку
+            }
+
+            fclose(file);
+            printf("Текст успешно сохранен в бинарный файл: %s\n", fileName);
+        }
+        else
+        {
+            printf("Ошибка при открытии бинарного файла для записи\n");
+        }
     }
 }
+
 
 
 
@@ -832,7 +965,7 @@ void caseDecoding (char ***text, long **codeText, char **newText, struct dataCod
     inputInt(&format, 0, 1);
     if(format)
     {
-        decodingInputText();
+        *text = decodingInputText(box1, rows);
     }
     else
     {
@@ -843,11 +976,11 @@ void caseDecoding (char ***text, long **codeText, char **newText, struct dataCod
     output2DString(*text, *rows);
 }
 
-void decodingInputText ()
+char** decodingInputText (char box[SIZE][SIZE], long* rows)
 {
-    char* string, **text;
+    char* string, **text, *name1, *name2, box2[SIZE][SIZE], box3[SIZE][SIZE];
     long** code, d, n;
-    int flag = 0, rows = 0;
+    int flag = 0;
     do
     {
         printf("\nКаким алгоритмом зашифрован текст? (RSA или Square)\n");
@@ -865,22 +998,34 @@ void decodingInputText ()
     if(strcmp("RSA", string) == 0)
     {
         printf("\nВведите через пробел цифры, которыми закодирована каждая буква");
-        input2DString(&text, &rows);
-        code = myAtoi2DText(text, rows);
-        output2DNumbers(code, rows);
-        printf("Введите ключ для расшифровки\nВведите число d - ");
+        input2DString(&text, rows);
+        code = myAtoi2DText(text, *rows);
+        //output2DNumbers(code, rows);
+        printf("\nВведите ключ для расшифровки\nВведите число d - ");
         inputLong(&d, 0, 10000);
         printf("Введите число n - ");
         inputLong(&n, 0, 10000);
-        text = decodingRSA(code, d, n, rows);
-        output2DString(text, rows);
+        text = decodingRSA(code, d, n, *rows);
+        //output2DString(text, rows);
     }
-
+    else
+    {
+        printf("\nВведите закодированный текст\n");
+        input2DString(&text, rows);
+        printf("\nВведите имя файла, в котором хранится box2 - ");
+        inputStr(&name1);
+        readInfo(box2, SIZE, name1);
+        printf("\nВведите имя файла, в котором хранится box3 - ");
+        inputStr(&name2);
+        readInfo(box3, SIZE, name2);
+        text = decodeSquare(box, box2, box3, box, text, *rows);
+    }
+    return text;
 }
 
 
 
-long** myAtoi2DText(char** text, int rows)
+long** myAtoi2DText(char** text, long rows)
 {
     long** numbers = (long**)malloc(rows * sizeof(long*));
 
@@ -913,7 +1058,33 @@ long** myAtoi2DText(char** text, int rows)
 }
 
 
+void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys)
+{
+    int format;
+    char* fileName;
+    printf("\nЧто вы хотите сохранить в файл?");
+    printf("\n1 - исходный текст");
+    printf("\n2 - текст, закодированный алгоритмом RSA");
+    printf("\n3 - текст, закодированный алгоритмом Square");
+    inputInt(&format, 1, 3);
+    printf("\nВведите имя файла, в который хотите сохранить\n");
+    inputStr(&fileName);
 
+    strcpy((keys + countKeys - 1)->fileName, fileName);
+
+    if (format == 1)
+    {
+        saveTextToFile(text, rows, fileName);
+    }
+    if (format == 2)
+    {
+        saveNumberToFile(code, rows, fileName);
+    }
+    else
+    {
+        saveTextToFile(newText, rows, fileName);
+    }
+}
 
 
 

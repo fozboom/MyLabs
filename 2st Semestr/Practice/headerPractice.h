@@ -61,14 +61,15 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 void saveStructInfo (struct dataCode* key, long count);
 void readStructInfo(struct dataCode** key, long* count);
 char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows);
-void saveNumberToFile(long** code, long rows, char* fileName);
+void saveNumberToFile(long** code, long rows, char *fileName);
 void saveTextToFile(char** text, long rows, char* fileName);
 struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct dataCode key);
 
 void caseEncoding (struct dataCode **keys, long *countKeys, long*** codeText, char** text, int n, char*** newText);
-long** myAtoi2DText(char** text, int rows);
+long** myAtoi2DText(char** text, long rows);
 
 
 void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d);
-void decodingInputText ();
+char** decodingInputText (char box[SIZE][SIZE], long* rows);
 void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows);
+void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys);

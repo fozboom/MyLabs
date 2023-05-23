@@ -15,8 +15,8 @@ void outputMasNumbers (long* mas);                                  //функц
 void output2DNumbers (long** mas, long n);
 void inputInt (int* x, int a, int b);                                       //функция ввода числа с проверкой
 void inputNumberMas (int** mas, int n);                                     //функция заполнения массива целых чисел
-void input2DString (char*** text, int* n);
-void readIn2DString (char*** text, int* n);
+void input2DString (char*** text, long* n);
+void readIn2DString (char*** text, long* n);
 void deleteSymbolN (char** str);
 void inputLong (long* x, int a, int b);
 int proverka (char* mas);
