@@ -73,3 +73,5 @@ void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d);
 char** decodingInputText (char box[SIZE][SIZE], long* rows);
 void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows);
 void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys);
+long** loadNumberFromFile(long** code, long* rows, char* fileName);
+char** loadTextFromFile(long* rows, char* fileName);

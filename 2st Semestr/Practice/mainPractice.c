@@ -12,8 +12,8 @@ int main()
     bool taskIsFound;
     struct dataCode* keys;
     long **codeText = NULL, countKeys, rows, n;
-    //createBoxes(&box1, &box2, &box3, &box4, SIZE);
     readInfo(box1, SIZE, "box1.txt");
+    readInfo(box4, SIZE, "box4.txt");
     readStructInfo(&keys, &countKeys);
     do
     {

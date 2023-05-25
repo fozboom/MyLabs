@@ -200,6 +200,8 @@ void readIn2DString (char*** text, long* n)
     }
     *n = i;
     *text = (char**)realloc(*text, (*n) * sizeof(char*));
+    printf("\nПрочитанный из файла текст:\n");
+    output2DString(*text, *n);
 }
 int proverka (char* mas)
 {

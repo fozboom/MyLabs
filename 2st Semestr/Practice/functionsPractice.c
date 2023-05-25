@@ -1,6 +1,9 @@
 #include "headerPractice.h"
 #include "../myLibrary.h"
 
+
+//////////////////////////////////////////////////////функции для шифрования алгоритмом RSA////////////////////////////
+
 //функция проверки числа на простоту
 long isPrimes (long x)
 {
@@ -60,13 +63,29 @@ long NOD (long x, long y)
 
 
 //функция нахождения числа d - части приватного ключа
-void search_d (long *d, long e, long fi)
+void search_d(long* x, long e, long fi)
 {
-    *d = 3;
-    while (((*d) * e) % fi != 1)
+    long m0 = fi;  // Сохраняем значение fi для восстановления отрицательного результата
+    long y = 0, xPrev = 1;  // Инициализируем начальные значения коэффициентов
+
+    while (e > 1)
     {
-        (*d)++;
+        long q = e / fi;  // Вычисляем частное от деления e на fi
+        long t = fi;  // Временная переменная для сохранения значения fi
+
+        fi = e % fi;  // Вычисляем остаток от деления e на fi
+        e = t;  // Обновляем значение e для следующей итерации
+        t = y;  // Сохраняем предыдущее значение y
+
+        y = xPrev - q * y;  // Обновляем значение y
+        xPrev = t;  // Обновляем предыдущее значение x
     }
+
+    if (xPrev < 0) {
+        xPrev += m0;  // Если результат отрицательный, приводим его к положительному
+    }
+
+    *x = xPrev;  // Присваиваем значение x через указатель
 }
 
 long power (long x, long n)
@@ -143,43 +162,6 @@ char** decodingRSA(long** codeText, long d, long n, long rows)
 
     return decodedText;
 }
-
-void textRSA(long* code, long size, long d, long n)
-{
-    const char* fileName;
-    FILE* file;
-    printf("Введите имя файла, в который хотите сохранить");
-    inputStr(&fileName);
-    file = fopen(fileName, "w");
-    if(file == NULL)
-    {
-        printf("Ошибка создания текстового файла");
-        exit(EXIT_FAILURE);
-    }
-    fprintf(file, "%ld ", d);
-    fprintf(file, "%ld\n", n);
-    for (int i = 0; i < size; i++)
-    {
-        fprintf(file, "%ld", code[i]);
-        fprintf(file, " ");
-    }
-}
-
-char* antiTextRSA (long* code, long d, long n, long size)
-{
-    FILE* file = NULL;
-    const char* str;
-    printf("Введите имя файла, который хотите раскодировать:\n");
-    inputStr(&str);
-    fopen(str, "r");
-    if(file == NULL)
-    {
-        printf("\nФайла с таким именем не найден\n");
-        exit(EXIT_FAILURE);
-    }
-    //str = decoding(code, d, n, strlen(str));
-}
-
 
 
 
@@ -403,7 +385,6 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     char* task = NULL;
     printf("\nВыберите действие:\n");
     printf("'input' - ввод текста, который необходимо закодировать\n");
-    printf("'createKey' - создать публичный и приватный ключ\n");
     printf("'read' - считать текст из файла\n");
     printf("'encoding' - закодировать текст\n");
     printf("'decoding' - раскодировать текст\n");
@@ -611,47 +592,17 @@ char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* ke
         file = fopen(keys[i].fileName, "rt");
         if (file != NULL)
         {
-
-            fscanf(file, "%ld\n", rows); // Читаем количество строк
-
             int dataType = keys[i].flag; // Тип данных: 0 - long, 1 - char
             if (dataType == 1)
             {
-                codeText = (long**)malloc((*rows) * sizeof(long*)); // Выделяем память для массива строк
-
-                for (long j = 0; j < (*rows); j++)
-                {
-                    long cols;
-                    fscanf(file, "%ld ", &cols); // Читаем количество элементов
-
-                    codeText[j] = (long*)malloc(cols * sizeof(long)); // Выделяем память для строки
-                    codeText[j][0] = cols;
-
-                    for (long k = 1; k < cols; k++)
-                    {
-                        fscanf(file, "%ld ", &codeText[j][k]); // Читаем элементы строки
-                    }
-                    fscanf(file, "%ld", &cols);
-                }
-
+                codeText = loadNumberFromFile(codeText, rows, fileName);
                 text = decodingRSA(codeText, keys[i].d, keys[i].n, *rows);
-
 
             }
             else if (dataType == 0)
             {
-                newText = (char**)malloc((*rows) * sizeof(char*)); // Выделяем память для массива строк
-
-                for (long j = 0; j < (*rows); j++)
-                {
-                    newText[j] = (char*)malloc(MAX_LENGTH * sizeof(char)); // Выделяем память для строки
-                    fgets(newText[j], MAX_LENGTH, file); // Читаем строку текста
-                    newText[j][strcspn(newText[j], "\n")] = '\0'; // Удаляем символ новой строки
-                }
-
+                newText = loadTextFromFile(rows, fileName);
                 text = decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, *rows);
-
-
             }
 
             fclose(file);
@@ -919,6 +870,41 @@ void saveTextToFile(char** text, long rows, char* fileName)
         }
     }
 }
+
+char** loadTextFromFile(long* rows, char* fileName)
+{
+    FILE* file = fopen(fileName, "rt");
+    if (file != NULL)
+    {
+        fscanf(file, "%ld\n", rows); // Считываем количество строк
+
+        char** text = (char**)malloc((*rows) * sizeof(char*)); // Выделяем память для массива строк
+
+        for (long j = 0; j < *rows; j++) {
+            char buffer[256];
+            fgets(buffer, sizeof(buffer), file); // Читаем строку из файла
+
+            // Удаляем символ новой строки, если он есть
+            char* newline = strchr(buffer, '\n');
+            if (newline != NULL) {
+                *newline = '\0';
+            }
+
+            // Выделяем память для строки и копируем в нее прочитанную строку
+            text[j] = strdup(buffer);
+        }
+
+        fclose(file);
+        printf("Текст успешно загружен из файла: %s\n", fileName);
+        return text;
+    }
+    else
+    {
+        printf("Ошибка при открытии файла для чтения\n");
+        return NULL;
+    }
+}
+
 
 
 
