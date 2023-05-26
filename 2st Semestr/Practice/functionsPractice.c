@@ -137,22 +137,21 @@ char** decodingRSA(long** codeText, long d, long n, long rows)
 {
     char** decodedText = (char**)malloc(rows * sizeof(char*));          //выделяю память для массива строк
 
-    for (long i = 0; i < rows; i++)
+    for (long i = 0; i < rows; i++)                                          //цикл по двумерному массиву
     {
-        long cols = codeText[i][0]; // Получаем количество элементов в текущей строке
+        long cols = codeText[i][0];                                          //получаю кол-во элементов в строке
 
-        decodedText[i] = (char*)malloc((cols + 1) * sizeof(char)); // Выделяем память для строки (плюс 1 для символа '\0')
+        decodedText[i] = (char*)malloc((cols + 1) * sizeof(char));      //выделяем память для строки (плюс 1 для символа '\0')
 
-        for (long j = 1; j < cols; j++)
+        for (long j = 1; j < cols; j++)                                      //цикл по массиву
         {
-            long s = powerMod(codeText[i][j], d, n); // Декодируем текущий элемент
+            long s = powerMod(codeText[i][j], d, n);                   //декодирую текущий элемент
 
-            decodedText[i][j-1] = (char)s; // Преобразуем числовое значение в символ и сохраняем в строке
+            decodedText[i][j-1] = (char)s;                                   //преобразую числовое значение в символ
         }
 
-        decodedText[i][cols] = '\0'; // Добавляем символ '\0' в конец строки
+        decodedText[i][cols] = '\0';
     }
-
     return decodedText;
 }
 
@@ -161,56 +160,56 @@ char** decodingRSA(long** codeText, long d, long n, long rows)
 
 
 
+//////////////////////////////////////////////////////функции для шифрования алгоритмом четырех квадратов////////////////////////////
 
-
-
-
-
-
-void writeBox (char box[SIZE][SIZE], int n)
+//функция для создания квадрата
+void writeBox(char box[SIZE][SIZE], int n)
 {
-    int k = 0;
-    char* word = NULL;
-    char letters[26] = "abcdefghijklmnopqrstuvwxyz";
-
-    int used[26] = {0}, flag;                           //used - массив отвечающий за повторение букв
-    do                                                  //проверяем ключевое слово на повторенеи букв
+    int k = 0;                                                      //индекс для записи букв в квадрат
+    char* word = NULL;                                              //word - кодовое слово
+    char letters[26] = "abcdefghijklmnopqrstuvwxyz";                //алфавит для заполнения квадрата
+    int used[26] = {0}, flag;                                       //used отвечает за повторение букв, flag нужен для проверки кодового слова
+    printf("\nПридумайте кодовое слово, в котором только строчные буквы");
+    do
     {
         flag = 0;
         printf("\nВведите кодовое слово: ");
-        inputStr(&word);
-        for (int i = 0; word[i] != '\0'; i++)
+        inputStr(&word);                                        //считываю кодовое слово
+        for (int i = 0; word[i] != '\0'; i++)                        //цикл для проверки на повторение букв и недопустимые символы
         {
-            for (int j = i + 1; word[j-1] != '\0'; j++)
+            for (int j = i + 1; word[j - 1] != '\0'; j++)
             {
-                if ((word[i] == word[j]) || !checkLetter(word[i]))
+                if ((word[i] == word[j]) || !checkLetter(word[i])) //если есть повторение или недопустимый символ
                 {
                     flag = 1;
                     break;
                 }
             }
-            if (flag) break;
-        }
-    }while(flag);
 
-    for(int i = 0; word[i] != '\0'; i++)                           //запись букв ключевого слова в квадрат
+            if (flag) {break;}                                        //если флаг установлен в 1, прерываю и внешний цикл
+        }
+        if(flag) {printf("\n\033[1;41m\033[1mКодовое слово введено неверно\033[0m\n");}
+
+    } while (flag);
+
+    for (int i = 0; word[i] != '\0'; i++)                               //записываем буквы ключевого слова в квадрат
     {
-        used[word[i] - 'a'] = 1;
-        box[k / SIZE][k % SIZE] = word[i];
+        used[word[i] - 'a'] = 1;                                        //отмечаю букву как использованную
+        box[k / SIZE][k % SIZE] = word[i];                              //записываю букву в квадрат
         k++;
     }
 
-    for(int i = 0; i < 26; i++)
+
+    for (int i = 0; i < 26; i++)                                        //записываю оставшиеся буквы алфавита в квадрат
     {
-        if(used[letters[i] - 'a'] == 0)
+        if (used[letters[i] - 'a'] == 0)                                //если буква не была использована
         {
-            box[k / SIZE][k % SIZE] = letters[i];
-            used[letters[i] - 'a'] = 1;
+            box[k / SIZE][k % SIZE] = letters[i];                       //записываю букву в квадрат
+            used[letters[i] - 'a'] = 1;                                 //отмечаю букву как использованную
             k++;
         }
     }
-    //outputBox(box, SIZE);
-    pushRandom (box, ' ', 4, 2);
+    pushRandom (box, ' ', 4, 2);                                //случайным образом вставляю символы
     pushRandom (box, ';', 4, 3);
     pushRandom (box, '!', 4, 4);
     pushRandom (box, '?', 4, 5);
@@ -226,106 +225,88 @@ void writeBox (char box[SIZE][SIZE], int n)
 
 void outputBox (char** box, int n)
 {
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++)
+    {
         printf("\n");
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++)
+        {
             printf("%c ", box[i][j]);
         }
     }
     printf("\n\n\n");
 }
 
-void readInfo (char box[SIZE][SIZE], int n, const char* name)
+
+
+//кодирование текста алгоритмом четырех квадратов
+char** codingSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char **text, int size)
 {
-    FILE* file;
-    char s;
-    int j;
-    file = fopen(name, "r");
-    if (file == NULL)
+    for(int c = 0; c < size; c++)                                       //цикл по строкам
     {
-        printf("Ошибка открытия файла");
-        exit(EXIT_FAILURE);
-    }
-    for(int i = 0; i < n; i++)
-    {
-        j = 0;
-        while((s = getc(file)) != '\n' && !feof(file))
+        int n = strlen(text[c]);                                     //получаю длину текста
+        int i = 0, j = 0, k = 0, l = 0;                                 //переменные для хранения индексов букв
+
+        if (strlen(text[c]) % 2 == 1)                                //если длина текста нечетная
         {
-            box[i][j] = s;
-            j++;
-        }
-    }
-    fclose(file);
-}
-
-
-
-char** codingSquare (char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char **text, int size)
-{
-    for(int c = 0; c < size; c++)
-    {
-        int n = strlen(text[c]);
-        int i = 0, j = 0, k = 0, l = 0;
-        if (strlen(text[c]) % 2 == 1)
-        {
-            n += 2;
+            n += 2;                                                     //расширяю строку
             char* tmp = (char*)realloc(text[c], (n) * sizeof(char));
             if (tmp != NULL)
             {
                 text[c] = tmp;
-                text[c][n - 2] = ' ';
-                text[c][n - 1] = '\0';
-            } else {
-                printf("\nОшибка памяти");
+                text[c][n - 2] = ' ';                                    //добавляю пробел перед дополнительными символами
+                text[c][n - 1] = '\0';                                   //добавляю символ конца строки
+            }
+            else
+            {
+                printf("\n\033[1;41m\033[1mОшибка памяти\033[0m\n");
                 exit(EXIT_FAILURE);
             }
-
         }
         for (int z = 0; z < n - 1; z++)
         {
-            if (checkLetter(text[c][z]))
+            if (checkLetter(text[c][z]))                                //если символ является буквой
             {
-                i = (text[c][z] - 'a') / SIZE;
-                j = (text[c][z] - 'a') % SIZE;
+                i = (text[c][z] - 'a') / SIZE;                             //вычисляю индекс строки в квадрате
+                j = (text[c][z] - 'a') % SIZE;                             //вычисляю индекс столбца в квадрате
             } else
             {
-                searchLetterIndex(box1, &i, &j, SIZE, text[c][z]);
+                searchLetterIndex(box1, &i, &j, SIZE, text[c][z]); //ищу индексы символа в квадрате box1
             }
             z++;
-            if (checkLetter(text[c][z]))
+            if (checkLetter(text[c][z]))                                //если символ является буквой
             {
-                k = (text[c][z] - 'a') / SIZE;
-                l = (text[c][z] - 'a') % SIZE;
+                k = (text[c][z] - 'a') / SIZE;                             //вычисляю индекс строки в квадрате
+                l = (text[c][z] - 'a') % SIZE;                             //вычисляю индекс столбца в квадрате
             } else
             {
-                searchLetterIndex(box4, &k, &l, SIZE, text[c][z]);
+                searchLetterIndex(box4, &k, &l, SIZE, text[c][z]); //ищу индексы символа в квадрате box4
             }
             char x1, x2;
-            x1 = box2[i][l];
-            x2 = box3[k][j];
-            text[c][z - 1] = x1;
-            text[c][z] = x2;
+            x1 = box2[i][l];                                                //получаю символ из квадрата box2
+            x2 = box3[k][j];                                                //получаю символ из квадрата box3
+            text[c][z - 1] = x1;                                            //заношу закодированные буквы в массив
+            text[c][z] = x2;                                                //заношу закодированные буквы в массив
         }
     }
     return text;
-
 }
 
 
 
+//функция декодирования текста алгоритмом четырех квадратов
 char** decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE][SIZE], char box4[SIZE][SIZE], char** text, long rows)
 {
-    for (int c = 0; c < rows; c++)
+    for (int c = 0; c < rows; c++)                                                  //цикл по строкам
     {
-        int i = 0, j = 0, k = 0, l = 0, n = strlen(text[c]);
+        int i = 0, j = 0, k = 0, l = 0, n = strlen(text[c]);                     //инициализирую переменные и получаю длину текста
         for (int z = 0; z < n; z++)
         {
-            searchLetterIndex(box2, &i, &j, SIZE, text[c][z]);
-            searchLetterIndex(box3, &k, &l, SIZE, text[c][z + 1]);
-            char x1 = box1[i][l];
-            char x2 = box4[k][j];
-            text[c][z] = x1;
-            text[c][z + 1] = x2;
+            searchLetterIndex(box2, &i, &j, SIZE, text[c][z]);           //ищу индексы символа в квадрате box2
+            searchLetterIndex(box3, &k, &l, SIZE, text[c][z + 1]);  //ищу индексы символа в квадрате box3
+            char x1 = box1[i][l];                                                   //получаю символ из квадрата box1
+            char x2 = box4[k][j];                                                   //получаю символ из квадрата box4
+            text[c][z] = x1;                                                        //делаю замены в исходном массиве
+            text[c][z + 1] = x2;                                                    //делаю замены в исходном массиве
             z++;
         }
     }
@@ -333,57 +314,64 @@ char** decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE
 }
 
 
+
+//функция проверки, является ли символ буквой
 int checkLetter (char s)
 {
     int flag = 1;
-    if(s < 'a' || s > 'z')
+    if(s < 'a' || s > 'z')                              //если не строчная буква, вернуть 0, иначе 1
         flag = 0;
     return flag;
 }
 
-void pushRandom (char box[SIZE][SIZE], char s, int i, int j)
+
+
+//функция вставки элемента в случайную позицию
+void pushRandom(char box[SIZE][SIZE], char s, int i, int j)
 {
     int l, m;
     srand(time(NULL));
-    l = rand()%3;
-    srand(time(NULL));
-    m = rand()%3;
-    char letter = box[l][m];
-    box[l][m] = s;
-    box[i][j] = letter;
+    l = rand() % SIZE;                                  //генерирую случайную строку в квадрате
+    m = rand() % SIZE;                                  //генерирую случайный столбец в квадрате
 
+    char letter = box[l][m];                            //сохраняю символ, который будет заменен
+    box[l][m] = s;                                      //заменяю символ случайной позиции на новый символ s
+    box[i][j] = letter;                                 //заменяю символ в позиции (i, j) на сохраненный символ
 }
 
 
+
+//функция поиска индексов символа в квадрате
 void searchLetterIndex (char box[SIZE][SIZE], int *i, int* j, int n, char s)
 {
     int flag = 0;
-    for ((*i) = 0; (*i) < n; (*i)++)
+    for ((*i) = 0; (*i) < n; (*i)++)                //цикл по строкам
     {
-        for ((*j) = 0; (*j) < n; (*j)++)
+        for ((*j) = 0; (*j) < n; (*j)++)            //цикл по символам
         {
-            if (box[(*i)][(*j)] == s)
+            if (box[(*i)][(*j)] == s)               //если нашел символ, выйти из двойного цикла
             {
                 flag = 1;
                 break;
             }
         }
-        if (flag == 1)
-            break;
+        if (flag == 1) {break;}
     }
 }
+
+
 
 //функция выбора команды
 void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFound)
 {
     char* task = NULL;
-    printf("\nВыберите действие:\n");
-    printf("'input' - ввод текста, который необходимо закодировать\n");
-    printf("'read' - считать текст из файла\n");
-    printf("'encoding' - закодировать текст\n");
-    printf("'decoding' - раскодировать текст\n");
-    printf("'save' - сохранить зашифрованный текст в файл\n");
-    printf("'finish' - завершить программу\n");
+    printf("\n\033[32m Выберите действие: \033[0m\n");
+    printf("\033[3;34m input \033[0m - ввод текста, который необходимо закодировать\n");
+    printf("\033[3;34m read \033[0m - считать текстК из файла\n");
+    printf("\033[3;34m encoding \033[0m - закодировать текст\n");
+    printf("\033[3;34m decoding \033[0m - раскодировать текст\n");
+    printf("\033[3;34m save \033[0m - сохранить зашифрованный текст в файл\n");
+    printf("\033[3;34m finish \033[0m - завершить программу\n");
     rewind(stdin);
     inputStr(&task);
     for(*doTask = input; *doTask < finish; (*doTask)++)
@@ -415,111 +403,89 @@ void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d)
     search_d(d, *e, *fi);
 }
 
-struct dataCode createKeyCoding (char box2[SIZE][SIZE], char box3[SIZE][SIZE])
+
+
+//функция чтения квадрата из файла
+void readInfo(char box[SIZE][SIZE], int n, const char* name)
 {
-    char* task = NULL;
-    int flag, choice;
-    long p, q, fi;
-    struct dataCode key;
-    printf("\nДля какого алгоритма шифрования вы хотите создать ключ?\n");
-    printf("'RSA' - шифрование алгоритмом RSA\n");
-    printf("'Square' - шифрование алгоритмом четырех квадратов\n");
-    do
-    {
-        printf("Введите название алгоритма: ");
-        inputStr(&task);
-        if (strcmp(task, "RSA") == 0)
-        {
-            flag = 1;
-        } else if (strcmp(task, "Square") == 0)
-        {
-            flag = 0;
-        } else
-        {
-            printf("\nКоманда введена неверно");
-            flag = 2;
-        }
-    }while(flag == 2);
+    FILE* file;
+    char s;                                                     //символ в который считывается
+    int j;                                                      //параметр по символам строки
 
-    if(flag)
+    file = fopen(name, "r");
+    if (file == NULL)
     {
-        printf("\nЧтобы сгенерировать ключ случайно, введите 0");
-        printf("\nЧтобы сгенерировать ключ вручную, введите 1\n");
-        inputInt(&choice, 0, 1);
-        if (choice)
-        {
-
-        }
-        else
-        {
-            createNumbers(&p, &q, &key.n, &fi);
-            createEilerNumber(&key.e, fi);
-            search_d(&key.d, key.e, fi);
-        }
-        printf("\nОткрытый ключ: {%ld, %ld}, закрытый ключ: {%ld, %ld} ", key.n, key.e, key.n, key.d);
-    }
-    else
-    {
-        writeBox(box2, SIZE);
-        writeBox(box3, SIZE);
-        for (int i = 0; i < SIZE; i++)
-            for(int j = 0; j < SIZE; j++)
-                key.box2[i][j] = box2[i][j];
-        for (int i = 0; i < SIZE; i++)
-            for(int j = 0; j < SIZE; j++)
-                key.box3[i][j] = box3[i][j];
+        printf("Ошибка открытия файла");
+        exit(EXIT_FAILURE);
     }
 
-    return key;
+    for (int i = 0; i < n; i++)
+    {
+        j = 0;
+        while ((s = getc(file)) != '\n' && !feof(file))         //читаю символы из файла до символа новой строки или конца файла
+        {
+            box[i][j] = s;                                      //сохраняю считанный символ в соответствующей ячейке массива `box`
+            j++;
+        }
+    }
+
+    fclose(file);
 }
 
+
+
+
+//////////////////////////////////////////Основные функции вызов функций для кодирования и декодирования/////////////////////////////////
+
+
+
+//основная функция для кодирования текста
 struct dataCode encodingText (char** text, int n, long ***codeText, char ***newText)
 {
-    struct dataCode key;
-    char* task = NULL;
+    struct dataCode key;                                                //key - новая структура хранящая данные о зашифрованном тексте
+    char* task = NULL;                                                  //task - переменная для выбора задачи
     int choice;
-    long p, q, fi;
-    long **code = (long**)calloc(n, sizeof(long*));
-    char **codingText = (char**)calloc(n, sizeof(char*));
+    long p, q, fi;                                                      //p, q, fi - переменные для шифрования алгоритмом RSA
+    long **code = (long**)calloc(n, sizeof(long*));          //code - двумерный массив кода алгоритмом RSA
+    char **codingText = (char**)calloc(n, sizeof(char*));    //codingText - двумерный массив зашифрованного текста
     for(int i = 0; i < n; i++)
         *(codingText + i) = (char*)calloc(strlen(text[i]), sizeof(char));
     char box1[SIZE][SIZE], box2[SIZE][SIZE], box3[SIZE][SIZE], box4[SIZE][SIZE];
     printf("\nВведите название алгоритма, каким вы хотите закодировать текст");
     printf("\n'RSA' - закодировать алгоритмом RSA");
     printf("\n'Square' - закодировать алгоритмом четырех квадратов");
-
     do
     {
         printf("\nВведите название алгоритма: ");
         inputStr(&task);
         if (strcmp(task, "RSA") == 0)
         {
-            key.flag = 1;
+            key.flag = 1;                                               //помечаю, каким алгоритмом зашифровано
             printf("\nЧтобы сгенерировать ключ случайно, введите 0");
             printf("\nЧтобы сгенерировать ключ вручную, введите 1\n");
-            inputInt(&choice, 0, 1);
+            inputInt(&choice, 0, 1);                           //выбор, как создать ключ
             if (choice)
             {
-                do
+                do                                                      //создаю нужные числа для шифрования RSA
                 {
                     printf("\nВведите простое число p - ");
                     scanf("%ld", &p);
-                } while (!isPrimes(p));
+                } while (!isPrimes(p));                              //создаю число p
                 do
                 {
                     printf("\nВведите простое число q - ");
                     scanf("%ld", &q);
-                } while (!isPrimes(q));
-                key.n = p * q;
-                fi = (p - 1) * (q - 1);
-                createEilerNumber(&(key.e), fi);
-                search_d(&(key.d), key.e, fi);
+                } while (!isPrimes(q));                               //создаю число q
+                key.n = p * q;                                           //создаю n - модуль для расшифровки
+                fi = (p - 1) * (q - 1);                                  //создаю функцию Эйлера, чтобы создать e и d
+                createEilerNumber(&(key.e), fi);                         //создаю e - открытую экспоненту
+                search_d(&(key.d), key.e, fi);                        //создаю d - закрытую экспоненту
             }
-            else
+            else                                                         //иначе сгенерировать ключи случайно
             {
-                createNumbers(&p, &q, &key.n, &fi);
-                createEilerNumber(&key.e, fi);
-                search_d(&key.d, key.e, fi);
+                createNumbers(&p, &q, &key.n, &fi);                      //сгенерировать p, q, n и fi
+                createEilerNumber(&key.e, fi);                           //создать закрытую экспоненту e
+                search_d(&key.d, key.e, fi);                          //создать число d - часть закрытого ключа
             }
             printf("\nОткрытый ключ: {%ld, %ld}, закрытый ключ: {%ld, %ld} ", key.n, key.e, key.n, key.d);
         }
@@ -529,14 +495,14 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
         else if (strcmp(task, "Square") == 0)
         {
             key.flag = 0;
-            readInfo(box1, SIZE, "box1.txt");
+            readInfo(box1, SIZE, "box1.txt");               //считать box1, box4 из файла
             readInfo(box4, SIZE, "box4.txt");
-            writeBox(box2, SIZE);
+            writeBox(box2, SIZE);                                 //сгенерировать box2 и box3 пользователем
             writeBox(box3, SIZE);
-            for (int i = 0; i < SIZE; i++)
+            for (int i = 0; i < SIZE; i++)                                //сохранить ключи (box2) в структуру
                 for(int j = 0; j < SIZE; j++)
                     key.box2[i][j] = box2[i][j];
-            for (int i = 0; i < SIZE; i++)
+            for (int i = 0; i < SIZE; i++)                                //сохранить ключи (box3) в структуру
                 for(int j = 0; j < SIZE; j++)
                     key.box3[i][j] = box3[i][j];
         }
@@ -549,15 +515,15 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
     if (key.flag)
     {
-        code = coding(text, key.e, key.n, n);
-        output2DNumbers(code, n);
-        codingText = NULL;
+        code = coding(text, key.e, key.n, n);                   //закодировать текст алгоритмом RSA
+        output2DNumbers(code, n);                                     //вывести закодированный текст на экран
+        codingText = NULL;                                                 //указатель на другой массив поставить в NULL
     }
     else
     {
-        codingText = codingSquare(box1, box2, box3, box4, text, n);
-        output2DString(codingText, n);
-        code = NULL;
+        codingText = codingSquare(box1, box2, box3, box4, text, n);   //закодировать текст алгоритмом четырех квадратов
+        output2DString(codingText, n);                                //вывести закодированный текст на экран
+        code = NULL;                                                       //указатель на другой массив поставить в NULL
     }
     *newText = codingText;
     *codeText = code;
@@ -565,14 +531,19 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 }
 
 
+
+//декодирование текста из файла
 char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* keys, int count, char box[SIZE][SIZE], long* rows)
 {
-    int flag = 0, i;
-    char **text = NULL;
-    char* fileName = NULL;
-    printf("\nВведите имя файла, который надо расшифровать: ");
-    inputStr(&fileName);
-    for (i = 0; i < count; i++)
+    int flag = 0;                                       //flag - флаг для проверки наличия файла
+    int i;
+    char **text = NULL;                                 //text - расшифрованный текст
+    char* fileName = NULL;                              //fileName - имя файла для расшифровки
+
+    printf("\nВведите имя файла, который необходимо расшифровать: ");
+    inputStr(&fileName);                           //ввод имени файла для расшифровки
+
+    for (i = 0; i < count; i++)                         //проверка, есть ли файл с таким именем в массиве структур
     {
         if (strcmp(fileName, keys[i].fileName) == 0)
         {
@@ -580,25 +551,25 @@ char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* ke
             break;
         }
     }
-    if (flag)
+
+    if (flag)                                                                   //если файл найден
     {
         FILE* file;
         file = fopen(keys[i].fileName, "rt");
         if (file != NULL)
         {
-            int dataType = keys[i].flag; // Тип данных: 1 - long, 0 - char
+            int dataType = keys[i].flag;                                        //dataType -  тип данных: 1 - long, 0 - char
             if (dataType == 1)
             {
-                codeText = loadNumberFromFile(codeText, rows, fileName);
-                text = decodingRSA(codeText, keys[i].d, keys[i].n, *rows);
+                codeText = loadNumberFromFile(codeText, rows, fileName);   //загрузка числовых данных из файла
+                text = decodingRSA(codeText, keys[i].d, keys[i].n, *rows);       //расшифровка алгоритмом RSA
 
             }
             else if (dataType == 0)
             {
-                newText = loadTextFromFile(rows, fileName);
+                newText = loadTextFromFile(rows, fileName);                      //загрузка текстовых данных из файла
                 text = decodeSquare(box, keys[i].box2, keys[i].box3, box, newText, *rows);
-            }
-
+            }                                                                    //расшифровка методом четырех квадратов
             fclose(file);
         }
         else
@@ -608,45 +579,109 @@ char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* ke
     }
     else
     {
-        printf("\n\033[1;41m\033[1m\nФайл с таким именем не найден\033[0m");
+        printf("\nФайл с таким именем не найден\n");
     }
     return text;
 }
 
 
 
+
+//функция декодирования текста, введенного с клавиатуры
+char** decodingInputText(char box[SIZE][SIZE], long* rows)
+{
+    char* string;                               //string - строка для выбора алгоритма шифрования
+    char** text;                                //text - текст для расшифровки
+    char* name1, *name2;                        //имя файлов для хранения ключей box2 и box3
+    char box2[SIZE][SIZE], box3[SIZE][SIZE];    //ключи для шифрования алгоритмом четырех квадратов
+    long** code;                                //числовое представление текста для алгоритма RSA
+    long d, n;                                  //ключи для расшифровки алгоритма RSA
+    int flag = 0;                               //flag - флаг для проверки корректного ввода
+
+    do
+    {
+        printf("\nКаким алгоритмом зашифрован текст? (RSA или Square)\n");
+        inputStr(&string);                 //ввод алгоритма шифрования
+
+        if (strcmp("RSA", string) == 0 || strcmp("Square", string) == 0)
+        {
+            flag = 1;
+        }
+        else
+        {
+            printf("\n\033[3;31m Команда введена неверно, попробуйте еще раз \\033[0m");
+        }
+    } while (!flag);
+
+    if (strcmp("RSA", string) == 0)
+    {
+        printf("\nВведите через пробел цифры, которыми закодирована каждая буква");
+        input2DString(&text, rows);                         //ввод закодированного текста
+        code = myAtoi2DText(text, *rows);                      //преобразование текста в числовое представление
+        printf("\nВведите ключ для расшифровки\nВведите число d - ");
+        inputLong(&d, 0, 10000);                      //ввод значения d
+        printf("Введите число n - ");
+        inputLong(&n, 0, 10000);                      //ввод значения n
+        text = decodingRSA(code, d, n, *rows);        //расшифровка текста с использованием RSA
+    }
+    else
+    {
+        printf("\nВведите закодированный текст\n");
+        input2DString(&text, rows);                        //ввод закодированного текста
+        printf("\nВведите имя файла, в котором хранится box2 - ");
+        inputStr(&name1);                                //ввод имени файла для box2
+        readInfo(box2, SIZE, name1);            //чтение информации из файла в box2
+        printf("\nВведите имя файла, в котором хранится box3 - ");
+        inputStr(&name2);                                //ввод имени файла для box3
+        readInfo(box3, SIZE, name2);            //чтение информации из файла в box3
+        text = decodeSquare(box, box2, box3, box, text, *rows);
+    }                                                         // расшифровка текста методом четырех квадратов
+
+    return text;
+}
+
+///////////////////////////////////////////////////////Функции работы с файлами////////////////////////////////////////
+
+
+//функция сохранения массива структур с данными о зашифрованных файлах в бинарный файл
 void saveStructInfo (struct dataCode* key, long count)
 {
     FILE* file;
     file = fopen("keyInfo", "wb");
     if (file != NULL)
     {
-        fwrite(&count, sizeof(long), 1, file);
-        fwrite(key, sizeof(struct dataCode), count, file);
+        fwrite(&count, sizeof(long), 1, file);              //записываю кол-во элементов в массиве структур
+        fwrite(key, sizeof(struct dataCode), count, file);  //записываю весь массив структур
     }
     else
         printf("\n\033[1;41m\033[1m\nОшибка при открытии бинарного файла для записи ключей\033[0m");
     fclose(file);
 }
 
+
+
+//функция чтения массива структур с данными о зашифрованных файлах
 void readStructInfo(struct dataCode** key, long* count)
 {
     FILE* file;
     file = fopen("keyInfo", "rb");
     if (file != NULL)
     {
-        fread(count, sizeof(long), 1, file); // Считываем количество элементов
-        *key = (struct dataCode*)calloc((*count), sizeof(struct dataCode)); // Выделяем память для массива структур
-        fread(*key, sizeof(struct dataCode), *count, file); // Считываем массив структур
+        fread(count, sizeof(long), 1, file);                //считываю количество элементов
+        *key = (struct dataCode*)calloc((*count), sizeof(struct dataCode));   //Выделяем память для массива структур
+        fread(*key, sizeof(struct dataCode), *count, file); //Считываю массив структур
         fclose(file);
     }
     else
         printf("\n\033[1;41m\033[1m\nОшибка при открытии бинарного файла для чтения ключей\033[0m");
 }
 
+
+
+//функция сохранения двумерного массива чисел в файл
 void saveNumberToFile(long** code, long rows, char* fileName)
 {
-    int format;
+    int format;                                         //переменная для выбора формата: бинарный или текстовый
 
     printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
     inputInt(&format, 0, 1);
@@ -655,49 +690,48 @@ void saveNumberToFile(long** code, long rows, char* fileName)
 
     if (!format)
     {
-        file = fopen(fileName, "wt");
+        file = fopen(fileName, "wt");               //открываю текстовый файл для записи
         if (file != NULL)
         {
-            fprintf(file, "%ld\n", rows); // Записываем количество строк
+            fprintf(file, "%ld\n", rows);                 //записываю количество строк
 
-            for (long i = 0; i < rows; i++)
+            for (long i = 0; i < rows; i++)               //цикл по двумерному массиву
             {
-                long cols = code[i][0]; // Получаем количество элементов в текущей строке
-                fprintf(file, "%ld ", cols); // Записываем количество элементов
+                long cols = code[i][0];                   //получаю количество элементов в текущей строке
+                fprintf(file, "%ld ", cols);              //записываю количество элементов
 
-                for (long j = 1; j <= cols; j++)
+                for (long j = 1; j <= cols; j++)          //цикл по строке двумерного массива
                 {
-                    fprintf(file, "%ld ", code[i][j]); // Записываем элементы строки
+                    fprintf(file, "%ld ", code[i][j]);    //Записываю элементы строки
                 }
 
-                fprintf(file, "\n"); // Переходим на новую строку
+                fprintf(file, "\n");
             }
 
             fclose(file);
         }
         else
         {
-            printf("\nОшибка при открытии бинарного файла для записи кода\n");
+            printf("\nОшибка при открытии текстового файла для записи кода\n");
         }
     }
     else
     {
-        file = fopen(fileName, "wb");
+        file = fopen(fileName, "wb");                                           //открываю бинарный файл для записи
         if (file != NULL)
         {
-            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк
+            fwrite(&rows, sizeof(long), 1, file);               //записываю количество строк
 
             for (long i = 0; i < rows; i++)
             {
-                long cols = code[i][0]; // Получаем количество элементов в текущей строке
-                fwrite(&cols, sizeof(long), 1, file); // Записываем количество элементов
+                long cols = code[i][0];                                                //получаю количество элементов в текущей строке
+                fwrite(&cols, sizeof(long), 1, file);           //записываю количество элементов
 
-                for (long j = 1; j <= cols; j++)
+                for (long j = 1; j <= cols; j++)                                       //цикл по строке двумерного массива чисел
                 {
-                    fwrite(&code[i][j], sizeof(long), 1, file); // Записываем элементы строки
+                    fwrite(&code[i][j], sizeof(long), 1, file); //записываю элементы строки
                 }
             }
-
             fclose(file);
         }
         else
@@ -708,35 +742,36 @@ void saveNumberToFile(long** code, long rows, char* fileName)
 }
 
 
+
 long** loadNumberFromFile(long** code, long* rows, char* fileName)
 {
-    int format;
+    int format;                             //переменная для выбора типа файла: бинарный или текстовый
 
     printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
     inputInt(&format, 0, 1);
 
     FILE* file;
 
-    if (!format)
+    if (!format)                                                          //если текстовый файл
     {
-        file = fopen(fileName, "rt");
+        file = fopen(fileName, "rt");                               //открываю текстовый файл для чтения
         if (file != NULL)
         {
-            if (fscanf(file, "%ld", rows) == 1)
+            if (fscanf(file, "%ld", rows) == 1)                            //читаю количество строк из файла
             {
-                code = (long**)malloc((*rows) * sizeof(long*));
+                code = (long**)malloc((*rows) * sizeof(long*));       //выделяю память под массив строк
 
                 for (long i = 0; i < *rows; i++)
                 {
                     long cols;
-                    if (fscanf(file, "%ld", &cols) == 1)
+                    if (fscanf(file, "%ld", &cols) == 1)                    //читаю количество элементов в текущей строке
                     {
-                        code[i] = (long*)malloc((cols + 1) * sizeof(long));
-                        code[i][0] = cols;
+                        code[i] = (long*)malloc((cols + 1) * sizeof(long)); //выделяю память под элементы строки
+                        code[i][0] = cols;                                  //сохраняю количество элементов в первом элементе строки
 
                         for (long j = 1; j <= cols; j++)
                         {
-                            fscanf(file, "%ld", &code[i][j]);
+                            fscanf(file, "%ld", &code[i][j]);               //читаю элементы строки из файла
                         }
                     }
                     else
@@ -761,25 +796,25 @@ long** loadNumberFromFile(long** code, long* rows, char* fileName)
     }
     else
     {
-        file = fopen(fileName, "rb");
+        file = fopen(fileName, "rb");                                       //открываю бинарный файл для чтения
         if (file != NULL)
         {
-            if (fread(rows, sizeof(long), 1, file) == 1)
+            if (fread(rows, sizeof(long), 1, file) == 1)    //читаю количество строк из файла
             {
-                code = (long**)malloc((*rows) * sizeof(long*));
+                code = (long**)malloc((*rows) * sizeof(long*));               //выделяю память под массив строк
 
                 for (long i = 0; i < *rows; i++)
                 {
                     long cols;
-                    if (fread(&cols, sizeof(long), 1, file) == 1)
+                    if (fread(&cols, sizeof(long), 1, file) == 1) //читаю количество элементов в текущей строке
                     {
-                        code[i] = (long*)malloc((cols + 1) * sizeof(long));
-                        code[i][0] = cols;
+                        code[i] = (long*)malloc((cols + 1) * sizeof(long));    //выделяю память под элементы строки
+                        code[i][0] = cols;                                          //сохраняю количество элементов в первом элементе строки
 
                         for (long j = 1; j <= cols; j++)
                         {
                             if (fread(&code[i][j], sizeof(long), 1, file) != 1)
-                            {
+                            {                                                       //читаю элементы строки из файла
                                 printf("Ошибка чтения файла\n");
                                 fclose(file);
                                 return NULL;
@@ -806,103 +841,127 @@ long** loadNumberFromFile(long** code, long* rows, char* fileName)
             printf("Ошибка при открытии бинарного файла для чтения\n");
         }
     }
-
     return code;
 }
 
 
 
-void saveTextToFile(char** text, long rows, char* fileName) {
-    int format;
+//функция сохранения текста в файл
+void saveTextToFile(char** text, long rows, char* fileName)
+{
+    int format;                                 //переменная для определения типа файла
 
     printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
     inputInt(&format, 0, 1);
 
     FILE* file;
 
-    if (!format) {
-        file = fopen(fileName, "w");
+    if (!format)
+    {
+        file = fopen(fileName, "w");        //открываю текстовый файл для записи
         if (file != NULL)
         {
-            fprintf(file, "%ld\n", rows);
-            for (long i = 0; i < rows; i++) {
-                fprintf(file, "%s\n", text[i]); // Записываем строку в текстовый файл
+            fprintf(file, "%ld\n", rows);         //записываю количество строк в текстовый файл
+
+            for (long i = 0; i < rows; i++)
+            {
+                fprintf(file, "%s\n", text[i]);   //записываю строку в текстовый файл
             }
             fclose(file);
-            printf("Массив строк успешно сохранен в текстовый файл: %s\n", fileName);
-        } else {
+        }
+        else
+        {
             printf("Ошибка при открытии текстового файла для записи\n");
         }
-    } else {
-        file = fopen(fileName, "wb");
-        if (file != NULL) {
-            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк в бинарный файл
+    }
+    else
+    {
+        file = fopen(fileName, "wb");                                   //открываю бинарный файл для записи
+        if (file != NULL)
+        {
+            fwrite(&rows, sizeof(long), 1, file);       //записываю количество строк в бинарный файл
 
-            for (long i = 0; i < rows; i++) {
-                long len = strlen(text[i]); // Получаем длину строки
-                fwrite(&len, sizeof(long), 1, file); // Записываем длину строки
-                fwrite(text[i], sizeof(char), len, file); // Записываем строку
+            for (long i = 0; i < rows; i++)
+            {
+                long len = strlen(text[i]);                                 //получаю длину строки
+                fwrite(&len, sizeof(long), 1, file);    //записываю длину строки
+                fwrite(text[i], sizeof(char), len, file); //записываю строку
             }
 
             fclose(file);
-            printf("Массив строк успешно сохранен в бинарный файл: %s\n", fileName);
-        } else {
+        }
+        else
+        {
             printf("Ошибка при открытии бинарного файла для записи\n");
         }
     }
 }
 
 
+//функция считывания текста в двумерный массив из файла
 char** loadTextFromFile(long* rows, char* fileName)
 {
-    int format;
+    int format;                                             //переменная для определения типа файла
 
     printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
     inputInt(&format, 0, 1);
 
     FILE* file;
 
-    if (!format) {
-        file = fopen(fileName, "r");
-    } else {
-        file = fopen(fileName, "rb");
+    if (!format)
+    {
+        file = fopen(fileName, "r");                  //открываю текстовый файл для чтения
+    }
+    else
+    {
+        file = fopen(fileName, "rb");                 //открываю бинарный файл для чтения
     }
 
-    if (file != NULL) {
-        if (!format) {
-            fscanf(file, "%ld\n", rows); // Считываем количество строк
-        } else {
-            fread(rows, sizeof(long), 1, file); // Считываем количество строк
+    if (file != NULL)
+    {
+        if (!format)
+        {
+            fscanf(file, "%ld\n", rows);                    //считываю количество строк
+        }
+        else
+        {
+            fread(rows, sizeof(long), 1, file); //считываю количество строк
         }
 
-        char** text = (char**)malloc(*rows * sizeof(char*));
-        if (text != NULL) {
-            for (long i = 0; i < *rows; i++) {
-                char buffer[MAX_LENGTH];
-                if (!format) {
-                    fgets(buffer, MAX_LENGTH, file);
+        char** text = (char**)malloc(*rows * sizeof(char*));      //выделяю память под двумерный массив
+        if (text != NULL)
+        {
+            for (long i = 0; i < *rows; i++)
+            {
+                char buffer[MAX_LENGTH];                                //буфер для считывания строки
+                if (!format)
+                {
+                    fgets(buffer, MAX_LENGTH, file);                    //считываю строку из текстового файла
                     int j = 0;
                     while (buffer[j] != '\n')
                         j++;
-                    buffer[j] = '\0';
-                    text[i] = strdup(buffer);
-                } else {
-                    long len;
-                    fread(&len, sizeof(long), 1, file); // Считываем длину строки
-                    text[i] = (char*)malloc((len + 1) * sizeof(char)); // Выделяем память для строки
-                    fread(text[i], sizeof(char), len, file); // Считываем строку
-                    text[i][len] = '\0'; // Добавляем символ конца строки
+                    buffer[j] = '\0';                                   //удаляю \n заменяя на \0
+                    text[i] = strdup(buffer);                       //выделяю память и копирую строку
                 }
-
-
+                else
+                {
+                    long len;
+                    fread(&len, sizeof(long), 1, file);         //считываю длину строки
+                    text[i] = (char*)malloc((len + 1) * sizeof(char));            //выделяю память для строки
+                    fread(text[i], sizeof(char), len, file);    //считываю строку
+                    text[i][len] = '\0';                                               //добавляю символ конца строки
+                }
             }
-        } else {
+        }
+        else
+        {
             printf("Ошибка при выделении памяти\n");
         }
-
         fclose(file);
         return text;
-    } else {
+    }
+    else
+    {
         printf("\nФайл с таким именем не найден\n");
         return NULL;
     }
@@ -910,45 +969,60 @@ char** loadTextFromFile(long* rows, char* fileName)
 
 
 
-
-
-
-
-
-struct dataCode saveEncodingInfo (char** newText, long** code, long rows, struct dataCode key)
+//функция перевода двумерного массива чисел в массив строк
+long** myAtoi2DText(char** text, long rows)
 {
-    char fileName[N];
-    int i = 0;
-    printf("\nВведите имя файла, в который хотите сохранить: ");
-    fgets(fileName, N, stdin);
-    while (fileName[i] != '\n')
-        i++;
-    fileName[i] = '\0';
-    strcpy(key.fileName, fileName);
-    if(key.flag)
+    long** numbers = (long**)malloc(rows * sizeof(long*));      //выделяю память
+
+    for (int i = 0; i < rows; i++)                                   //цикл по строкам
     {
-        saveNumberToFile(code, rows, key.fileName);
+        int count = 0;                                               //кол-во чисел в текущей строке
+
+        char* copy = strdup(text[i]);                            //создаю копию строки с выделением памяти
+        char* token = strtok(copy," " );                    //разбиваю строку на слова, чтобы посчитать кол-во слов
+        while (token != NULL)
+        {
+            count++;
+            token = strtok(NULL, " ");
+        }
+        free(copy);
+
+        numbers[i] = (long*)malloc((count + 1) * sizeof(long));     //выделяю память под строку
+        numbers[i][0] = count + 1;                                       //записываю первым элементов кол-во чисел в строке
+
+
+        char* tokenPtr = strtok(text[i], " ");                  //разбиваю на слова
+        int j = 1;
+        while (tokenPtr != NULL)
+        {
+            numbers[i][j++] = atol(tokenPtr);                           //слово (число) преобразую в long
+            tokenPtr = strtok(NULL, " ");
+        }
     }
-    else
-    {
-        saveTextToFile(newText, rows, key.fileName);
-    }
-    return key;
+    return numbers;
 }
 
 
+
+////////////////////////Вспомогательные функции которые вызывают другие функции/////////////////////
+
+
+
+//функция для кодирования текста
 void caseEncoding (struct dataCode **keys, long *countKeys, long*** codeText, char** text, int n, char*** newText)
 {
     (*countKeys)++;
-    (*keys) = (struct dataCode*)realloc((*keys), (*countKeys) * sizeof(struct dataCode));
-    *(*keys + (*countKeys) - 1) = encodingText(text, n, codeText, newText);
-    if((*keys + (*countKeys) - 1)->flag)
+    (*keys) = (struct dataCode*)realloc((*keys), (*countKeys) * sizeof(struct dataCode));   //расширяю массив структур
+    *(*keys + (*countKeys) - 1) = encodingText(text, n, codeText, newText);                          //кодирую текст
+    if((*keys + (*countKeys) - 1)->flag)                                                             //вывод на экран результата шифрования
         output2DNumbers(*codeText, n);
     else
         output2DString(*newText, n);
 }
 
 
+
+//функция для декодирования текста
 void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows)
 {
     int format;
@@ -957,97 +1031,20 @@ void caseDecoding (char ***text, long **codeText, char **newText, struct dataCod
     inputInt(&format, 0, 1);
     if(format)
     {
-        *text = decodingInputText(box1, rows);
+        *text = decodingInputText(box1, rows);                              //декодирование текста введенного с клавиатуры
     }
     else
-    {
+    {                                                                            //декодирование текста из файла
         *text = decodingTextFromFile(codeText, newText, keys, countKeys, box1, rows);
     }
-
     printf("\nРаскодированный текст:\n");
     output2DString(*text, *rows);
 }
 
-char** decodingInputText (char box[SIZE][SIZE], long* rows)
-{
-    char* string, **text, *name1, *name2, box2[SIZE][SIZE], box3[SIZE][SIZE];
-    long** code, d, n;
-    int flag = 0;
-    do
-    {
-        printf("\nКаким алгоритмом зашифрован текст? (RSA или Square)\n");
-        inputStr(&string);
-        if (strcmp("RSA", string) == 0 || strcmp("Square", string) == 0)
-        {
-            flag = 1;
-        }
-        else
-        {
-            printf("\nКоманда введена неверно, попробуйте еще раз");
-        }
-    }while(!flag);
-
-    if(strcmp("RSA", string) == 0)
-    {
-        printf("\nВведите через пробел цифры, которыми закодирована каждая буква");
-        input2DString(&text, rows);
-        code = myAtoi2DText(text, *rows);
-        //output2DNumbers(code, rows);
-        printf("\nВведите ключ для расшифровки\nВведите число d - ");
-        inputLong(&d, 0, 10000);
-        printf("Введите число n - ");
-        inputLong(&n, 0, 10000);
-        text = decodingRSA(code, d, n, *rows);
-        //output2DString(text, rows);
-    }
-    else
-    {
-        printf("\nВведите закодированный текст\n");
-        input2DString(&text, rows);
-        printf("\nВведите имя файла, в котором хранится box2 - ");
-        inputStr(&name1);
-        readInfo(box2, SIZE, name1);
-        printf("\nВведите имя файла, в котором хранится box3 - ");
-        inputStr(&name2);
-        readInfo(box3, SIZE, name2);
-        text = decodeSquare(box, box2, box3, box, text, *rows);
-    }
-    return text;
-}
 
 
 
-long** myAtoi2DText(char** text, long rows)
-{
-    long** numbers = (long**)malloc(rows * sizeof(long*));
 
-    for (int i = 0; i < rows; i++)
-    {
-        int count = 0;                                  //кол-во чисел в текущей строке
-
-        char* copy = strdup(text[i]);               //создаем копию строки с выделением памяти, чтобы избежать изменения исходной строки
-        char* token = strtok(copy," " );
-        while (token != NULL)
-        {
-            count++;
-            token = strtok(NULL, " ");
-        }
-        free(copy);
-
-        numbers[i] = (long*)malloc((count + 1) * sizeof(long));
-        numbers[i][0] = count + 1;
-
-                                                        //преобразование строки в число
-        char* tokenPtr = strtok(text[i], " ");
-        int j = 1;
-        while (tokenPtr != NULL) {
-            numbers[i][j++] = atol(tokenPtr);
-            tokenPtr = strtok(NULL, " ");
-        }
-    }
-
-    return numbers;
-}
 
 
 void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys)
@@ -1062,28 +1059,29 @@ void saveInformation (char** text, char** newText, long** code, long rows, struc
     printf("\nВведите имя файла, в который хотите сохранить\n");
     inputStr(&fileName);
 
-    strcpy((keys + countKeys - 1)->fileName, fileName);
+    strcpy((keys + countKeys - 1)->fileName, fileName);                 //сохраняю имя файла
 
     if (format == 1)
     {
-        saveTextToFile(text, rows, fileName);
+        saveTextToFile(text, rows, fileName);                           //сохраняю исходный текст
     }
     if (format == 2)
     {
-        saveNumberToFile(code, rows, fileName);
+        saveNumberToFile(code, rows, fileName);                         //сохраняю текст зашифрованный RSA
     }
     else
     {
-        saveTextToFile(newText, rows, fileName);
+        saveTextToFile(newText, rows, fileName);                    //сохраняю текст зашифрованный алгоритмом четырех квадратов
     }
 }
 
+//функция чтения текста из файла
 void caseReadText (char*** text, long* rows)
 {
     char* fileName;
-    printf("\nВведите имя файла, из которого хотите считать текст\n");
+    printf("\033[3;32m Введите имя файла\033[0m, из которого хотите считать текст\n");
     inputStr(&fileName);
-    *text = loadTextFromFile(rows, fileName);
+    *text = loadTextFromFile(rows, fileName);                           //читаю текст из файла
     if(*text != NULL)
     {
         printf("Прочитанный текст:\n");
@@ -1091,6 +1089,9 @@ void caseReadText (char*** text, long* rows)
     }
 
 }
+
+
+
 
 
 

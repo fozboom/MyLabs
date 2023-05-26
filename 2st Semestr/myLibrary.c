@@ -157,7 +157,7 @@ void repeatProgram(int *end)
 }
 void input2DString (char*** text, long* n)
 {
-    printf("\nВведите текст, чтобы завершить ввод введите Enter\n");
+    printf("\n\033[3;32m Введите текст \033[0m, чтобы завершить ввод введите Enter\n");
     int i = 0;
     *text = (char**)calloc(1, sizeof(char*));
     *(*text + i) = (char*)calloc(80, sizeof(char));
@@ -171,6 +171,8 @@ void input2DString (char*** text, long* n)
         *(*text + i) = (char*)calloc(80, sizeof(char));
     }while(true);
     *n = i;
+    printf("\033[3;34m Введенный вами текст: \033[0m");
+    output2DString(*text, *n);
 }
 
 void deleteSymbolN (char** str)
