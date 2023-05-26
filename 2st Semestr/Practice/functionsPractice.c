@@ -43,7 +43,7 @@ void createNumbers (long *p, long *q, long *n, long *fi)
 //функция создания числа e - части открытого ключа
 void createEilerNumber (long *e, long fi)
 {
-    do                                      //создать простое число e, удовлетворяющее условию: (e*d) mod ((p-1)*(q-1))=1, e >= fi
+    do                                      //создать простое число e, взаимно простое с fi, e >= fi
     {
         createPrime(e);
     }while(NOD(*e, fi) != 1 && *e >= fi);
@@ -62,52 +62,45 @@ long NOD (long x, long y)
 
 
 
-//функция нахождения числа d - части приватного ключа
+//расширенный алгоритм Евклида для нахождения обратного по модулю числа
 void search_d(long* x, long e, long fi)
 {
-    long m0 = fi;  // Сохраняем значение fi для восстановления отрицательного результата
-    long y = 0, xPrev = 1;  // Инициализируем начальные значения коэффициентов
+    long m0 = fi;                                       //сохраняю значение fi для восстановления отрицательного результата
+    long y = 0, xPrev = 1;                              //инициализирую начальные значения коэффициентов
 
     while (e > 1)
     {
-        long q = e / fi;  // Вычисляем частное от деления e на fi
-        long t = fi;  // Временная переменная для сохранения значения fi
+        long q = e / fi;                                //вычислить частное от деления e на fi
+        long t = fi;                                    //временная переменная для сохранения значения fi
 
-        fi = e % fi;  // Вычисляем остаток от деления e на fi
-        e = t;  // Обновляем значение e для следующей итерации
-        t = y;  // Сохраняем предыдущее значение y
+        fi = e % fi;                                    //вычисля остаток от деления e на fi
+        e = t;                                          //обновить значение e для следующей итерации
+        t = y;                                          //сохранить предыдущее значение y
 
-        y = xPrev - q * y;  // Обновляем значение y
-        xPrev = t;  // Обновляем предыдущее значение x
+        y = xPrev - q * y;
+        xPrev = t;
     }
-
-    if (xPrev < 0) {
-        xPrev += m0;  // Если результат отрицательный, приводим его к положительному
+    if (xPrev < 0)
+    {
+        xPrev += m0;                                    //если результат отрицательный, сделать положительным
     }
-
-    *x = xPrev;  // Присваиваем значение x через указатель
-}
-
-long power (long x, long n)
-{
-    if (n == 0)
-        return 1;
-    else
-        return x * power(x, n-1);
+    *x = xPrev;
 }
 
 
+
+//функция бинарного возведения в степень по модулю
 long powerMod(long x, long y, long n)
 {
     if(y == 0)
-        return 1;
-    if (y%2 == 0)
+        return 1;                                       //при y=0 вернуть 1
+    if (y%2 == 0)                                       //если степень четная, рекурсивно вызвать для степени y/2
     {
         long z = powerMod(x, y/2, n);
-        return (z*z)%n;
+        return (z*z)%n;                                 //вернуть остаток от деления
     }
     else
-        return (x * powerMod(x, y-1, n))%n;
+        return (x * powerMod(x, y-1, n))%n;         //если степень нечетная, рекурсивно вызвать возведение для y-1
 }
 
 
@@ -115,23 +108,23 @@ long powerMod(long x, long y, long n)
 //функция кодирования текста алгоритмом RSA
 long** coding (char** mas, long e, long n, long rows)
 {
-    if (mas == NULL)
+    if (mas == NULL)                                                           //проверка, ввел ли пользователь текст
     {
-        printf("Вы не ввели текст, который надо зашифровать");
+        printf("\nВы не ввели текст, который надо зашифровать\n");
         return NULL;
     }
-    long **cods = (long **)calloc(rows, sizeof(long*));
-    for(int j = 0; j < rows; j++)
+    long **cods = (long **)calloc(rows, sizeof(long*));             //выделить память на двумерный массив с закодированным текстом
+    for(int j = 0; j < rows; j++)                                              //цикл по строкам
     {
-        int k = 1;
-        long size = strlen(*(mas + j));
-        *(cods + j) = (long *)calloc(size + 1, sizeof(long));
-        cods[j][0] = size + 1;
-        for (int i = 0; mas[j][i] != '\0'; i++)
+        int k = 1;                                                             //k - позиция с которой начинается запись
+        long size = strlen(*(mas + j));                                     //определяем длину строки
+        *(cods + j) = (long *)calloc(size + 1, sizeof(long));       //выделяем память на строку
+        cods[j][0] = size + 1;                                                 //записываю первым элементов кол-во элементов в строке
+        for (int i = 0; mas[j][i] != '\0'; i++)                                //цикл по строке
         {
-            long s = (long) (mas[j][i]);
-            cods[j][k] = powerMod(s, e, n);
-            k++;
+            long s = (long) (mas[j][i]);                                        //перевожу символ в ASCII - код
+            cods[j][k] = powerMod(s, e, n);                               //кодирую символ
+            k++;                                                                //переход на следующий элемент для записи
         }
     }
     return cods;
@@ -139,10 +132,10 @@ long** coding (char** mas, long e, long n, long rows)
 
 
 
-
+//функция декодирования текста алгоритмом RSA
 char** decodingRSA(long** codeText, long d, long n, long rows)
 {
-    char** decodedText = (char**)malloc(rows * sizeof(char*)); // Выделяем память для массива строк
+    char** decodedText = (char**)malloc(rows * sizeof(char*));          //выделяю память для массива строк
 
     for (long i = 0; i < rows; i++)
     {
@@ -178,7 +171,8 @@ void writeBox (char box[SIZE][SIZE], int n)
 {
     int k = 0;
     char* word = NULL;
-    char letters[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char letters[26] = "abcdefghijklmnopqrstuvwxyz";
+
     int used[26] = {0}, flag;                           //used - массив отвечающий за повторение букв
     do                                                  //проверяем ключевое слово на повторенеи букв
     {
@@ -201,17 +195,17 @@ void writeBox (char box[SIZE][SIZE], int n)
 
     for(int i = 0; word[i] != '\0'; i++)                           //запись букв ключевого слова в квадрат
     {
-        used[word[i] - 'A'] = 1;
+        used[word[i] - 'a'] = 1;
         box[k / SIZE][k % SIZE] = word[i];
         k++;
     }
 
     for(int i = 0; i < 26; i++)
     {
-        if(used[letters[i] - 'A'] == 0)
+        if(used[letters[i] - 'a'] == 0)
         {
             box[k / SIZE][k % SIZE] = letters[i];
-            used[letters[i] - 'A'] = 1;
+            used[letters[i] - 'a'] = 1;
             k++;
         }
     }
@@ -291,8 +285,8 @@ char** codingSquare (char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZ
         {
             if (checkLetter(text[c][z]))
             {
-                i = (text[c][z] - 'A') / SIZE;
-                j = (text[c][z] - 'A') % SIZE;
+                i = (text[c][z] - 'a') / SIZE;
+                j = (text[c][z] - 'a') % SIZE;
             } else
             {
                 searchLetterIndex(box1, &i, &j, SIZE, text[c][z]);
@@ -300,8 +294,8 @@ char** codingSquare (char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZ
             z++;
             if (checkLetter(text[c][z]))
             {
-                k = (text[c][z] - 'A') / SIZE;
-                l = (text[c][z] - 'A') % SIZE;
+                k = (text[c][z] - 'a') / SIZE;
+                l = (text[c][z] - 'a') % SIZE;
             } else
             {
                 searchLetterIndex(box4, &k, &l, SIZE, text[c][z]);
@@ -342,7 +336,7 @@ char** decodeSquare(char box1[SIZE][SIZE], char box2[SIZE][SIZE], char box3[SIZE
 int checkLetter (char s)
 {
     int flag = 1;
-    if(s < 'A' || s > 'Z')
+    if(s < 'a' || s > 'z')
         flag = 0;
     return flag;
 }
@@ -828,7 +822,9 @@ void saveTextToFile(char** text, long rows, char* fileName) {
 
     if (!format) {
         file = fopen(fileName, "w");
-        if (file != NULL) {
+        if (file != NULL)
+        {
+            fprintf(file, "%ld\n", rows);
             for (long i = 0; i < rows; i++) {
                 fprintf(file, "%s\n", text[i]); // Записываем строку в текстовый файл
             }
@@ -856,14 +852,6 @@ void saveTextToFile(char** text, long rows, char* fileName) {
     }
 }
 
-void inputString(char* str)
-{
-    int i = 0;
-    fgets(str, MAX_LENGTH, stdin);
-    while (str[i] != '\n')
-        i++;
-    str[i] = '\0';
-}
 
 char** loadTextFromFile(long* rows, char* fileName)
 {
@@ -892,7 +880,11 @@ char** loadTextFromFile(long* rows, char* fileName)
             for (long i = 0; i < *rows; i++) {
                 char buffer[MAX_LENGTH];
                 if (!format) {
-                    inputString(buffer);
+                    fgets(buffer, MAX_LENGTH, file);
+                    int j = 0;
+                    while (buffer[j] != '\n')
+                        j++;
+                    buffer[j] = '\0';
                     text[i] = strdup(buffer);
                 } else {
                     long len;
@@ -911,7 +903,7 @@ char** loadTextFromFile(long* rows, char* fileName)
         fclose(file);
         return text;
     } else {
-        printf("Ошибка при открытии файла для чтения\n");
+        printf("\nФайл с таким именем не найден\n");
         return NULL;
     }
 }
@@ -1092,8 +1084,12 @@ void caseReadText (char*** text, long* rows)
     printf("\nВведите имя файла, из которого хотите считать текст\n");
     inputStr(&fileName);
     *text = loadTextFromFile(rows, fileName);
-    printf("Прочитанный текст:\n");
-    output2DString(*text, *rows);
+    if(*text != NULL)
+    {
+        printf("Прочитанный текст:\n");
+        output2DString(*text, *rows);
+    }
+
 }
 
 

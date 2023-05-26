@@ -22,6 +22,10 @@ void outputMasNumbers (long* mas)
 
 void output2DString (char** mas, int n)
 {
+    if(mas == NULL)
+    {
+        return;
+    }
     for(int i = 0; i < n; i++)
     {
         printf("\n");
