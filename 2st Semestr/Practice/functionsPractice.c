@@ -592,7 +592,7 @@ char** decodingTextFromFile(long** codeText, char** newText, struct dataCode* ke
         file = fopen(keys[i].fileName, "rt");
         if (file != NULL)
         {
-            int dataType = keys[i].flag; // Тип данных: 0 - long, 1 - char
+            int dataType = keys[i].flag; // Тип данных: 1 - long, 0 - char
             if (dataType == 1)
             {
                 codeText = loadNumberFromFile(codeText, rows, fileName);
@@ -818,7 +818,54 @@ long** loadNumberFromFile(long** code, long* rows, char* fileName)
 
 
 
-void saveTextToFile(char** text, long rows, char* fileName)
+void saveTextToFile(char** text, long rows, char* fileName) {
+    int format;
+
+    printf("Выберите тип файла (0 - текстовый или 1 - бинарный): ");
+    inputInt(&format, 0, 1);
+
+    FILE* file;
+
+    if (!format) {
+        file = fopen(fileName, "w");
+        if (file != NULL) {
+            for (long i = 0; i < rows; i++) {
+                fprintf(file, "%s\n", text[i]); // Записываем строку в текстовый файл
+            }
+            fclose(file);
+            printf("Массив строк успешно сохранен в текстовый файл: %s\n", fileName);
+        } else {
+            printf("Ошибка при открытии текстового файла для записи\n");
+        }
+    } else {
+        file = fopen(fileName, "wb");
+        if (file != NULL) {
+            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк в бинарный файл
+
+            for (long i = 0; i < rows; i++) {
+                long len = strlen(text[i]); // Получаем длину строки
+                fwrite(&len, sizeof(long), 1, file); // Записываем длину строки
+                fwrite(text[i], sizeof(char), len, file); // Записываем строку
+            }
+
+            fclose(file);
+            printf("Массив строк успешно сохранен в бинарный файл: %s\n", fileName);
+        } else {
+            printf("Ошибка при открытии бинарного файла для записи\n");
+        }
+    }
+}
+
+void inputString(char* str)
+{
+    int i = 0;
+    fgets(str, MAX_LENGTH, stdin);
+    while (str[i] != '\n')
+        i++;
+    str[i] = '\0';
+}
+
+char** loadTextFromFile(long* rows, char* fileName)
 {
     int format;
 
@@ -827,83 +874,50 @@ void saveTextToFile(char** text, long rows, char* fileName)
 
     FILE* file;
 
-    if (!format)
-    {
-        file = fopen(fileName, "wt");
-        if (file != NULL)
-        {
-            fprintf(file, "%ld\n", rows); // Записываем количество строк
-
-            for (long j = 0; j < rows; j++)
-            {
-                fprintf(file, "%s\n", text[j]); // Записываем строку текста
-            }
-
-            fclose(file);
-            printf("Текст успешно сохранен в текстовый файл: %s\n", fileName);
-        }
-        else
-        {
-            printf("Ошибка при открытии текстового файла для записи\n");
-        }
+    if (!format) {
+        file = fopen(fileName, "r");
+    } else {
+        file = fopen(fileName, "rb");
     }
-    else
-    {
-        file = fopen(fileName, "wb");
-        if (file != NULL)
-        {
-            fwrite(&rows, sizeof(long), 1, file); // Записываем количество строк
 
-            for (long j = 0; j < rows; j++)
-            {
-                long len = strlen(text[j]); // Получаем длину строки
-                fwrite(&len, sizeof(long), 1, file); // Записываем длину строки
-                fwrite(text[j], sizeof(char), len, file); // Записываем строку
-            }
-
-            fclose(file);
-            printf("Текст успешно сохранен в бинарный файл: %s\n", fileName);
+    if (file != NULL) {
+        if (!format) {
+            fscanf(file, "%ld\n", rows); // Считываем количество строк
+        } else {
+            fread(rows, sizeof(long), 1, file); // Считываем количество строк
         }
-        else
-        {
-            printf("Ошибка при открытии бинарного файла для записи\n");
-        }
-    }
-}
 
-char** loadTextFromFile(long* rows, char* fileName)
-{
-    FILE* file = fopen(fileName, "rt");
-    if (file != NULL)
-    {
-        fscanf(file, "%ld\n", rows); // Считываем количество строк
+        char** text = (char**)malloc(*rows * sizeof(char*));
+        if (text != NULL) {
+            for (long i = 0; i < *rows; i++) {
+                char buffer[MAX_LENGTH];
+                if (!format) {
+                    inputString(buffer);
+                    text[i] = strdup(buffer);
+                } else {
+                    long len;
+                    fread(&len, sizeof(long), 1, file); // Считываем длину строки
+                    text[i] = (char*)malloc((len + 1) * sizeof(char)); // Выделяем память для строки
+                    fread(text[i], sizeof(char), len, file); // Считываем строку
+                    text[i][len] = '\0'; // Добавляем символ конца строки
+                }
 
-        char** text = (char**)malloc((*rows) * sizeof(char*)); // Выделяем память для массива строк
 
-        for (long j = 0; j < *rows; j++) {
-            char buffer[256];
-            fgets(buffer, sizeof(buffer), file); // Читаем строку из файла
-
-            // Удаляем символ новой строки, если он есть
-            char* newline = strchr(buffer, '\n');
-            if (newline != NULL) {
-                *newline = '\0';
             }
-
-            // Выделяем память для строки и копируем в нее прочитанную строку
-            text[j] = strdup(buffer);
+        } else {
+            printf("Ошибка при выделении памяти\n");
         }
 
         fclose(file);
-        printf("Текст успешно загружен из файла: %s\n", fileName);
         return text;
-    }
-    else
-    {
+    } else {
         printf("Ошибка при открытии файла для чтения\n");
         return NULL;
     }
 }
+
+
+
 
 
 
@@ -1070,6 +1084,16 @@ void saveInformation (char** text, char** newText, long** code, long rows, struc
     {
         saveTextToFile(newText, rows, fileName);
     }
+}
+
+void caseReadText (char*** text, long* rows)
+{
+    char* fileName;
+    printf("\nВведите имя файла, из которого хотите считать текст\n");
+    inputStr(&fileName);
+    *text = loadTextFromFile(rows, fileName);
+    printf("Прочитанный текст:\n");
+    output2DString(*text, *rows);
 }
 
 

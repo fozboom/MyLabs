@@ -26,7 +26,7 @@ int main()
                     input2DString(&text, &n);
                     break;
                 case read:
-                    readIn2DString(&text, &n);
+                    caseReadText(&text, &n);
                     break;
                 case encoding:
                     caseEncoding(&keys, &countKeys, &codeText, text, n, &newText);

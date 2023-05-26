@@ -75,3 +75,4 @@ void caseDecoding (char ***text, long **codeText, char **newText, struct dataCod
 void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys);
 long** loadNumberFromFile(long** code, long* rows, char* fileName);
 char** loadTextFromFile(long* rows, char* fileName);
+void caseReadText (char*** text, long* rows);
