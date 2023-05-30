@@ -1,5 +1,4 @@
 #include "headerPractice.h"
-#include "../myLibrary.h"
 
 
 //////////////////////////////////////////////////////функции для шифрования алгоритмом RSA////////////////////////////
@@ -169,11 +168,11 @@ void writeBox(char box[SIZE][SIZE], int n)
     char* word = NULL;                                              //word - кодовое слово
     char letters[26] = "abcdefghijklmnopqrstuvwxyz";                //алфавит для заполнения квадрата
     int used[26] = {0}, flag;                                       //used отвечает за повторение букв, flag нужен для проверки кодового слова
-    printf("\nПридумайте кодовое слово, в котором только строчные буквы");
+    printf("\n\033[3;32m Придумайте кодовое слово, в котором только строчные неповторяющиеся буквы \033[0m\n");
     do
     {
         flag = 0;
-        printf("\nВведите кодовое слово: ");
+        printf("\033[3;34m Введите кодовое слово:  \033[0m");
         inputStr(&word);                                        //считываю кодовое слово
         for (int i = 0; word[i] != '\0'; i++)                        //цикл для проверки на повторение букв и недопустимые символы
         {
@@ -188,7 +187,7 @@ void writeBox(char box[SIZE][SIZE], int n)
 
             if (flag) {break;}                                        //если флаг установлен в 1, прерываю и внешний цикл
         }
-        if(flag) {printf("\n\033[1;41m\033[1mКодовое слово введено неверно\033[0m\n");}
+        if(flag) {printf("\n\033[1;31m\033[1mКодовое слово введено неверно\033[0m\n");}
 
     } while (flag);
 
@@ -209,6 +208,7 @@ void writeBox(char box[SIZE][SIZE], int n)
             k++;
         }
     }
+
     pushRandom (box, ' ', 4, 2);                                //случайным образом вставляю символы
     pushRandom (box, ';', 4, 3);
     pushRandom (box, '!', 4, 4);
@@ -219,16 +219,17 @@ void writeBox(char box[SIZE][SIZE], int n)
     pushRandom (box, ')', 5, 3);
     pushRandom (box, '-', 5, 4);
     pushRandom (box, ':', 5, 5);
-    //outputBox(box, SIZE);
-
 }
 
-void outputBox (char** box, int n)
+
+
+//функция вывода шифра для шифра четырех квадратов
+void outputBox (char box[SIZE][SIZE])
 {
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < SIZE; i++)
     {
         printf("\n");
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             printf("%c ", box[i][j]);
         }
@@ -325,6 +326,23 @@ int checkLetter (char s)
 }
 
 
+//функция проверки текста на возможность шифрования алгоритмом четырех квадратов
+int checkTextForSquare (char** text, long rows)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; text[i][j] != '\0'; j++)
+        {
+            if(!checkLetter(text[i][j]) && text[i][j] != '\0')
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+
 
 //функция вставки элемента в случайную позицию
 void pushRandom(char box[SIZE][SIZE], char s, int i, int j)
@@ -367,7 +385,7 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
     char* task = NULL;
     printf("\n\033[32m Выберите действие: \033[0m\n");
     printf("\033[3;34m input \033[0m - ввод текста, который необходимо закодировать\n");
-    printf("\033[3;34m read \033[0m - считать текстК из файла\n");
+    printf("\033[3;34m read \033[0m - считать текст из файла\n");
     printf("\033[3;34m encoding \033[0m - закодировать текст\n");
     printf("\033[3;34m decoding \033[0m - раскодировать текст\n");
     printf("\033[3;34m save \033[0m - сохранить зашифрованный текст в файл\n");
@@ -385,23 +403,7 @@ void choiceTask (enum choiceCommand *doTask, const char* tasks[], bool *taskIsFo
 }
 
 
-void createKeyRSA (long *p, long* q, long*n, long* fi, long* e, long* d)
-{
-    do
-    {
-        printf("\nВведите простое число p - ");
-        scanf("%ld", p);
-    } while (!isPrimes(*p));
-    do
-    {
-        printf("\nВведите простое число q - ");
-        scanf("%ld", q);
-    } while (!isPrimes(*q));
-    *n = (*p) * (*q);
-    *fi = ((*p) - 1) * ((*q) - 1);
-    createEilerNumber(e, *fi);
-    search_d(d, *e, *fi);
-}
+
 
 
 
@@ -442,7 +444,13 @@ void readInfo(char box[SIZE][SIZE], int n, const char* name)
 //основная функция для кодирования текста
 struct dataCode encodingText (char** text, int n, long ***codeText, char ***newText)
 {
-    struct dataCode key;                                                //key - новая структура хранящая данные о зашифрованном тексте
+    struct dataCode key = {0};
+    if(text == NULL)
+    {
+        printf("\033[1;31m Вы не ввели текст: \033[0m");
+        return key;
+    }
+                                                                         //key - новая структура хранящая данные о зашифрованном тексте
     char* task = NULL;                                                  //task - переменная для выбора задачи
     int choice;
     long p, q, fi;                                                      //p, q, fi - переменные для шифрования алгоритмом RSA
@@ -451,30 +459,30 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
     for(int i = 0; i < n; i++)
         *(codingText + i) = (char*)calloc(strlen(text[i]), sizeof(char));
     char box1[SIZE][SIZE], box2[SIZE][SIZE], box3[SIZE][SIZE], box4[SIZE][SIZE];
-    printf("\nВведите название алгоритма, каким вы хотите закодировать текст");
-    printf("\n'RSA' - закодировать алгоритмом RSA");
-    printf("\n'Square' - закодировать алгоритмом четырех квадратов");
+    printf("\n\033[3;32m Введите название алгоритма, каким вы хотите закодировать текст \033[0m\n");
+    printf("\n\033[3;34m RSA \033[0m - закодировать алгоритмом RSA");
+    printf("\n\033[3;34m Square \033[0m - закодировать алгоритмом четырех квадратов");
     do
     {
-        printf("\nВведите название алгоритма: ");
+        printf("\n\033[3;32m Введите название алгоритма:  \033[0m\n");
         inputStr(&task);
         if (strcmp(task, "RSA") == 0)
         {
             key.flag = 1;                                               //помечаю, каким алгоритмом зашифровано
-            printf("\nЧтобы сгенерировать ключ случайно, введите 0");
-            printf("\nЧтобы сгенерировать ключ вручную, введите 1\n");
+            printf("\nЧтобы сгенерировать ключ\033[3;32m случайно \033[0m, введите\033[3;32m 0 \033[0m");
+            printf("\nЧтобы сгенерировать ключ\033[3;32m вручную \033[0m, введите\033[3;32m 1 \033[0m\n");
             inputInt(&choice, 0, 1);                           //выбор, как создать ключ
             if (choice)
             {
                 do                                                      //создаю нужные числа для шифрования RSA
                 {
-                    printf("\nВведите простое число p - ");
-                    scanf("%ld", &p);
+                    printf("\033[3;34m Введите простое число p -  \033[0m");
+                    inputLong(&p,3, 100000);
                 } while (!isPrimes(p));                              //создаю число p
                 do
                 {
-                    printf("\nВведите простое число q - ");
-                    scanf("%ld", &q);
+                    printf("\033[3;34m Введите простое число q -  \033[0m");
+                    inputLong(&q, 3, 100000);
                 } while (!isPrimes(q));                               //создаю число q
                 key.n = p * q;                                           //создаю n - модуль для расшифровки
                 fi = (p - 1) * (q - 1);                                  //создаю функцию Эйлера, чтобы создать e и d
@@ -487,18 +495,29 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
                 createEilerNumber(&key.e, fi);                           //создать закрытую экспоненту e
                 search_d(&key.d, key.e, fi);                          //создать число d - часть закрытого ключа
             }
-            printf("\nОткрытый ключ: {%ld, %ld}, закрытый ключ: {%ld, %ld} ", key.n, key.e, key.n, key.d);
+            printf("\nОткрытый ключ: \033[3;32m {%ld, %ld} \033[0m, закрытый ключ:\033[3;31m {%ld, %ld} \033[0m", key.n, key.e, key.n, key.d);
         }
 
 
 
         else if (strcmp(task, "Square") == 0)
         {
+            if(!checkTextForSquare(text, n))
+            {
+                printf("\033[1;31m Данный текст не подходит для шифрования алгоритмом Square \033[0m\n");
+                *newText = NULL;
+                *codeText = NULL;
+                return key;
+            }
             key.flag = 0;
             readInfo(box1, SIZE, "box1.txt");               //считать box1, box4 из файла
             readInfo(box4, SIZE, "box4.txt");
             writeBox(box2, SIZE);                                 //сгенерировать box2 и box3 пользователем
             writeBox(box3, SIZE);
+            printf("\n\033[3;32m Полученные ключи для шифрования: \033[0m\n");
+            outputBox(box2);
+            outputBox(box3);
+
             for (int i = 0; i < SIZE; i++)                                //сохранить ключи (box2) в структуру
                 for(int j = 0; j < SIZE; j++)
                     key.box2[i][j] = box2[i][j];
@@ -515,14 +534,24 @@ struct dataCode encodingText (char** text, int n, long ***codeText, char ***newT
 
     if (key.flag)
     {
+        clock_t startTime, endTime;
+        double time1;
+        startTime = clock();
         code = coding(text, key.e, key.n, n);                   //закодировать текст алгоритмом RSA
-        output2DNumbers(code, n);                                     //вывести закодированный текст на экран
+        endTime = clock();
+        time1 = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+        printf("\nВремя выполнения алгоритма : %.6f сек\n", time1);
         codingText = NULL;                                                 //указатель на другой массив поставить в NULL
     }
     else
     {
-        codingText = codingSquare(box1, box2, box3, box4, text, n);   //закодировать текст алгоритмом четырех квадратов
-        output2DString(codingText, n);                                //вывести закодированный текст на экран
+        clock_t startTime, endTime;
+        double time1;
+        startTime = clock();
+        codingText = codingSquare(box1, box2, box3, box4, text, n);    //закодировать текст алгоритмом четырех квадратов
+        endTime = clock();
+        time1 = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+        printf("\nВремя выполнения алгоритма : %.6f сек\n", time1);
         code = NULL;                                                       //указатель на другой массив поставить в NULL
     }
     *newText = codingText;
@@ -742,7 +771,7 @@ void saveNumberToFile(long** code, long rows, char* fileName)
 }
 
 
-
+//функция чтение зашифрованного текста RSA из файла
 long** loadNumberFromFile(long** code, long* rows, char* fileName)
 {
     int format;                             //переменная для выбора типа файла: бинарный или текстовый
@@ -898,6 +927,7 @@ void saveTextToFile(char** text, long rows, char* fileName)
 }
 
 
+
 //функция считывания текста в двумерный массив из файла
 char** loadTextFromFile(long* rows, char* fileName)
 {
@@ -1014,28 +1044,36 @@ void caseEncoding (struct dataCode **keys, long *countKeys, long*** codeText, ch
     (*countKeys)++;
     (*keys) = (struct dataCode*)realloc((*keys), (*countKeys) * sizeof(struct dataCode));   //расширяю массив структур
     *(*keys + (*countKeys) - 1) = encodingText(text, n, codeText, newText);                          //кодирую текст
-    if((*keys + (*countKeys) - 1)->flag)                                                             //вывод на экран результата шифрования
+    if((*keys + (*countKeys) - 1)->flag && text != NULL)                                            //вывод на экран результата шифрования
+    {
+        printf("\n\n\033[3;32m Закодированный текст \033[0m");
         output2DNumbers(*codeText, n);
-    else
+    }
+    if (((*keys + (*countKeys) - 1)->flag == 0) && text != NULL)
+    {
+        printf("\n\n\033[3;32m Закодированный текст \033[0m");
         output2DString(*newText, n);
+    }
 }
 
 
 
 //функция для декодирования текста
-void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, char box1[SIZE][SIZE], long *rows)
+void caseDecoding (char ***text, long **codeText, char **newText, struct dataCode *keys, long countKeys, long *rows)
 {
     int format;
+    char box[SIZE][SIZE];
+    readInfo(box, SIZE, "box1.txt");
     printf("\nЧтобы расшифровать текст, введите 1");
     printf("\nЧтобы расшифровать файл, введите 0\n");
     inputInt(&format, 0, 1);
     if(format)
     {
-        *text = decodingInputText(box1, rows);                              //декодирование текста введенного с клавиатуры
+        *text = decodingInputText(box, rows);                              //декодирование текста введенного с клавиатуры
     }
     else
     {                                                                            //декодирование текста из файла
-        *text = decodingTextFromFile(codeText, newText, keys, countKeys, box1, rows);
+        *text = decodingTextFromFile(codeText, newText, keys, countKeys, box, rows);
     }
     printf("\nРаскодированный текст:\n");
     output2DString(*text, *rows);
@@ -1043,18 +1081,20 @@ void caseDecoding (char ***text, long **codeText, char **newText, struct dataCod
 
 
 
-
-
-
-
+//функция для сохранения информации в файл
 void saveInformation (char** text, char** newText, long** code, long rows, struct dataCode *keys, long countKeys)
 {
+    if(text == NULL && newText == NULL && code == NULL)
+    {
+        printf("\033[1;31m Вы не ввели текст: \033[0m");
+        return;
+    }
     int format;
     char* fileName;
     printf("\nЧто вы хотите сохранить в файл?");
     printf("\n1 - исходный текст");
     printf("\n2 - текст, закодированный алгоритмом RSA");
-    printf("\n3 - текст, закодированный алгоритмом Square");
+    printf("\n3 - текст, закодированный алгоритмом Square\n");
     inputInt(&format, 1, 3);
     printf("\nВведите имя файла, в который хотите сохранить\n");
     inputStr(&fileName);
@@ -1073,6 +1113,7 @@ void saveInformation (char** text, char** newText, long** code, long rows, struc
     {
         saveTextToFile(newText, rows, fileName);                    //сохраняю текст зашифрованный алгоритмом четырех квадратов
     }
+    printf("\033[3;32m Информация успешно сохранена \033[0m");
 }
 
 //функция чтения текста из файла
@@ -1084,11 +1125,156 @@ void caseReadText (char*** text, long* rows)
     *text = loadTextFromFile(rows, fileName);                           //читаю текст из файла
     if(*text != NULL)
     {
-        printf("Прочитанный текст:\n");
+        printf("\n\033[3;32m Текст успешно прочитан.\033[0mПрочитанный текст:");
         output2DString(*text, *rows);
     }
-
 }
+
+
+//функция очистки памяти
+void freeMemory(char** text, char** newText, long** codeText, struct dataCode* keys, long countKeys, long n)
+{
+    if (text != NULL)
+    {
+        for (long i = 0; i < n; i++)
+        {
+            free(text[i]);
+        }
+        free(text);
+    }
+
+    if (newText != NULL)
+    {
+        for (long i = 0; i < n; i++)
+        {
+            free(newText[i]);
+        }
+        free(newText);
+    }
+
+    if (codeText != NULL)
+    {
+        for (long i = 0; i < n; i++)
+        {
+            free(codeText[i]);
+        }
+        free(codeText);
+    }
+
+    if (keys != NULL)
+    {
+        free(keys);
+    }
+}
+
+
+//функция ввода строки произвольной длины
+void inputStr (char** mas)
+{
+    int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
+    char s;
+    *mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
+    while ((s = getchar()) != '\n')
+    {
+        *(*mas + i) = s;                                                 //запись символа в строку
+        *mas = (char*)realloc(*mas,(++n) * sizeof(char));    //перевыделение памяти
+        i++;
+    }
+    *(*mas + i) = '\0';                                                  //запись нуль-терминатора
+}
+
+
+//функция ввода числа типа int
+void inputInt (int* x, int a, int b)
+{
+    while(!scanf("%d", x) || (((*x) < a) || ((*x) > b)))
+    {
+        rewind(stdin);
+        printf("\nОшибка ввода числа, попробуйте еще раз: ");
+    }
+    rewind(stdin);
+}
+
+
+//функция вода числа типа long
+void inputLong (long* x, int a, int b)
+{
+    while(!scanf("%ld", x) || (((*x) < a) || ((*x) > b)))
+    {
+        rewind(stdin);
+        printf("\033[1;31m Ошибка ввода числа, попробуйте еще раз \033[0m\n");
+    }
+    rewind(stdin);
+}
+
+
+//функция ввода массива строк с клавиатуры
+void input2DString (char*** text, long* n)
+{
+    printf("\n\033[3;32m Введите текст \033[0m, чтобы завершить ввод введите Enter\n");
+    int i = 0;
+    *text = (char**)calloc(1, sizeof(char*));
+    *(*text + i) = (char*)calloc(80, sizeof(char));
+    do
+    {
+        fgets(*(*text + i), 80, stdin);
+        if(*(*(*text + i)) == '\n') break;
+        deleteSymbolN(&(*(*text + i)));
+        i++;
+        *text = (char**)realloc(*text, (i+1) * sizeof(char*));
+        *(*text + i) = (char*)calloc(80, sizeof(char));
+    }while(true);
+    *n = i;
+    printf("\033[3;34m Введенный вами текст: \033[0m");
+    output2DString(*text, *n);
+}
+
+
+
+//функция вывода двумерного массива чисел long** на экран
+void output2DNumbers (long** mas, long n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        printf("\n");
+        for(int j = 0; j < mas[i][0]; j++)
+            printf("%ld ", mas[i][j]);
+    }
+}
+
+
+
+//функция вывода массива строк на экран
+void output2DString (char** mas, int n)
+{
+    if(mas == NULL)
+    {
+        return;
+    }
+    for(int i = 0; i < n; i++)
+    {
+        printf("\n");
+        for(int j = 0; mas[i][j] != '\0'; j++)
+            printf("%c", mas[i][j]);
+    }
+}
+
+
+
+
+//функция удаления символа '\n' из строки
+void deleteSymbolN (char** str)
+{
+    int n = strlen(*str);
+    *(*str + n - 1) = '\0';
+    *str = (char*)realloc(*str, n * sizeof(char));
+}
+
+
+
+
+
+
 
 
 

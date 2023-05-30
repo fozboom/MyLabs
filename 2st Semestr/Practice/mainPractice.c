@@ -1,44 +1,44 @@
 #include "headerPractice.h"
-#include "../myLibrary.h"
 
 
+//                                                 Шифрование текста: алгоритм RSA и шифр четырех квадратов
 
 int main()
 {
+    char **text = NULL, **newText = NULL;                           //text - исходный текст, newText - текст зашифрованный Square
+    struct dataCode* keys;                                          //keys - структура с данными о зашифрованных файлах
+    long **codeText = NULL, countKeys, rows, n;                     //codeText - текст зашифрованный RSA, n - кол-во строк исходного текста
+                                                                    //countKeys - кол-во структур, rows - кол-во строк закодированного текста
     const char* commands[] = {"input", "read", "encoding", "decoding", "save", "finish"};
-    enum choiceCommand command;
-    int end = 1;
-    char **text = NULL, box1[SIZE][SIZE], box2[SIZE][SIZE], box3[SIZE][SIZE], box4[SIZE][SIZE], **newText;
-    bool taskIsFound;
-    struct dataCode* keys;
-    long **codeText = NULL, countKeys, rows, n;
-    readInfo(box1, SIZE, "box1.txt");
-    readInfo(box4, SIZE, "box4.txt");
-    readStructInfo(&keys, &countKeys);
+    enum choiceCommand command;                                     //command - перечисления для читабельности кода
+    bool taskIsFound;                                               //TaskIsFound - переменная для определения правильности введенной команды
+    int end = 1;                                                    //end - переменная для продолжения/завершения программы
+
+    readStructInfo(&keys, &countKeys);                   //считываю информацию о зашифрованных файлах в keys
     do
     {
-        choiceTask(&command, commands, &taskIsFound);
+        choiceTask(&command, commands, &taskIsFound);  //выбор команды
         if (taskIsFound)
         {
             switch(command)
             {
                 case input:
-                    input2DString(&text, &n);
+                    input2DString(&text, &n);                        //ввод текста с клавиатуры
                     break;
                 case read:
-                    caseReadText(&text, &n);
+                    caseReadText(&text, &n);                   //чтение текста из файла
                     break;
-                case encoding:
+                case encoding:                                       //кодирование текста
                     caseEncoding(&keys, &countKeys, &codeText, text, n, &newText);
                     break;
-                case decoding:
-                    caseDecoding(&text, codeText, newText, keys, countKeys, box1, &rows);
+                case decoding:                                       //декодирование текста
+                    caseDecoding(&text, codeText, newText, keys, countKeys, &rows);
                     break;
-                case save:
+                case save:                                           //сохранение данных в файл
                     saveInformation(text, newText, codeText, n, keys, countKeys);
                     break;
                 case finish:
-                    saveStructInfo(keys, countKeys);
+                    saveStructInfo(keys, countKeys);       //сохранение данных о закодированных файлах
                     end = 0;
                     break;
             }
@@ -47,8 +47,8 @@ int main()
         {
             printf("\n\033[3;31m Команда введена неверно, попробуйте еще раз \033[0m\n");
         }
-
     }while(end);
+    freeMemory(text, newText, codeText, keys, countKeys, n);            //очистка памяти
     return 0;
 }
 
