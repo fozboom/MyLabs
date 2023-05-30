@@ -1,0 +1,7 @@
+6
+Belov Ivan 7 0 Gripp Boronov.M.N 
+Usakov Nikita 3 1 Angina Ivanov.K.S yl.Nekrasova 5 Kirov.L.M
+Zaharov Petr 5 1 Gripp Sidorov.I.O yl.Pobedy 6 Makeev.I.N
+Ivanova Natalia 5 0 Kashel Dovatorov.N.M 
+Sidorov Egor 4 1 Gripp Fadeev.T.T. yl.Kirova 9 Lomov.S.M.
+Nekrasov Stepan 8 0 Angina Omariev.I.O 

@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "myLabs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Lections::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Lections-Debug-920cd6ce03c9a93f3654.json",
+					"name" : "Lections",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Practice::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Practice-Debug-7982b110185574bee59f.json",
+					"name" : "Practice",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "labNumber2.4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-labNumber2.4-Debug-26b822c849d996733786.json",
+					"name" : "labNumber2.4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "labNumber2.5::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-labNumber2.5-Debug-1a2993d3697236672759.json",
+					"name" : "labNumber2.5",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "labNumber2.6::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-labNumber2.6-Debug-bf73de4d93e11341a7df.json",
+					"name" : "labNumber2.6",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "numberSystems::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-numberSystems-Debug-c7be1f1d72cc7491c8d3.json",
+					"name" : "numberSystems",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug",
+		"source" : "/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
