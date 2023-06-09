@@ -256,6 +256,49 @@ build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumb
   TARGET_PDB = labNumber2.6.dbg
 
 # =============================================================================
+# Object build statements for EXECUTABLE target labNumber2.7
+
+
+#############################################
+# Order-only phony target for labNumber2.7
+
+build cmake_object_order_depends_target_labNumber2.7: phony || CMakeFiles/labNumber2.7.dir
+
+build CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/mainTree.c.o: C_COMPILER__labNumber2.2e7_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.7/mainTree.c || cmake_object_order_depends_target_labNumber2.7
+  DEP_FILE = CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/mainTree.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.7.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7
+
+build CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/functionsTree.c.o: C_COMPILER__labNumber2.2e7_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.7/functionsTree.c || cmake_object_order_depends_target_labNumber2.7
+  DEP_FILE = CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/functionsTree.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.7.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7
+
+build CMakeFiles/labNumber2.7.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e7_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.7
+  DEP_FILE = CMakeFiles/labNumber2.7.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/labNumber2.7.dir
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.7.dir/2st_Semestr
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target labNumber2.7
+
+
+#############################################
+# Link the executable labNumber2.7
+
+build labNumber2.7: C_EXECUTABLE_LINKER__labNumber2.2e7_Debug CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/mainTree.c.o CMakeFiles/labNumber2.7.dir/2st_Semestr/lubNumber2.7/functionsTree.c.o CMakeFiles/labNumber2.7.dir/2st_Semestr/myLibrary.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/labNumber2.7.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = labNumber2.7
+  TARGET_PDB = labNumber2.7.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target numberSystems
 
 
@@ -332,7 +375,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 numberSystems
+build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 labNumber2.7 numberSystems
 
 # =============================================================================
 # Built-in targets

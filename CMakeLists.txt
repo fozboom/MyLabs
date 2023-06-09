@@ -38,6 +38,13 @@ add_executable(labNumber2.6
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
 
+add_executable(labNumber2.7
+        "2st Semestr/lubNumber2.7/headerTree.h"
+        "2st Semestr/lubNumber2.7/mainTree.c"
+        "2st Semestr/lubNumber2.7/functionsTree.c"
+        "2st Semestr/myLibrary.h"
+        "2st Semestr/myLibrary.c")
+
 add_executable(numberSystems
         "2st Semestr/numbersystems/headerSystems.h"
         "2st Semestr/numbersystems/mainSystems.c"

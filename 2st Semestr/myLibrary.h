@@ -23,12 +23,3 @@ int proverka (char* mas);
 void output2DString (char** mas, int n);
 
 
-
-struct tree{
-    int data;
-    struct tree *left;
-    struct tree *right;
-};
-struct tree* makeNode (int a);
-void printTree (struct tree *root, int n);
-void addNode (struct tree *root, struct tree *newNode, int a);

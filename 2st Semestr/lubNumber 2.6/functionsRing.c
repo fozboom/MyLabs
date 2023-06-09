@@ -576,6 +576,7 @@ struct Ring* mergeRingsByPush(struct Ring* p1, struct Ring* p2)
 
 
 
+
 //функция подсчета элементов в кольце
 int countElementsInRing(struct Ring* ring)
 {
