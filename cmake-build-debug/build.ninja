@@ -221,17 +221,17 @@ build Lections: C_EXECUTABLE_LINKER__Lections_Debug CMakeFiles/Lections.dir/2st_
 
 build cmake_object_order_depends_target_labNumber2.6: phony || CMakeFiles/labNumber2.6.dir
 
-build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/mainRing.c || cmake_object_order_depends_target_labNumber2.6
-  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o.d
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/mainRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.6/mainRing.c || cmake_object_order_depends_target_labNumber2.6
+  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/mainRing.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6
 
-build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber$ 2.6/functionsRing.c || cmake_object_order_depends_target_labNumber2.6
-  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o.d
+build CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/functionsRing.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/lubNumber2.6/functionsRing.c || cmake_object_order_depends_target_labNumber2.6
+  DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/functionsRing.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
-  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6
+  OBJECT_FILE_DIR = CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6
 
 build CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumber2.2e6_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_labNumber2.6
   DEP_FILE = CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o.d
@@ -247,7 +247,7 @@ build CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__labNumb
 #############################################
 # Link the executable labNumber2.6
 
-build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/mainRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber_2.6/functionsRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o
+build labNumber2.6: C_EXECUTABLE_LINKER__labNumber2.2e6_Debug CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/mainRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/lubNumber2.6/functionsRing.c.o CMakeFiles/labNumber2.6.dir/2st_Semestr/myLibrary.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/labNumber2.6.dir
   POST_BUILD = :

@@ -11,9 +11,41 @@
 #include "headerRing.h"
 #include "../myLibrary.h"
 
-int main(){
-    int* k = (int*)calloc(5, sizeof(int));
-    free(k);
-    k[0] = 5; k[1] = 3;
-    printf("%d,%d", k[0], k[1]); return 0;
+
+int main()
+{
+    struct Ring *p1 = NULL, *p2 = NULL, *newRing = NULL;
+    bool taskIsFound;
+    enum commands doTask;
+    int end = 1, input, format;
+    const char* tasks[] = {"mergeRings", "sortRing", "counting", "save", "finish"};
+    do
+    {
+        choiceTask(&doTask, tasks, &taskIsFound);
+        if (taskIsFound)
+        {
+            switch (doTask)
+            {
+                case mergeRings:
+                    caseMergeRings(&input, &format, &p1, &p2, &newRing);
+                    break;
+                case sortRing:
+                    caseSortRing(&input, &format, &p1, &newRing);
+                    break;
+                case counting:
+                    caseCounting(&input, &format, &newRing);
+                    break;
+                case save:
+                    howToSave(&format, newRing);
+                    break;
+                case finish:
+                    end = 0;
+                    break;
+            }
+        }
+        else
+            printf("\n\033[1;41m\033[1mНеверная команда\033[0m");
+    }while(end);
+    freeRing(p1, p2, newRing);
+    return 0;
 }

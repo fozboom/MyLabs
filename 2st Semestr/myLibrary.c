@@ -39,6 +39,7 @@ void output2DString (char** mas, int n)
 //функция ввода числа с првоеркой
 void inputInt (int* x, int a, int b)
 {
+    rewind(stdin);
     while(!scanf("%d", x) || (((*x) < a) || ((*x) > b)))
     {
         rewind(stdin);
@@ -63,6 +64,7 @@ void inputLong (long* x, int a, int b)
 //функция ввода строки произвольной длины
 void inputStr (char** mas)
 {
+    rewind(stdin);
     int n = 1, i = 0;                                                //n - длина строки, i - параметр цикла
     char s;
     *mas = (char*)calloc(n, sizeof(char));          //выделение памяти на один элемент
@@ -74,12 +76,6 @@ void inputStr (char** mas)
     }
     *(*mas + i) = '\0';                                                  //запись нуль-терминатора
 }
-
-
-
-
-
-
 
 void inputNumberMas (int** mas, int n)
 {
@@ -160,15 +156,6 @@ void readIn2DString (char*** text, long* n)
     printf("\nПрочитанный из файла текст:\n");
     output2DString(*text, *n);
 }
-int proverka (char* mas)
-{
-    for(int i = 0; mas[i] != '\0'; i++)
-    {
-        if(mas[i] != ' ')
-            return 0;
-    }
-    return 1;
-}
 
 void output2DNumbers (long** mas, long n)
 {
@@ -181,8 +168,158 @@ void output2DNumbers (long** mas, long n)
 }
 
 
+void inputIntMas (int ** mas, int * n)
+{
+    printf("\nВведите числа через пробел, чтобы завершить ввод, введите не число\n");
+    *n = 1;
+    int i = 0, x;
+    *mas = (int*)calloc((*n), sizeof(int));
+    while(scanf("%d", &x))
+    {
+        *mas = (int*)realloc(*mas, (*n)++ * sizeof(int));
+        *(*mas + i++) = x;
+    }
+    (*n)--;
+}
+
+void outputIntMas (int * mas, int n)
+{
+    printf("\n");
+    for(int i = 0; i < n; i++)
+        printf("%d ", mas[i]);
+    printf("\n");
+}
+
+int proverka (char* mas)
+{
+    for(int i = 0; mas[i] != '\0'; i++)
+    {
+        if(mas[i] != ' ')
+            return 0;
+    }
+    return 1;
+}
 
 
+
+
+
+
+
+//функция проверки символа на число
+int ifNumber (char s)
+{
+    if (s >= '0' && s <= '9') return 1;
+    else return 0;
+}
+
+
+
+
+
+//функция проверки на оператор
+int ifOperator (char s)
+{
+    if (s == '+' || s == '-' || s == '*' || s == '/' )
+        return 1;
+    else return 0;
+}
+
+//функция для определения приоритетов операций
+int preoritet (char s)
+{
+    if (s == '*' || s == '/')
+        return 2;
+    if (s == '+' || s == '-')
+        return 1;
+    else return 0;
+}
+
+//функция занесения числа или символа в стек
+void push (struct FILO **head, union hold info)
+{
+    struct FILO *tmp = (struct FILO*)malloc(sizeof(struct FILO));   //создание нового элемента
+    tmp->next = NULL;
+    tmp->data = info;
+    if(*head == NULL)                                                   //если голова пустая, то новый элемент теперь голова
+        *head = tmp;
+    else                                                                //иначе переписать элементы
+    {
+        tmp->next = *head;
+        *head = tmp;
+    }
+}
+
+
+
+
+
+//функция удаления числа или символа из стека
+union hold popStruct (struct FILO **head)
+{
+    union hold info = {0};              //info - объединение, которое хранит число или символ
+    struct FILO *tmp = *head;
+    if(*head != NULL)                   //если стек не пустой
+    {
+        info = (*head)->data;           //записать данные
+        *head = (*head)->next;          //удалить элемент
+        free(tmp);
+    }
+
+    return info;
+}
+
+
+
+
+//функция записи выражения польской нотацией
+char* writeToPolish(char *mas)
+{
+    char* postfix = (char*)calloc(2* strlen(mas), sizeof(char));    //postfix - строка в польской нотации
+    int i, j = 0;                                                                 //i,j - параметры цикла по строкам mas и postfix
+    struct FILO *head = NULL;                                                     //head - голова стека
+    union hold info;                                                              //info - объединение, которое хранит число или символ
+    for (i = 0; mas[i] != '\0'; i++)
+    {
+        if (ifOperator(mas[i]))                     //если встретил оператор
+        {                                              //выталкиваю из стека все операторы, имеющие приоритет выше рассматриваемого
+            while (head != NULL && preoritet(head->data.number) >= preoritet(mas[i]))
+            {
+                postfix[j++] = popStruct(&head).number;
+                postfix[j++] = ' ';
+            }
+            info.number = mas[i];                       //заношу в стек оператор
+            push(&head, info);
+        }
+        else if (mas[i] == '(')                         //если открывающая скобка, заношу в стек
+        {
+            info.number = mas[i];
+            push(&head, info);
+        }
+        else if (mas[i] == ')')                         //если закрывающая скобка, выталкиваю из стека все операторы до открывающей скобки,
+        {                                               // а открывающую скобку удаляю из стека
+            while (head != NULL && head->data.number != '(')
+            {
+                postfix[j++] = popStruct(&head).number;
+                postfix[j++] = ' ';
+            }
+            popStruct(&head);
+        }
+        if (ifNumber(mas[i]))                       //при нахождении числа заношу его в строку
+        {
+            while(ifNumber(mas[i])) {
+                postfix[j++] = mas[i++];
+            }
+            postfix[j++] = ' ';
+            i--;
+        }
+    }
+    while (head != NULL) {                              //выталкиваем оставшиеся операции из стека
+        postfix[j++] = popStruct(&head).number;
+    }
+    postfix[j] = '\0';
+    return postfix;
+}
 
 
 

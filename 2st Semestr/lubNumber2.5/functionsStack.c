@@ -1,5 +1,5 @@
 #include "headerStack.h"
-#include "../myLibrary.h"
+//#include "../myLibrary.h"
 
 
 //функция проверки правильности расставленных скобок и исправления ошибок

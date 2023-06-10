@@ -32,9 +32,9 @@ add_executable(Lections
         "2st Semestr/myLibrary.c")
 
 add_executable(labNumber2.6
-        "2st Semestr/lubNumber 2.6/headerRing.h"
-        "2st Semestr/lubNumber 2.6/mainRing.c"
-        "2st Semestr/lubNumber 2.6/functionsRing.c"
+        "2st Semestr/lubNumber2.6/headerRing.h"
+        "2st Semestr/lubNumber2.6/mainRing.c"
+        "2st Semestr/lubNumber2.6/functionsRing.c"
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
 

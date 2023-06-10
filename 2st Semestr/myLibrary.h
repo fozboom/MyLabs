@@ -18,8 +18,25 @@ void inputNumberMas (int** mas, int n);                                     //ф
 void input2DString (char*** text, long* n);
 void readIn2DString (char*** text, long* n);
 void deleteSymbolN (char** str);
-void inputLong (long* x, int a, int b);
 int proverka (char* mas);
+void inputLong (long* x, int a, int b);
 void output2DString (char** mas, int n);
+void inputIntMas (int ** mas, int * n);
+void outputIntMas (int * mas, int n);
 
 
+
+union hold{                                         //объединение для записи символа или числа в стек
+    int number;                                     //number - число, записываемое в стек
+    char symbol;                                    //symbol - символ, записываемый в стек
+};
+
+struct FILO                                         //структура стека
+{
+    union hold data;                                //объединение, записываемое в стек
+    int index;
+    struct FILO *next;                              //указатель на следующий элемент
+};
+
+
+char* writeToPolish(char *mas);
