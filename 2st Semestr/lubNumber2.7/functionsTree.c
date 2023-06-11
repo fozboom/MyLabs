@@ -233,7 +233,7 @@ void saveTreeToFile(struct tree * root)
     char* fileName;
     printf("\nВ какой файл вы хотите сохранить дерево?");
     printf("\n0 - текстовый файл");
-    printf("\n1 - бинарный файл");
+    printf("\n1 - бинарный файл\n");
     inputInt(&choice, 0, 1);
     printf("\nВведите имя файла: ");
     inputStr(&fileName);
@@ -260,7 +260,7 @@ struct tree *loadTreeFromFile()
     char* fileName;
     printf("\nИз какого файла вы хотите прочитать дерево?");
     printf("\n0 - текстовый файл");
-    printf("\n1 - бинарный файл");
+    printf("\n1 - бинарный файл\n");
     inputInt(&choice, 0, 1);
     printf("\nВведите имя файла: ");
     inputStr(&fileName);
@@ -393,9 +393,16 @@ void casePolishTree (char ** str, struct tree ** root, int * result)
 void caseFind (struct tree * root)
 {
     int x;
-    printf("\nВведите число, которое хотите найти в дерве - ");
+    printf("\nВведите число, которое хотите найти в дереве - ");
     inputInt(&x, 0, 100000);
     findNode(x, root);
+}
+
+void caseDeleteTree (struct tree ** root)
+{
+    free(*root);
+    *root = NULL;
+    printf("\nДерево успешно очищено");
 }
 
 
@@ -452,6 +459,10 @@ int calculateTree (struct tree * root)
                 return num1 / num2;
 
         }
+    }
+    else
+    {
+        return 0;
     }
 }
 

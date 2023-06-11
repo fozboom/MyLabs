@@ -51,3 +51,10 @@ add_executable(numberSystems
         "2st Semestr/numbersystems/functionsSystems.c"
         "2st Semestr/myLibrary.h"
         "2st Semestr/myLibrary.c")
+
+add_executable(examPrep
+        "2st Semestr/exam prep/headerExamPrep.h"
+        "2st Semestr/exam prep/functionsExamPrep.c"
+        "2st Semestr/exam prep/mainExamPrep.c"
+        "2st Semestr/myLibrary.h"
+        "2st Semestr/myLibrary.c")

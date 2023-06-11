@@ -341,6 +341,49 @@ build numberSystems: C_EXECUTABLE_LINKER__numberSystems_Debug CMakeFiles/numberS
   TARGET_FILE = numberSystems
   TARGET_PDB = numberSystems.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target examPrep
+
+
+#############################################
+# Order-only phony target for examPrep
+
+build cmake_object_order_depends_target_examPrep: phony || CMakeFiles/examPrep.dir
+
+build CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/functionsExamPrep.c.o: C_COMPILER__examPrep_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/exam$ prep/functionsExamPrep.c || cmake_object_order_depends_target_examPrep
+  DEP_FILE = CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/functionsExamPrep.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/examPrep.dir
+  OBJECT_FILE_DIR = CMakeFiles/examPrep.dir/2st_Semestr/exam_prep
+
+build CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/mainExamPrep.c.o: C_COMPILER__examPrep_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/exam$ prep/mainExamPrep.c || cmake_object_order_depends_target_examPrep
+  DEP_FILE = CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/mainExamPrep.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/examPrep.dir
+  OBJECT_FILE_DIR = CMakeFiles/examPrep.dir/2st_Semestr/exam_prep
+
+build CMakeFiles/examPrep.dir/2st_Semestr/myLibrary.c.o: C_COMPILER__examPrep_Debug /Users/fozboom/Library/Mobile$ Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/2st$ Semestr/myLibrary.c || cmake_object_order_depends_target_examPrep
+  DEP_FILE = CMakeFiles/examPrep.dir/2st_Semestr/myLibrary.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu99
+  OBJECT_DIR = CMakeFiles/examPrep.dir
+  OBJECT_FILE_DIR = CMakeFiles/examPrep.dir/2st_Semestr
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target examPrep
+
+
+#############################################
+# Link the executable examPrep
+
+build examPrep: C_EXECUTABLE_LINKER__examPrep_Debug CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/functionsExamPrep.c.o CMakeFiles/examPrep.dir/2st_Semestr/exam_prep/mainExamPrep.c.o CMakeFiles/examPrep.dir/2st_Semestr/myLibrary.c.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/examPrep.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = examPrep
+  TARGET_PDB = examPrep.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -375,7 +418,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug
 
-build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 labNumber2.7 numberSystems
+build all: phony labNumber2.4 labNumber2.5 Practice Lections labNumber2.6 labNumber2.7 numberSystems examPrep
 
 # =============================================================================
 # Built-in targets

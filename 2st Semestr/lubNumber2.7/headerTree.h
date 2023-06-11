@@ -8,13 +8,14 @@
 #include <string.h>
 #include <stdbool.h>
 #define SIZE 30
+
 struct tree{
-    int data;
-    struct tree *right;
-    struct tree *left;
+    int data;               //ключ дерева
+    struct tree *right;     //указатель на правого потомка
+    struct tree *left;      //указатель на левого потомка
 };
 
-enum commands {create, read, add, delete, preOrder, inOrder, postOrder, polishTree, find, save, finish};
+enum commands {create, read, add, delete, preOrder, inOrder, postOrder, polishTree, find, save, deleteTree, finish};
 
 struct tree * makeNode (int info);
 void addNode (struct tree * tmp, struct tree ** root);
@@ -36,3 +37,4 @@ void caseCreate (struct tree ** root, int ** mas, int * n);
 void casePolishTree (char ** str, struct tree ** root, int * result);
 void caseFind (struct tree * root);
 void freeTree (struct tree * root);
+void caseDeleteTree (struct tree ** root);

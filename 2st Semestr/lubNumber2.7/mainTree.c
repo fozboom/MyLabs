@@ -1,7 +1,4 @@
 #include "headerTree.h"
-#include "../myLibrary.h"
-
-
 
 
 
@@ -11,7 +8,7 @@ int main()
     bool taskIsFound;
     enum commands doTask;
     int end = 1, * mas, n, result;
-    const char* tasks[] = {"create", "read", "add", "delete", "preOrder", "inOrder", "postOrder", "polishTree","find", "save", "finish"};
+    const char* tasks[] = {"create", "read", "add", "delete", "preOrder", "inOrder", "postOrder", "polishTree","find", "save", "deleteTree", "finish"};
     char* str;
     do
     {
@@ -50,6 +47,9 @@ int main()
                     break;
                 case polishTree:
                     casePolishTree(&str, &root, &result);
+                    break;
+                case deleteTree:
+                    caseDeleteTree(&root);
                     break;
                 case save:
                     saveTreeToFile(root);
