@@ -15,26 +15,44 @@ struct tree{
     struct tree *left;      //указатель на левого потомка
 };
 
-enum commands {create, read, add, delete, preOrder, inOrder, postOrder, polishTree, find, save, deleteTree, finish};
+enum commands {create, read, add, delete, preOrder, inOrder, postOrder, BFT, polishTree, find, save, deleteTree, finish};
 
-struct tree * makeNode (int info);
-void addNode (struct tree * tmp, struct tree ** root);
-void findNode (int info, struct tree * root);
-void deleteNode (struct tree ** node, int info);
-void printTree(struct tree * root, int indent, bool isLeft, int info);
-void createTree (struct tree ** root, int * mas, int n);
-void saveTreeToFile(struct tree * root);
-struct tree *loadTreeFromFile();
-void pre_Order (struct tree * root);
-void in_Order (struct tree * root);
-void post_Order (struct tree * root);
-void choiceTask (enum commands *doTask, const char* tasks[], bool *taskIsFound);
-void caseAdd (struct tree ** root);
-void caseDelete (struct tree ** root);
-struct tree * polishToTree (char * mas);
-int calculateTree (struct tree * root);
-void caseCreate (struct tree ** root, int ** mas, int * n);
-void casePolishTree (char ** str, struct tree ** root, int * result);
-void caseFind (struct tree * root);
-void freeTree (struct tree * root);
-void caseDeleteTree (struct tree ** root);
+struct tree * makeNode (int info);                              //функция создания нового узла дерева
+void addNode (struct tree * tmp, struct tree ** root);          //функция добавления нового узла в дерево
+void findNode (int info, struct tree * root);                   //функция поиска элемента в дереве
+void deleteNode (struct tree ** root, int info);                //функция удаления узла из дерева
+void printTree(struct tree * , int , bool , int );              // Функция для вывода бинарного дерева
+void createTree (struct tree ** root, int * mas, int n);        //функция создания дерева из массива чисел
+
+void saveTreeToFile(struct tree * root);                        //функция меню сохранения в файл
+struct tree *loadTreeFromFile();                                //функция меню чтения данных из файла
+
+void pre_Order (struct tree * root);                            //обход в прямом порядке
+void in_Order (struct tree * root);                             //обход дерева в симметричном порядке
+void post_Order (struct tree * root);                           //обход дерева в обратном порядке
+void caseBFT (struct tree * root);                              //функция обхода дерева в ширину
+
+struct tree * polishToTree (char * mas);                        //функция создания дерева из польской нотации
+int calculateTree (struct tree * root);                         //функция вычисления дерева
+
+void choiceTask (enum commands *, const char* tasks[], bool *); //функция меню выбора задачи
+void caseAdd (struct tree ** root);                             //функция меню добавления элемента в дерево
+void caseDelete (struct tree ** root);                          //функция меню удаления элемента из дерева
+void caseCreate (struct tree ** root, int ** mas, int * n);     //функция меню создания дерева из массива
+void casePolishTree (char ** str, struct tree ** root, int * ); //функция меню вычисления выражения через дерево
+void caseFind (struct tree * root);                             //функция меню нахождения элемента в дереве
+void caseDeleteTree (struct tree ** root);                      //функция меню удаления дерева
+void freeTree (struct tree * root);                             //функция очистки памяти
+
+
+
+
+
+
+
+
+
+
+
+
+

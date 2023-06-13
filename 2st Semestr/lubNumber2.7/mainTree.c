@@ -1,14 +1,19 @@
 #include "headerTree.h"
 
-
-
+//                                                      Лабораторная работа 7
+//                                                       Гнетецкого Даниеля
+/*      Условие: Пусть есть поток чисел: 14, 15, 4, 9, 7, 18, 3, нужно занести это все в дерево.
+                 Написать три обхода дерева: в прямом порядке, в симметричном порядке, в обратном порядке.
+                 Реализовать функции добавления, удаления, нахождения элемента в дереве, полное удаление дерева.
+                 Также я реализовал чтение и запись дерева в файл с помощью сериализации, также подсчет математического
+                 выражения через дерево.                                                                                                                                        */
 int main()
 {
     struct tree * root = NULL;
     bool taskIsFound;
     enum commands doTask;
     int end = 1, * mas, n, result;
-    const char* tasks[] = {"create", "read", "add", "delete", "preOrder", "inOrder", "postOrder", "polishTree","find", "save", "deleteTree", "finish"};
+    const char* tasks[] = {"create", "read", "add", "delete", "preOrder", "inOrder", "postOrder", "BFT", "polishTree","find", "save", "deleteTree", "finish"};
     char* str;
     do
     {
@@ -44,6 +49,10 @@ int main()
                 case postOrder:
                     printf("Вывод дерева в обратном порядке:\n");
                     post_Order(root);
+                    break;
+                case BFT:
+                    printf("Вывод дерева в ширину порядке:\n");
+                    caseBFT(root);
                     break;
                 case polishTree:
                     casePolishTree(&str, &root, &result);

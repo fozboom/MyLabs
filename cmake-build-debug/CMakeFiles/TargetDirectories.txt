@@ -5,5 +5,6 @@
 /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/labNumber2.6.dir
 /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/labNumber2.7.dir
 /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/numberSystems.dir
+/Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/examPrep.dir
 /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/fozboom/Library/Mobile Documents/com~apple~CloudDocs/myFiles/Programming/CLionProjects/myLabs/cmake-build-debug/CMakeFiles/rebuild_cache.dir
