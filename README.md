@@ -2,5 +2,4 @@
 ___
 ## Содержание
 ___
-[Лабораторная работа 4](https://github.com/fozboom/MyLabs/blob/main/2st%20Semestr/lubNumber2.4/functionsUnion.c)
-[Лаб]
+[Учебная практика - шифрование алгоритмом RSA]([https://github.com/fozboom/MyLabs/blob/main/2st%20Semestr/lubNumber2.4/functionsUnion.c](https://github.com/fozboom/MyLabs/tree/main/2st%20Semestr/Practice)https://github.com/fozboom/MyLabs/tree/main/2st%20Semestr/Practice)
